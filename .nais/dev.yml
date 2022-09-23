@@ -46,6 +46,9 @@ spec:
       value: dev-gcp:teamdigisos:sosialhjelp-avtaler-api
     - name: PORT
       value: '5000'
+    - name: GIT_COMMIT
+      value: {{commit}}
+
   accessPolicy:
     outbound:
       rules:

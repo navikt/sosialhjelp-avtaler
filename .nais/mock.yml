@@ -38,3 +38,5 @@ spec:
       value: '5000'
     - name: USE_MSW
       value: 'true'
+    - name: GIT_COMMIT
+      value: {{commit}}
