@@ -36,3 +36,5 @@ spec:
       value: ''
     - name: PORT
       value: '5000'
+    - name: USE_MSW
+      value: 'true'
