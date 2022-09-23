@@ -14,6 +14,8 @@ export function Virksomheter() {
   const { data: test2 } = useGet<any>('sosialhjelp/avtaler-api/api/');
   const { data: test3 } = useGet<any>('sosialhjelp/avtaler-api/');
   const { data: test4 } = useGet<any>('sosialhjelp/avtaler-api/api/avtale/');
+  const { data: test5 } = useGet<any>('/');
+  const { data: test6 } = useGet<any>('');
 
   console.log(test, test2, test3);
   if (!virksomheter) {
