@@ -9,7 +9,7 @@ spec:
   image: {{image}}
   port: 5000
   ingresses:
-    - https://sosialhjelp-dialog-bruker-mock.dev.nav.no/sosialhjelp/meldinger
+    - https://sosialhjelp-avtaler-mock.dev.nav.no/sosialhjelp/avtaler
   liveness:
     path: /sosialhjelp/avtaler/internal/isAlive
   readiness:
