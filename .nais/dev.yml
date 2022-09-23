@@ -41,7 +41,7 @@ spec:
     enabled: true
   env:
     - name: AVTALER_API_BASE_URL
-      value: 'http://sosialhjelp-avtaler-api-dev.dev.nav.no/sosialhjelp/avtaler-api/'
+      value: 'http://sosialhjelp-avtaler-api-dev'
     - name: AVTALER_API_TARGET_AUDIENCE
       value: dev-gcp:teamdigisos:sosialhjelp-avtaler-api
     - name: PORT
@@ -50,4 +50,4 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: sosialhjelp-avtaler-api
+        - application: sosialhjelp-avtaler-api-dev
