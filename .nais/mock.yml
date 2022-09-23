@@ -9,7 +9,7 @@ spec:
   image: {{image}}
   port: 5000
   ingresses:
-    - https://sosialhjelp-avtaler-dev.dev.nav.no/sosialhjelp/avtaler
+    - https://sosialhjelp-dialog-bruker-mock.dev.nav.no/sosialhjelp/meldinger
   liveness:
     path: /sosialhjelp/avtaler/internal/isAlive
   readiness:
@@ -41,9 +41,9 @@ spec:
     enabled: true
   env:
     - name: AVTALER_API_BASE_URL
-      value: ''
+      value: 'http://sosialhjelp-avtaler-api-mock.dev.nav.no'
     - name: AVTALER_API_TARGET_AUDIENCE
-      value: ''
+      value: dev-gcp:teamdigisos:sosialhjelp-avtaler-api
     - name: PORT
       value: '5000'
   accessPolicy:

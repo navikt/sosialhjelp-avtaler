@@ -1,8 +1,8 @@
-import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr'
-import react from '@vitejs/plugin-react'
-import { render } from 'mustache'
-import { defineConfig, Plugin, splitVendorChunkPlugin } from 'vite'
-import macrosPlugin from 'vite-plugin-babel-macros'
+import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr';
+import react from '@vitejs/plugin-react';
+import { render } from 'mustache';
+import { defineConfig, Plugin, splitVendorChunkPlugin } from 'vite';
+import macrosPlugin from 'vite-plugin-babel-macros';
 
 const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
   name: 'html-transform',
@@ -23,19 +23,19 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
             handleInApp: true,
           },
         ],
-      })
+      });
       return {
         html: render(html, decorator),
         tags: [
           {
             tag: 'script',
             children: `window.appSettings = {
-              MILJO: 'dev-gcp',
+              MILJO: 'mock-gcp',
               USE_MSW: true,
             }`,
           },
         ],
-      }
+      };
     } else {
       return {
         html,
@@ -51,10 +51,10 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
             },
           },
         ],
-      }
+      };
     }
   },
-})
+});
 
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
@@ -68,4 +68,4 @@ export default defineConfig((env) => ({
     environment: 'jsdom',
     setupFiles: ['./setupTests.ts'],
   },
-}))
+}));
