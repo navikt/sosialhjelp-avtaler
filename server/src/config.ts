@@ -1,7 +1,7 @@
 import path from 'path';
 
 export const config = {
-  base_path: '/sosialhjelp/avtaler/',
+  base_path: '/sosialhjelp/avtaler-api/api/',
   build_path: path.join(__dirname, '../../client/dist'),
   port: process.env.PORT || 5000,
   node_env: process.env.NODE_ENV || 'production',
