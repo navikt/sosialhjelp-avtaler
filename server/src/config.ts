@@ -8,7 +8,7 @@ export const config = {
   nais_cluster_name: process.env.NAIS_CLUSTER_NAME || 'mock-gcp',
   use_msw: process.env.USE_MSW === 'true',
   api: {
-    avtaler_api_base_url: process.env.AVTALER_API_BASE_URL || 'http://localhost:9090',
+    avtaler_api_base_url: process.env.AVTALER_API_BASE_URL || 'http://localhost:8080',
     avtaler_api_target_audience: process.env.AVTALER_API_TARGET_AUDIENCE || 'local:sosialhjelp-avtaler-api',
   },
   auth: {
