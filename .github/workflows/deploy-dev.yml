@@ -51,15 +51,6 @@ jobs:
           tag_name: ${{ env.COMPLETE_TAG }}
           release_name: ${{ env.COMPLETE_TAG }}
           commitish: ${{ github.sha }}
-      - name: Deploy to dev
-        uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/dev.yml
-          REF: ${{ github.sha }}
-          PRINT_PAYLOAD: true
-          IMAGE: ${{ env.DOCKER_TAG }}
       - name: Deploy to dev - ${{ github.event.inputs.config-file-name }}
         uses: nais/deploy/actions/deploy@v1
         env:
