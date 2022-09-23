@@ -29,16 +29,6 @@ spec:
       memory: 32Mi
   secureLogs:
     enabled: true
-  idporten:
-    enabled: true
-    sidecar:
-      enabled: true
-      level: Level4
-      locale: nb
-      autoLogin: true
-      errorPath: ""
-  tokenx:
-    enabled: true
   env:
     - name: AVTALER_API_BASE_URL
       value: 'http://sosialhjelp-avtaler-api-mock.dev.nav.no'
@@ -46,7 +36,3 @@ spec:
       value: dev-gcp:teamdigisos:sosialhjelp-avtaler-api
     - name: PORT
       value: '5000'
-  accessPolicy:
-    outbound:
-      rules:
-        - application: sosialhjelp-avtaler-api
