@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Get complete tag
         run: |
-          echo "COMPLETE_TAG=${{github.event.inputs.config-file-nam}}-$( date +%s )-${{ steps.artifact-version.outputs.version }}" >> $GITHUB_ENV
+          echo "COMPLETE_TAG=${{github.event.inputs.config-file-name}}-$( date +%s )-${{ steps.artifact-version.outputs.version }}" >> $GITHUB_ENV
       - name: Create docker image tags
         run: |
           echo "DOCKER_TAG=${{ env.DOCKER_IMAGE }}:${{ env.COMPLETE_TAG }}" >> $GITHUB_ENV
