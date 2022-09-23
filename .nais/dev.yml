@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: sosialhjelp-avtaler
+  name: sosialhjelp-avtaler-dev
   namespace: teamdigisos
   labels:
     team: teamdigisos
@@ -41,7 +41,7 @@ spec:
     enabled: true
   env:
     - name: AVTALER_API_BASE_URL
-      value: 'http://sosialhjelp-avtaler-api.dev.nav.no'
+      value: 'http://sosialhjelp-avtaler-api-dev.dev.nav.no/sosialhjelp/avtaler-api/'
     - name: AVTALER_API_TARGET_AUDIENCE
       value: dev-gcp:teamdigisos:sosialhjelp-avtaler-api
     - name: PORT
