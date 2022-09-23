@@ -1,40 +1,40 @@
-import { HttpError } from '../error'
-import type { Resultat } from '../types'
+import { HttpError } from '../error';
+import type { Resultat } from '../types';
 
 export function baseUrl(url: string = '') {
   if (process.env.NODE_ENV === 'production') {
-    return `/sosialhjelp/avtaler${url}`
+    return `/sosialhjelp/avtaler-api${url}`;
   } else {
-    return url
+    return url;
   }
 }
 
 export function apiUrl(url: string) {
-  return baseUrl(`/api${url}`)
+  return baseUrl(`/api${url}`);
 }
 
 export const http = {
   async get<T>(path: string): Promise<T> {
     try {
-      const url = apiUrl(path)
+      const url = apiUrl(path);
       const response = await fetch(url, {
         method: 'get',
         cache: 'no-store',
         headers: {
           Accept: 'application/json',
         },
-      })
+      });
       if (response.ok) {
-        return response.json()
+        return response.json();
       }
-      return Promise.reject(HttpError.kallFeilet(url, response))
+      return Promise.reject(HttpError.kallFeilet(url, response));
     } catch (err: unknown) {
-      return Promise.reject(HttpError.wrap(err))
+      return Promise.reject(HttpError.wrap(err));
     }
   },
   async request<B, T>(path: string, body: B, method: string): Promise<Resultat<T>> {
     try {
-      const url = apiUrl(path)
+      const url = apiUrl(path);
       const response = await fetch(url, {
         method,
         cache: 'no-store',
@@ -43,18 +43,18 @@ export const http = {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
-      })
+      });
       if (response.ok) {
-        const data = await response.json()
-        return { data }
+        const data = await response.json();
+        return { data };
       }
       return {
         error: HttpError.kallFeilet(url, response),
-      }
+      };
     } catch (err: unknown) {
       return {
         error: HttpError.wrap(err),
-      }
+      };
     }
   },
-}
+};
