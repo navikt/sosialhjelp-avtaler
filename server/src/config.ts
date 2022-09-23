@@ -3,7 +3,7 @@ import path from 'path';
 export const config = {
   base_path: '/sosialhjelp/avtaler/',
   build_path: path.join(__dirname, '../../client/dist'),
-  port: process.env.PORT || 5000,
+  port: process.env.PORT || 5001,
   node_env: process.env.NODE_ENV || 'production',
   nais_cluster_name: process.env.NAIS_CLUSTER_NAME || 'mock-gcp',
   use_msw: process.env.USE_MSW === 'true',
