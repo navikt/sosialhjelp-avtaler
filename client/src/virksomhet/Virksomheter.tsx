@@ -10,9 +10,11 @@ import { VirksomhetPanel } from './VirksomhetPanel';
 export function Virksomheter() {
   const { t } = useTranslation();
   const { data: virksomheter } = useGet<HentVirksomheterResponse>('/avtale/virksomheter');
-  const { data: test } = useGet<any>('/avtale');
+  const { data: test } = useGet<any>(' /sosialhjelp/avtaler-api/avtale');
+  const { data: test2 } = useGet<any>(' /sosialhjelp/avtaler-api/api/');
+  const { data: test3 } = useGet<any>(' /sosialhjelp/avtaler-api/');
 
-  console.log(test);
+  console.log(test, test2, test3);
   if (!virksomheter) {
     return null;
   }

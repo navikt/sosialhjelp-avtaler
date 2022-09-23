@@ -3,7 +3,7 @@ import type { Resultat } from '../types';
 
 export function baseUrl(url: string = '') {
   if (process.env.NODE_ENV === 'production') {
-    return `/sosialhjelp/avtaler${url}`;
+    return `/sosialhjelp/avtaler-api/${url}`;
   } else {
     return url;
   }
