@@ -63,8 +63,7 @@ const spaHandler: RequestHandler = async (req, res) => {
 
 const settingsHandler: RequestHandler = (req, res) => {
   const appSettings = {
-    GIT_COMMIT: config.git_commit,
-    MILJO: config.nais_cluster_name == 'mock-gcp' ? 'dev-gcp' : config.nais_cluster_name,
+    MILJO: config.nais_cluster_name,
     USE_MSW: config.use_msw,
   };
   res.type('.js');

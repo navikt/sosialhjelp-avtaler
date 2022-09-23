@@ -16,8 +16,6 @@ declare namespace NodeJS {
 
     PORT?: string;
 
-    GIT_COMMIT?: string;
-
     USE_MSW?: 'true' | 'false';
   }
 }

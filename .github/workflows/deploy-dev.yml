@@ -69,4 +69,3 @@ jobs:
           REF: ${{ github.sha }}
           PRINT_PAYLOAD: true
           IMAGE: ${{ env.DOCKER_TAG }}
-          VAR: image=${{ env.IMAGE }},commit=${{ github.sha }}
