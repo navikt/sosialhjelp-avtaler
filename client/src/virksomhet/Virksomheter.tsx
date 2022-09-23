@@ -13,6 +13,7 @@ export function Virksomheter() {
   const { data: test } = useGet<any>(' /sosialhjelp/avtaler-api/avtale');
   const { data: test2 } = useGet<any>(' /sosialhjelp/avtaler-api/api/');
   const { data: test3 } = useGet<any>(' /sosialhjelp/avtaler-api/');
+  const { data: test4 } = useGet<any>(' /sosialhjelp/avtaler-api/api/avtale/');
 
   console.log(test, test2, test3);
   if (!virksomheter) {
