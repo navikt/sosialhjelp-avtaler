@@ -50,6 +50,6 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: "oidc-ver2.difi.no",
+        - host: "oidc-ver2.difi.no"
       rules:
         - application: sosialhjelp-avtaler-api-dev
