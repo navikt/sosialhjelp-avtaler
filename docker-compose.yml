@@ -1,0 +1,7 @@
+version: "3"
+services:
+  sosialhjelp-avtaler:
+    build: .
+    image: "sosialhjelp-avtaler"
+    ports:
+      - "5000:5000"
