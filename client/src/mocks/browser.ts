@@ -8,8 +8,12 @@ import {
   OppdaterAvtaleRequest,
   OppdaterAvtaleResponse,
   Virksomhet,
+  Avtale,
 } from '../types';
 
+const avtale: Avtale = {
+  tittel: 'du kan signere',
+};
 const virksomheter: Record<string, Virksomhet> = {
   '123456789': {
     orgnr: '123456789',
@@ -33,6 +37,9 @@ const virksomheter: Record<string, Virksomhet> = {
 };
 
 const handlers: RequestHandler[] = [
+  rest.get<{}, {}, Avtale>(apiUrl('/avtale'), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(avtale));
+  }),
   rest.get<{}, {}, HentVirksomheterResponse>(apiUrl('/avtale/virksomheter'), (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(Object.values(virksomheter)));
   }),
