@@ -13,8 +13,8 @@ export function Virksomheter() {
 
   const { data: test } = useGet<any>('/sosialhjelp/avtaler-api/internal/isAlive');
   const { data: test2 } = useGet<any>('sosialhjelp/avtaler-api/internal/isAlive');
-  const { data: test5 } = useGet<any>('/api/');
-  const { data: test6 } = useGet<any>('/api');
+  const { data: test5 } = useGet<any>('/sosialhjelp/avtaler-api/api/avtale');
+  const { data: test6 } = useGet<any>('/api/avtale');
 
   console.log(test, test2);
 
