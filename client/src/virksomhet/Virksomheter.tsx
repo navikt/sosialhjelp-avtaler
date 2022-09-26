@@ -3,21 +3,21 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import { AvtalePanel } from '../avtale/AvtalePanel';
 import { Avstand } from '../components/Avstand';
-import { HentVirksomheterResponse } from '../types';
+import { Avtale, HentVirksomheterResponse } from '../types';
 import { useGet } from '../api/useGet';
 import { VirksomhetPanel } from './VirksomhetPanel';
 
 export function Virksomheter() {
   const { t } = useTranslation();
-  const { data: virksomheter } = useGet<HentVirksomheterResponse>('/avtale/virksomheter');
+  // const { data: virksomheter } = useGet<HentVirksomheterResponse>('/avtale/virksomheter');
 
-  const { data: test } = useGet<any>('/avtale');
+  const { data: avtale } = useGet<Avtale>('/avtale');
 
-  console.log(test);
-
-  if (!virksomheter) {
-    return <>{test}</>;
+  console.log(avtale);
+  if (avtale) {
+    return <>{avtale.tittel}</>;
   }
+  /*
 
   const virksomheterUtenAvtale = virksomheter.filter((virksomhet) => !virksomhet.aktiv);
   const virksomheterMedAvtale = virksomheter.filter((virksomhet) => virksomhet.aktiv);
@@ -61,6 +61,8 @@ export function Virksomheter() {
       )}
     </main>
   );
+
+   */
 }
 
 const Kolonne = styled.div`
