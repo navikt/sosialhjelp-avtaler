@@ -10,7 +10,7 @@ export function baseUrl(url: string = '') {
 }
 
 export function apiUrl(url: string) {
-  return baseUrl(`${url}`);
+  return baseUrl(`/sosialhjelp/avtaler-api/api${url}`);
 }
 
 export const http = {

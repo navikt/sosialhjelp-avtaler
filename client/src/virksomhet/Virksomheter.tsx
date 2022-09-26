@@ -11,7 +11,7 @@ export function Virksomheter() {
   const { t } = useTranslation();
   const { data: virksomheter } = useGet<HentVirksomheterResponse>('/avtale/virksomheter');
 
-  const { data: test } = useGet<any>('/sosialhjelp/avtaler-api/api/avtale');
+  const { data: test } = useGet<any>('/avtale');
 
   console.log(test);
 
