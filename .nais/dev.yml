@@ -41,7 +41,7 @@ spec:
     enabled: true
   env:
     - name: AVTALER_API_BASE_URL
-      value: 'http://sosialhjelp-avtaler-api-dev'
+      value: 'http://sosialhjelp-avtaler-api-dev.teamdigisos.svc.cluster.local'
     - name: AVTALER_API_TARGET_AUDIENCE
       value: dev-gcp:teamdigisos:sosialhjelp-avtaler-api
     - name: PORT
