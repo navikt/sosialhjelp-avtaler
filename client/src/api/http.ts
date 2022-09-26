@@ -10,7 +10,7 @@ export function baseUrl(url: string = '') {
 }
 
 export function apiUrl(url: string) {
-  return baseUrl(`/api${url}`);
+  return baseUrl(`${url}`);
 }
 
 export const http = {
