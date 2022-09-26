@@ -21,6 +21,11 @@ export interface Virksomhet {
 
 export interface Avtale {
   tittel: string;
+  erSignert: boolean;
+}
+
+export interface OpprettAvtale {
+  navn: string;
 }
 
 export interface HentVirksomheterResponse extends Array<Virksomhet> {}
