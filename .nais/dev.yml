@@ -31,6 +31,9 @@ spec:
     enabled: true
   idporten:
     enabled: true
+    clientURI: https://digisos.dev.nav.no/sosialhjelp/avtaler
+    postLogoutRedirectURIs:
+      - "https://digisos.dev.nav.no"
     sidecar:
       enabled: true
       level: Level4
