@@ -16,7 +16,7 @@ export function Virksomheter() {
   console.log(test);
 
   if (!virksomheter) {
-    return null;
+    return <>{test}</>;
   }
 
   const virksomheterUtenAvtale = virksomheter.filter((virksomhet) => !virksomhet.aktiv);
