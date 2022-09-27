@@ -13,7 +13,7 @@ export interface Kommune {
   orgnr: string;
   navn: string;
   avtaleversjon?: string;
-  opprettet?: string;
+  opprettet?: string | null;
 }
 
 export interface HentKommunerResponse extends Array<Kommune> {}

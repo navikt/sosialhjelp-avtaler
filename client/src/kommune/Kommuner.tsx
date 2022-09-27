@@ -6,11 +6,15 @@ import { Avstand } from '../components/Avstand';
 import { HentKommunerResponse } from '../types';
 import { useGet } from '../api/useGet';
 import { KommunePanel } from './KommunePanel';
+import Spinner from '../components/Spinner';
 
 export function Kommuner() {
   const { t } = useTranslation();
-  const { data: kommuner } = useGet<HentKommunerResponse>('/kommuner');
+  const { data: kommuner, error } = useGet<HentKommunerResponse>('/kommuner');
 
+  if (!kommuner && !error) {
+    return <Spinner />;
+  }
   if (!kommuner) {
     return null;
   }

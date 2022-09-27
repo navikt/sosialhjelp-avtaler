@@ -6,17 +6,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
-import { validerEpost } from './epost';
 import { HentKommuneResponse, OpprettAvtaleRequest } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
 import { logSkjemaFullført, skjemanavn } from '../utils/amplitude';
 import { Avtale } from './Avtale';
+import Spinner from '../components/Spinner';
 
 export function OpprettAvtale() {
   const { t } = useTranslation();
   const { orgnr } = useParams<{ orgnr: string }>();
-  const { data: kommune } = useGet<HentKommuneResponse>(`/avtale/${orgnr}`);
+  const { data: kommune, error: kommuneError } = useGet<HentKommuneResponse>(`/avtale/${orgnr}`);
   const {
     register,
     control,
@@ -24,8 +24,6 @@ export function OpprettAvtale() {
     formState: { errors, isSubmitting },
   } = useForm<{ kontonr: string; epost: string; lest: boolean }>({
     defaultValues: {
-      kontonr: '',
-      epost: '',
       lest: false,
     },
   });
@@ -38,6 +36,11 @@ export function OpprettAvtale() {
       });
     }
   }, [avtale]);
+
+  if (!kommune && !kommuneError) {
+    return <Spinner />;
+  }
+
   if (!kommune) {
     return null;
   }
