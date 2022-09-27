@@ -26,7 +26,7 @@ export const proxyHandlers = {
   api(exchangeIDPortenToken: ExchangeToken) {
     return createProxy(config.api.avtaler_api_base_url, config.api.avtaler_api_target_audience, exchangeIDPortenToken, {
       proxyReqPathResolver(req) {
-        return req.originalUrl.replace('/sosialhjelp/avtaler/', '/');
+        return req.originalUrl.replace('/sosialhjelp/avtaler/', '/sosialhjelp/avtaler-api/');
       },
     });
   },

@@ -11,13 +11,6 @@ export function Virksomheter() {
   const { t } = useTranslation();
   const { data: virksomheter } = useGet<HentVirksomheterResponse>('/avtale/virksomheter');
 
-  const { data: test } = useGet<any>('/sosialhjelp/avtaler-api/internal/isAlive');
-  const { data: test2 } = useGet<any>('sosialhjelp/avtaler-api/internal/isAlive');
-  const { data: test5 } = useGet<any>('/api/');
-  const { data: test6 } = useGet<any>('/api');
-
-  console.log(test, test2);
-
   if (!virksomheter) {
     return null;
   }
