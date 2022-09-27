@@ -9,7 +9,7 @@ spec:
   image: {{image}}
   port: 5000
   ingresses:
-    - https://sosialhjelp-avtaler-dev.dev.nav.no/sosialhjelp/avtaler
+    - https://digisos.dev.nav.no/sosialhjelp/avtaler
   liveness:
     path: /sosialhjelp/avtaler/internal/isalive
   readiness:
@@ -31,9 +31,6 @@ spec:
     enabled: true
   idporten:
     enabled: true
-    clientURI: "https://digisos.dev.nav.no/sosialhjelp/avtaler"
-    postLogoutRedirectURIs:
-      - "https://digisos.dev.nav.no"
     sidecar:
       enabled: true
       level: Level4
