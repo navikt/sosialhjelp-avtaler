@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "cross-env NAIS_CLUSTER_NAME=mock-gcp USE_MSW=true ts-node-dev --transpile-only -r source-map-support/register -r dotenv/config src/server.ts",
-    "test": "cross-env NAIS_CLUSTER_NAME=mock-gcp USE_MSW=true jest ./test",
+    "dev": "cross-env MILJO=mock-gcp USE_MSW=true ts-node-dev --transpile-only -r source-map-support/register -r dotenv/config src/server.ts",
+    "test": "cross-env MILJO=mock-gcp USE_MSW=true jest ./test",
     "build": "tsc -p .",
-    "start": "cross-env NAIS_CLUSTER_NAME=mock-gcp USE_MSW=true node -r source-map-support/register -r dotenv/config dist/server.js",
+    "start": "cross-env MILJO=mock-gcp USE_MSW=true node -r source-map-support/register -r dotenv/config dist/server.js",
     "clean": "rimraf dist",
     "prettier": "prettier -w src"
   },
