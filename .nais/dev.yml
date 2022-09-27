@@ -11,7 +11,7 @@ spec:
   ingresses:
     - https://sosialhjelp-avtaler-dev.dev.nav.no/sosialhjelp/avtaler
   liveness:
-    path: /sosialhjelp/avtaler/internal/isAlive
+    path: /sosialhjelp/avtaler/internal/isalive
   readiness:
     path: /sosialhjelp/avtaler/internal/isready
   prometheus:
