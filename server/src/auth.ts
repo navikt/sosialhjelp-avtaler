@@ -18,7 +18,7 @@ export interface Auth {
 }
 
 export async function createAuth(): Promise<Auth> {
-  if (config.nais_cluster_name === 'mock-gcp') {
+  if (config.miljo === 'mock-gcp') {
     logger.warn('Bruker auth-stub!');
     return createAuthStub();
   }

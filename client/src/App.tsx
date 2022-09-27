@@ -1,32 +1,33 @@
-import { Heading } from '@navikt/ds-react'
-import { setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler'
-import { useEffect } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
-import { Trans, useTranslation } from 'react-i18next'
-import { Route, Routes } from 'react-router-dom'
-import styled from 'styled-components'
-import { AvtaleKvittering } from './avtale/AvtaleKvittering'
-import { OppdaterAvtale } from './avtale/OppdaterAvtale'
-import { OpprettAvtale } from './avtale/OpprettAvtale'
-import { Banner } from './components/Banner'
-import { isHttpError } from './error'
-import { Feilside } from './Feilside'
-import { baseUrl } from './api/http'
-import { Virksomheter } from './virksomhet/Virksomheter'
+import { Heading } from '@navikt/ds-react';
+import { setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler';
+import { useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Trans, useTranslation } from 'react-i18next';
+import { Route, Routes } from 'react-router-dom';
+import styled from 'styled-components';
+import { AvtaleKvittering } from './avtale/AvtaleKvittering';
+import { OppdaterAvtale } from './avtale/OppdaterAvtale';
+import { OpprettAvtale } from './avtale/OpprettAvtale';
+import { Banner } from './components/Banner';
+import { isHttpError } from './error';
+import { Feilside } from './Feilside';
+import { baseUrl } from './api/http';
+import { Virksomheter } from './virksomhet/Virksomheter';
+import { DigisosAvtale } from './DigisosAvtale';
 
 export function App() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   useEffect(() => {
-    setBreadcrumbs([{ url: baseUrl('/'), title: t('brødsmuler.1') }])
-  }, [])
+    setBreadcrumbs([{ url: baseUrl('/'), title: t('brødsmuler.1') }]);
+  }, []);
 
   return (
     <ErrorBoundary
       fallbackRender={({ error }) => {
         if (isHttpError(error)) {
-          return <Feilside status={error.status} error={error} />
+          return <Feilside status={error.status} error={error} />;
         } else {
-          return <Feilside status={500} error={error} />
+          return <Feilside status={500} error={error} />;
         }
       }}
     >
@@ -38,7 +39,8 @@ export function App() {
         </Banner>
       </header>
       <Routes>
-        <Route path="/" element={<Virksomheter />} />
+        <Route path="/" element={<DigisosAvtale />} />
+        <Route path="/virksomheter" element={<Virksomheter />} />
         <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
         <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
         <Route path="/oppdater-avtale/:orgnr" element={<OppdaterAvtale />} />
@@ -51,11 +53,11 @@ export function App() {
         </Trans>
       </Kontakt>
     </ErrorBoundary>
-  )
+  );
 }
 
 const Kontakt = styled.div`
   max-width: 42rem;
   margin: 0 auto;
   padding: 0 40px 40px 40px;
-`
+`;

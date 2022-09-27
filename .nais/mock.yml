@@ -9,9 +9,9 @@ spec:
   image: {{image}}
   port: 5000
   ingresses:
-    - https://sosialhjelp-avtaler-mock.dev.nav.no/sosialhjelp/avtaler
+    - https://digisos.ekstern.dev.nav.no/sosialhjelp/avtaler
   liveness:
-    path: /sosialhjelp/avtaler/internal/isAlive
+    path: /sosialhjelp/avtaler/internal/isalive
   readiness:
     path: /sosialhjelp/avtaler/internal/isready
   prometheus:

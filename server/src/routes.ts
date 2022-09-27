@@ -38,7 +38,7 @@ const spaHandler: RequestHandler = async (req, res) => {
     }
 
     const decorator = await fetchDecoratorHtml({
-      env: config.nais_cluster_name === 'prod-gcp' ? 'prod' : 'dev',
+      env: config.miljo === 'prod-gcp' ? 'prod' : 'dev',
       context: 'samarbeidspartner',
       chatbot: false,
       language: language as Locale,
@@ -63,7 +63,7 @@ const spaHandler: RequestHandler = async (req, res) => {
 
 const settingsHandler: RequestHandler = (req, res) => {
   const appSettings = {
-    MILJO: config.nais_cluster_name,
+    MILJO: config.miljo,
     USE_MSW: config.use_msw,
   };
   res.type('.js');
