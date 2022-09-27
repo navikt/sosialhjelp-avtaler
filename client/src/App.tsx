@@ -6,14 +6,12 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import { AvtaleKvittering } from './avtale/AvtaleKvittering';
-import { OppdaterAvtale } from './avtale/OppdaterAvtale';
 import { OpprettAvtale } from './avtale/OpprettAvtale';
 import { Banner } from './components/Banner';
 import { isHttpError } from './error';
 import { Feilside } from './Feilside';
 import { baseUrl } from './api/http';
-import { Virksomheter } from './virksomhet/Virksomheter';
-import { DigisosAvtale } from './DigisosAvtale';
+import { Kommuner } from './kommune/Kommuner';
 
 export function App() {
   const { t } = useTranslation();
@@ -39,11 +37,9 @@ export function App() {
         </Banner>
       </header>
       <Routes>
-        <Route path="/" element={<DigisosAvtale />} />
-        <Route path="/virksomheter" element={<Virksomheter />} />
+        <Route path="/" element={<Kommuner />} />
         <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
         <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
-        <Route path="/oppdater-avtale/:orgnr" element={<OppdaterAvtale />} />
         <Route path="*" element={<Feilside status={404} />} />
       </Routes>
       <Kontakt className="main">

@@ -1,82 +1,42 @@
 import { RequestHandler, rest, setupWorker } from 'msw';
 import { apiUrl } from '../api/http';
-import {
-  HentVirksomheterResponse,
-  HentVirksomhetResponse,
-  OpprettAvtaleRequest,
-  OpprettAvtaleResponse,
-  OppdaterAvtaleRequest,
-  OppdaterAvtaleResponse,
-  Virksomhet,
-  Avtale,
-  OpprettAvtale,
-} from '../types';
+import { Kommune, HentKommunerResponse, OpprettAvtaleResponse, OpprettAvtaleRequest } from '../types';
 
-const avtale: Avtale = {
-  tittel: 'Du kan signere avtale',
-  erSignert: false,
-};
-
-const opprettAvtale: OpprettAvtale = {
-  navn: 'Line',
-};
-const virksomheter: Record<string, Virksomhet> = {
+const kommuner: Record<string, Kommune> = {
   '123456789': {
-    orgnr: '123456789',
-    navn: 'Nabokommunen',
-    aktiv: true,
-    epost: 'test@test',
-    opprettet: '2022-07-12T12:07:08.487356',
+    orgnr: '12345678',
+    navn: 'Norges Beste Kommune',
+    avtaleversjon: '1.0',
+    opprettet: '2022-09-12T12:07:08.487356',
   },
   '987654321': {
     orgnr: '987654321',
-    navn: 'Norges Største kommune',
-    aktiv: true,
-    epost: 'test@test',
-    opprettet: '2022-07-12T12:07:08.487356',
+    navn: 'Norges Tregeste kommune',
+    avtaleversjon: undefined,
+    opprettet: undefined,
   },
-  '544332211': {
-    orgnr: '544332211',
-    navn: 'Norges Minste Kommune',
-    aktiv: false,
+};
+
+const kommuneMedAvtale: Record<string, Kommune> = {
+  '987654321': {
+    orgnr: '987654321',
+    navn: 'Norges Tregeste kommune',
+    avtaleversjon: '1.0',
+    opprettet: '2022-09-12T12:07:08.487356',
   },
 };
 
 const handlers: RequestHandler[] = [
-  rest.get<{}, {}, Avtale>(apiUrl('/avtale'), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(avtale));
+  rest.get<{}, { orgnr: string }, Kommune>(apiUrl('/avtale/:orgnr'), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(kommuner[req.params.orgnr]));
   }),
-  rest.get<{}, { navn: string }, Avtale>(apiUrl('/avtale/:navn'), (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({ tittel: `${avtale.tittel}, ${req.params.navn}`, erSignert: avtale.erSignert })
-    );
+  rest.get<{}, {}, HentKommunerResponse>(apiUrl('/kommuner'), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(Object.values(kommuner)));
   }),
-  rest.post<OpprettAvtale, {}, Avtale>(apiUrl('/avtale'), async (req, res, ctx) => {
-    const requestBody: OpprettAvtale = await req.json();
-    return res(
-      ctx.status(201),
-      ctx.json({
-        tittel: `${avtale.tittel}, ${requestBody.navn}`,
-        erSignert: avtale.erSignert,
-      })
-    );
+  rest.post<OpprettAvtaleRequest, {}, OpprettAvtaleResponse>(apiUrl('/avtale'), async (req, res, ctx) => {
+    const requestBody: OpprettAvtaleRequest = await req.json();
+    return res(ctx.status(201), ctx.json(kommuneMedAvtale[requestBody.orgnr]));
   }),
-  rest.get<{}, {}, HentVirksomheterResponse>(apiUrl('/avtale/virksomheter'), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(Object.values(virksomheter)));
-  }),
-  rest.get<{}, { orgnr: string }, HentVirksomhetResponse>(apiUrl('/avtale/virksomheter/:orgnr'), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(virksomheter[req.params.orgnr]));
-  }),
-  rest.post<OpprettAvtaleRequest, {}, OpprettAvtaleResponse>(apiUrl('/avtale/virksomheter'), (req, res, ctx) => {
-    return res(ctx.status(201), ctx.json(virksomheter['123456789']));
-  }),
-  rest.put<OppdaterAvtaleRequest, { orgnr: string }, OppdaterAvtaleResponse>(
-    apiUrl('/avtale/virksomheter/:orgnr'),
-    (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(virksomheter[req.params.orgnr]));
-    }
-  ),
 ];
 
 export const worker = setupWorker(...handlers);
