@@ -1,11 +1,9 @@
-import { LinkPanel } from '@navikt/ds-react';
-import { useNavigate } from 'react-router-dom';
+import { Heading, BodyLong, Panel } from '@navikt/ds-react';
 import { Data } from '../components/Data';
 import { Dato } from '../components/Dato';
 import { Datum } from '../components/Datum';
 import { Organisasjonsnummer } from '../components/Organisasjonsnummer';
 import { Kommune } from '../types';
-import { logSkjemaStartet, skjemanavn } from '../utils/amplitude';
 
 export interface AvtalePanelProps {
   kommune: Kommune;
@@ -13,16 +11,12 @@ export interface AvtalePanelProps {
 
 export function AvtalePanel(props: AvtalePanelProps) {
   const { kommune } = props;
-  const navigate = useNavigate();
   return (
-    <LinkPanel
-      onClick={() => {
-        logSkjemaStartet(kommune.orgnr, skjemanavn.SKJEMANAVN_ENDRE);
-        navigate(`/oppdater-avtale/${kommune.orgnr}`);
-      }}
-    >
-      <LinkPanel.Title className="navds-heading--small">{kommune.navn}</LinkPanel.Title>
-      <LinkPanel.Description>
+    <Panel border={true}>
+      <Heading spacing size="small" as="p">
+        {kommune.navn}
+      </Heading>
+      <BodyLong>
         <Data>
           <Datum label="ledetekst.orgnr">
             <Organisasjonsnummer verdi={kommune.orgnr} />
@@ -31,7 +25,7 @@ export function AvtalePanel(props: AvtalePanelProps) {
             <Dato verdi={kommune.opprettet} />
           </Datum>
         </Data>
-      </LinkPanel.Description>
-    </LinkPanel>
+      </BodyLong>
+    </Panel>
   );
 }

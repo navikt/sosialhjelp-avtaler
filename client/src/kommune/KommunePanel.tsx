@@ -20,7 +20,7 @@ export function KommunePanel(props: KommunePanelProps) {
         navigate(`/opprett-avtale/${kommune.orgnr}`);
       }}
     >
-      <LinkPanel.Title className="navds-heading--small">{kommune.navn}</LinkPanel.Title>
+      <LinkPanel.Title className="navds-heading--small navds-typo--spacing">{kommune.navn}</LinkPanel.Title>
       <LinkPanel.Description>
         <Data>
           <Datum label="ledetekst.orgnr">

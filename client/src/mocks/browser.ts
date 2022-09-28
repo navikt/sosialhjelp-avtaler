@@ -15,7 +15,7 @@ const kommuner: Record<string, Kommune> = {
     orgnr: '987654321',
     navn: 'Norges Tregeste kommune',
     avtaleversjon: undefined,
-    opprettet: null,
+    opprettet: undefined,
   },
 };
 
@@ -24,7 +24,7 @@ const kommuneMedAvtale: Record<string, Kommune> = {
     orgnr: '987654321',
     navn: 'Norges Tregeste kommune',
     avtaleversjon: '1.0',
-    opprettet: null,
+    opprettet: undefined,
   },
 };
 
