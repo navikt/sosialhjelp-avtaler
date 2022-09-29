@@ -9,38 +9,19 @@ export interface Resultat<T> {
   loading?: boolean;
 }
 
-export interface Virksomhet {
+export interface Kommune {
   orgnr: string;
   navn: string;
-  aktiv: boolean;
-  epost?: string;
   avtaleversjon?: string;
   opprettet?: string;
-  oppdatert?: string;
 }
 
-export interface Avtale {
-  tittel: string;
-  erSignert: boolean;
-}
+export interface HentKommunerResponse extends Array<Kommune> {}
 
-export interface OpprettAvtale {
-  navn: string;
-}
-
-export interface HentVirksomheterResponse extends Array<Virksomhet> {}
-
-export interface HentVirksomhetResponse extends Virksomhet {}
+export interface HentKommuneResponse extends Kommune {}
 
 export interface OpprettAvtaleRequest {
   orgnr: string;
-  epost: string;
 }
 
-export interface OpprettAvtaleResponse extends Virksomhet {}
-
-export interface OppdaterAvtaleRequest {
-  epost: string;
-}
-
-export interface OppdaterAvtaleResponse extends Virksomhet {}
+export interface OpprettAvtaleResponse extends Kommune {}

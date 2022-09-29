@@ -1,22 +1,22 @@
-import { BodyLong, Button, ConfirmationPanel, Heading, TextField } from '@navikt/ds-react'
-import { useEffect } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
-import styled from 'styled-components'
-import { AppLink } from '../components/AppLink'
-import { Avstand } from '../components/Avstand'
-import { validerEpost } from './epost'
-import { HentVirksomhetResponse, OpprettAvtaleRequest } from '../types'
-import { useGet } from '../api/useGet'
-import { usePost } from '../api/usePost'
-import { logSkjemaFullført, skjemanavn } from '../utils/amplitude'
-import { Avtale } from './Avtale'
+import { BodyLong, Button, ConfirmationPanel, Heading, TextField } from '@navikt/ds-react';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { AppLink } from '../components/AppLink';
+import { Avstand } from '../components/Avstand';
+import { HentKommuneResponse, OpprettAvtaleRequest } from '../types';
+import { useGet } from '../api/useGet';
+import { usePost } from '../api/usePost';
+import { logSkjemaFullført, skjemanavn } from '../utils/amplitude';
+import { Avtale } from './Avtale';
+import Spinner from '../components/Spinner';
 
 export function OpprettAvtale() {
-  const { t } = useTranslation()
-  const { orgnr } = useParams<{ orgnr: string }>()
-  const { data: virksomhet } = useGet<HentVirksomhetResponse>(`/avtale/virksomheter/${orgnr}`)
+  const { t } = useTranslation();
+  const { orgnr } = useParams<{ orgnr: string }>();
+  const { data: kommune, error: kommuneError } = useGet<HentKommuneResponse>(`/avtale/${orgnr}`);
   const {
     register,
     control,
@@ -24,27 +24,30 @@ export function OpprettAvtale() {
     formState: { errors, isSubmitting },
   } = useForm<{ kontonr: string; epost: string; lest: boolean }>({
     defaultValues: {
-      kontonr: '',
-      epost: '',
       lest: false,
     },
-  })
-  const { post: opprettAvtale, data: avtale } = usePost<OpprettAvtaleRequest, void>('/avtale/virksomheter')
-  const navigate = useNavigate()
+  });
+  const { post: opprettAvtale, data: avtale } = usePost<OpprettAvtaleRequest, void>('/avtale');
+  const navigate = useNavigate();
   useEffect(() => {
     if (avtale) {
       navigate('/opprett-avtale/kvittering', {
         state: avtale,
-      })
+      });
     }
-  }, [avtale])
-  if (!virksomhet) {
-    return null
+  }, [avtale]);
+
+  if (!kommune && !kommuneError) {
+    return <Spinner />;
+  }
+
+  if (!kommune) {
+    return null;
   }
   return (
     <main>
       <Heading level="2" size="medium" spacing>
-        {t('avtale.opprett_avtale_for', { navn: virksomhet.navn })}
+        {t('avtale.opprett_avtale_for', { navn: kommune.navn })}
       </Heading>
       <BodyLong>{t('avtale.ingress')}</BodyLong>
       <Avstand marginTop={5} marginBottom={5}>
@@ -58,28 +61,18 @@ export function OpprettAvtale() {
       <form
         onSubmit={handleSubmit(async (data) => {
           await opprettAvtale({
-            orgnr: virksomhet.orgnr,
-            epost: data.epost,
-          })
-          logSkjemaFullført(virksomhet?.orgnr, skjemanavn.SKJEMANAVN_OPPRETT)
+            orgnr: kommune.orgnr,
+          });
+          logSkjemaFullført(kommune?.orgnr, skjemanavn.SKJEMANAVN_OPPRETT);
         })}
       >
-        <Tekstfelt
-          label={t('ledetekst.epost')}
-          error={errors.epost?.message}
-          {...register('epost', {
-            validate(epost) {
-              return validerEpost(epost) ? true : t('felles.ugyldig_epost')
-            },
-          })}
-        />
         <Avstand marginTop={5} marginBottom={5}>
           <Controller
             control={control}
             name="lest"
             rules={{
               validate(value) {
-                return value || t('avtale.må_huke_av')
+                return value || t('avtale.må_huke_av');
               },
             }}
             render={({ field }) => (
@@ -100,7 +93,7 @@ export function OpprettAvtale() {
             type="button"
             variant="secondary"
             onClick={() => {
-              navigate('/')
+              navigate('/');
             }}
           >
             {t('felles.avbryt')}
@@ -108,7 +101,7 @@ export function OpprettAvtale() {
         </Knapper>
       </form>
     </main>
-  )
+  );
 }
 
 const Knapper = styled.div`
@@ -116,8 +109,8 @@ const Knapper = styled.div`
   grid-auto-flow: column;
   gap: var(--navds-spacing-3);
   justify-content: left;
-`
+`;
 
 const Tekstfelt = styled(TextField)`
   max-width: 330px;
-`
+`;

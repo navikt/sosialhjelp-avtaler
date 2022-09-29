@@ -1,22 +1,22 @@
-import { Alert, BodyLong, Heading } from '@navikt/ds-react'
-import { Trans, useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router-dom'
-import { AppLink } from '../components/AppLink'
-import { Avstand } from '../components/Avstand'
-import { DsLink } from '../components/DsLink'
-import { Virksomhet } from '../types'
-import { AvtalePanel } from './AvtalePanel'
+import { Alert, BodyLong, Heading } from '@navikt/ds-react';
+import { Trans, useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
+import { AppLink } from '../components/AppLink';
+import { Avstand } from '../components/Avstand';
+import { DsLink } from '../components/DsLink';
+import { Kommune } from '../types';
+import { AvtalePanel } from './AvtalePanel';
 
 export function AvtaleKvittering() {
-  const { t } = useTranslation()
-  const { state: virksomhet } = useLocation() as { state: Virksomhet }
-  if (!virksomhet) {
-    return null
+  const { t } = useTranslation();
+  const { state: kommune } = useLocation() as { state: Kommune };
+  if (!kommune) {
+    return null;
   }
   return (
     <main>
       <Heading level="2" size="medium" spacing>
-        {t('avtale.kvittering_for', { navn: virksomhet.navn })}
+        {t('avtale.kvittering_for', { navn: kommune.navn })}
       </Heading>
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
@@ -36,9 +36,9 @@ export function AvtaleKvittering() {
           </DsLink>
         </Trans>
       </BodyLong>
-      <AvtalePanel virksomhet={virksomhet} />
+      <AvtalePanel kommune={kommune} />
       <Avstand marginBottom={5} />
       <Link to="/">{t('avtale.lenke_tilbake_til_forsiden')}</Link>
     </main>
-  )
+  );
 }
