@@ -3,9 +3,9 @@ import path from 'path';
 export const config = {
   base_path: '/sosialhjelp/avtaler/',
   build_path: path.join(__dirname, '../../client/dist'),
-  port: process.env.PORT || 5001,
+  port: process.env.PORT || 5000,
   node_env: process.env.NODE_ENV || 'production',
-  miljo: process.env.MILJO || 'mock-gcp',
+  miljo: process.env.NAIS_CLUSTER_NAME || 'mock-gcp',
   use_msw: process.env.USE_MSW === 'true',
   api: {
     avtaler_api_base_url: process.env.AVTALER_API_BASE_URL || 'http://localhost:8080',
