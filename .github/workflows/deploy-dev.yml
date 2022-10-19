@@ -20,12 +20,12 @@ jobs:
       DOCKER_IMAGE: ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Create artifact version
         id: artifact-version
         uses: navikt/sosialhjelp-ci/actions/create-artifact-version@master
       - name: Login to GitHub Docker Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -44,13 +44,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create tag and release
-        uses: actions/create-release@v1.1.3
+        uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.COMPLETE_TAG }}
-          release_name: ${{ env.COMPLETE_TAG }}
-          commitish: ${{ github.sha }}
+          tag: ${{ env.COMPLETE_TAG }}
+          commit: ${{ github.sha }}
       - name: Deploy to dev - ${{ github.event.inputs.config-file-name }}
         uses: nais/deploy/actions/deploy@v1
         env:
