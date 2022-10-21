@@ -65,7 +65,7 @@ export async function createAuth(): Promise<Auth> {
     },
     async exchangeIDPortenToken(req, targetAudience) {
       const idPortenToken = getBearerToken(req);
-      // Check cachee
+      // Check cache
       const cacheKey = `tokenx-${idPortenToken}-${targetAudience}`;
       const [cacheHit, tokenInCache] = getTokenInCache(cacheKey);
       if (cacheHit) return tokenInCache;
