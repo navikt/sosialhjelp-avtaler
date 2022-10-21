@@ -7,9 +7,10 @@ import { ulid } from 'ulid';
 import { URL } from 'url';
 import { config } from './config';
 import { logger } from './logger';
+import { getTokenInCache, setTokenInCache } from './cache/cacheActions';
 
 export interface ExchangeToken {
-  (req: Request, targetAudience: string): Promise<TokenSet>;
+  (req: Request, targetAudience: string): Promise<string | void>;
 }
 
 export interface Auth {
@@ -28,6 +29,7 @@ export async function createAuth(): Promise<Auth> {
     client_id: config.auth.tokenx_client_id,
     token_endpoint_auth_method: 'none',
   });
+
   return {
     async verifyIDPortenToken(req, res, next) {
       if (req.path.startsWith('/internal/')) {
@@ -63,9 +65,14 @@ export async function createAuth(): Promise<Auth> {
     },
     async exchangeIDPortenToken(req, targetAudience) {
       const idPortenToken = getBearerToken(req);
+      // Check cachee
+      const cacheKey = `tokenx-${idPortenToken}-${targetAudience}`;
+      const [cacheHit, tokenInCache] = getTokenInCache(cacheKey);
+      if (cacheHit) return tokenInCache;
+
       const clientAssertion = await createClientAssertion();
       try {
-        return tokenXClient.grant({
+        const tokenSet: TokenSet = await tokenXClient.grant({
           grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
           audience: targetAudience,
           client_assertion: clientAssertion,
@@ -74,6 +81,8 @@ export async function createAuth(): Promise<Auth> {
           subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
           token_endpoint_auth_method: 'private_key_jwt',
         });
+        setTokenInCache(cacheKey, tokenSet);
+        return tokenSet.access_token;
       } catch (err: unknown) {
         logger.error(`Feil under token exchange: ${err}`);
         return Promise.reject(err);
@@ -92,7 +101,7 @@ export function createAuthStub(expectedToken?: string): Auth {
       }
     },
     exchangeIDPortenToken(req) {
-      return Promise.resolve(new TokenSet({ access_token: getBearerToken(req) }));
+      return Promise.resolve(getBearerToken(req));
     },
   };
 }

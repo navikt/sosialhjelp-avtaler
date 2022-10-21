@@ -11,7 +11,7 @@ function createProxy(
   return proxy(host, {
     parseReqBody: false,
     async proxyReqOptDecorator(requestOptions, req) {
-      const { access_token } = await exchangeIDPortenToken(req, targetAudience);
+      const access_token = await exchangeIDPortenToken(req, targetAudience);
       requestOptions.headers = {
         ...requestOptions.headers,
         Authorization: `Bearer ${access_token}`,
