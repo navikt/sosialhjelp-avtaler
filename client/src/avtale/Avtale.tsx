@@ -15,10 +15,10 @@ export function Avtale() {
       <Panel border>
         <TopHeader>1. Formål og virkeområde</TopHeader>
         <BodyLong spacing>
-          Kommunen og Arbeids-og velferdsdirektoratet inngår med dette en avtale om tilgjengeliggjøring av sentrale
-          opplysninger om individuelle kommunale stønadssaker (sentrale stønadsopplysninger) fra kommunen til Arbeids-og
-          velferdsetatens kontaktsentertjeneste (NKS). Avtalen beskriver stegene i tilgjengeliggjøringen, samt hvilken
-          av partene som er ansvarlig for de ulike stegene.
+          Kommunen og Arbeids- og velferdsdirektoratet inngår med dette en avtale om tilgjengeliggjøring av sentrale
+          opplysninger om individuelle kommunale stønadssaker (sentrale stønadsopplysninger) fra kommunen til Arbeids-
+          og velferdsetatens kontaktsentertjeneste (NKS). Avtalen beskriver stegene i tilgjengeliggjøringen, samt
+          hvilken av partene som er ansvarlig for de ulike stegene.
         </BodyLong>
         <BodyLong spacing>
           Tilgjengeliggjøringen innebærer behandling av personopplysninger, der ansvaret endres underveis i prosessen
@@ -148,7 +148,7 @@ export function Avtale() {
         <SubHeader> 4.5. Tvister</SubHeader>
         <BodyLong spacing>
           Dersom det oppstår tvist mellom partene om tolkningen eller rettsvirkningen av avtalen, skal tvisten søkes
-          løst ved forhandlingermellom partene.
+          løst ved forhandlinger mellom partene.
         </BodyLong>
         <SubHeader> 4.6. Varighet</SubHeader>
         <BodyLong spacing>
