@@ -12,6 +12,7 @@ import { isHttpError } from './error';
 import { Feilside } from './Feilside';
 import { baseUrl } from './api/http';
 import { Kommuner } from './kommune/Kommuner';
+import SigneringFeil from './avtale/SigneringFeil';
 
 export function App() {
   const { t } = useTranslation();
@@ -20,15 +21,7 @@ export function App() {
   }, []);
 
   return (
-    <ErrorBoundary
-      fallbackRender={({ error }) => {
-        if (isHttpError(error)) {
-          return <Feilside status={error.status} error={error} />;
-        } else {
-          return <Feilside status={500} error={error} />;
-        }
-      }}
-    >
+    <>
       <header>
         <Banner>
           <Heading level="1" size="large">
@@ -36,19 +29,30 @@ export function App() {
           </Heading>
         </Banner>
       </header>
-      <Routes>
-        <Route path="/" element={<Kommuner />} />
-        <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
-        <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
-        <Route path="*" element={<Feilside status={404} />} />
-      </Routes>
-      <Kontakt className="main">
-        <Trans t={t} i18nKey="problemer">
-          <></>
-          <a href="mailto:digisos@nav.no" />
-        </Trans>
-      </Kontakt>
-    </ErrorBoundary>
+      <ErrorBoundary
+        fallbackRender={({ error }) => {
+          if (isHttpError(error)) {
+            return <Feilside status={error.status} error={error} />;
+          } else {
+            return <Feilside status={500} error={error} />;
+          }
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Kommuner />} />
+          <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
+          <Route path="/opprett-avtale/feil" element={<SigneringFeil />} />
+          <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
+          <Route path="*" element={<Feilside status={404} />} />
+        </Routes>
+        <Kontakt className="main">
+          <Trans t={t} i18nKey="problemer">
+            <></>
+            <a href="mailto:digisos@nav.no" />
+          </Trans>
+        </Kontakt>
+      </ErrorBoundary>
+    </>
   );
 }
 

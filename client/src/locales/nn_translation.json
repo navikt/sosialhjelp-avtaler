@@ -33,5 +33,10 @@
   "problemer": "Har du problemer med å inngå avtale, opplever du feil i løsningen eller har du andre spørsmål? Kontakt oss på epost: <1>digisos@nav.no</1>",
   "kommune.ingen_kommuner": "Vi fant ingen kommuner i Altinn som du er kommunedirektør for.",
   "kommune.med_avtale": "Kommuner med avtale",
-  "kommune.uten_avtale": "Kommuner uten avtale"
+  "kommune.uten_avtale": "Kommuner uten avtale",
+  "signering.feil": "Teknisk feil",
+  "signering.detaljer": "Beklager, noe gikk galt ved signering av avtalen.",
+  "signering.prov_igjen": "Prøv igjen",
+  "signering.videresendt": "Du blir videresendt til Posten sin løsning for signering"
+
 }

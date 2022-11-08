@@ -1,4 +1,4 @@
-import { BodyLong, Button, ConfirmationPanel, Heading, TextField } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, ConfirmationPanel, Heading, TextField } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -85,6 +85,8 @@ export function OpprettAvtale() {
             )}
           />
         </Avstand>
+        <StyledAlert variant="info">{t('signering.videresendt')}</StyledAlert>
+
         <Knapper>
           <Button type="submit" loading={isSubmitting} disabled={isSubmitting}>
             {t('avtale.inngå_avtale')}
@@ -111,6 +113,6 @@ const Knapper = styled.div`
   justify-content: left;
 `;
 
-const Tekstfelt = styled(TextField)`
-  max-width: 330px;
+const StyledAlert = styled(Alert)`
+  margin-bottom: 1rem;
 `;
