@@ -89,7 +89,7 @@ export function Avtale() {
         <BodyLong spacing>
           Med utgangspunkt i denne ansvarsfordelingen skal partene utføre følgende for å ivareta sitt ansvar:
         </BodyLong>
-        <BodyLong spacing>
+        <BodyLong spacing as="span">
           <i>Kommunen skal:</i>
           <StyledList>
             <li>
