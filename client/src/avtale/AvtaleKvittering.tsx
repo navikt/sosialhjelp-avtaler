@@ -13,6 +13,7 @@ export function AvtaleKvittering() {
   if (!kommune) {
     return null;
   }
+
   return (
     <main>
       <Heading level="2" size="medium" spacing>

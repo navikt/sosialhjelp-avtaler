@@ -13,6 +13,7 @@ import { Feilside } from './Feilside';
 import { baseUrl } from './api/http';
 import { Kommuner } from './kommune/Kommuner';
 import SigneringFeil from './avtale/SigneringFeil';
+import SigneringSuksess from './avtale/SigneringSuksess';
 
 export function App() {
   const { t } = useTranslation();
@@ -41,7 +42,8 @@ export function App() {
         <Routes>
           <Route path="/" element={<Kommuner />} />
           <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
-          <Route path="/opprett-avtale/feil" element={<SigneringFeil />} />
+          <Route path="/opprett-avtale/feil/:orgnr'" element={<SigneringFeil />} />
+          <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
           <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
           <Route path="*" element={<Feilside status={404} />} />
         </Routes>

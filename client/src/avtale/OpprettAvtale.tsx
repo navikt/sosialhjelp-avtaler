@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
-import { HentKommuneResponse, OpprettAvtaleRequest } from '../types';
+import { HentKommuneResponse, StartSigneringRequest } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
 import { logSkjemaFullført, skjemanavn } from '../utils/amplitude';
@@ -27,15 +27,14 @@ export function OpprettAvtale() {
       lest: false,
     },
   });
-  const { post: opprettAvtale, data: avtale } = usePost<OpprettAvtaleRequest, void>('/avtale');
+  const { post: startSignering, data: requestUrl } = usePost<StartSigneringRequest, string>('/avtale/signer');
+
   const navigate = useNavigate();
   useEffect(() => {
-    if (avtale) {
-      navigate('/opprett-avtale/kvittering', {
-        state: avtale,
-      });
+    if (requestUrl) {
+      window.location.href = requestUrl;
     }
-  }, [avtale]);
+  }, [requestUrl]);
 
   if (!kommune && !kommuneError) {
     return <Spinner />;
@@ -60,7 +59,7 @@ export function OpprettAvtale() {
       </BodyLong>
       <form
         onSubmit={handleSubmit(async (data) => {
-          await opprettAvtale({
+          await startSignering({
             orgnr: kommune.orgnr,
           });
           logSkjemaFullført(kommune?.orgnr, skjemanavn.SKJEMANAVN_OPPRETT);
