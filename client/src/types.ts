@@ -20,8 +20,18 @@ export interface HentKommunerResponse extends Array<Kommune> {}
 
 export interface HentKommuneResponse extends Kommune {}
 
-export interface OpprettAvtaleRequest {
+export interface StartSigneringRequest {
   orgnr: string;
 }
+export interface SigneringsstatusRequest {
+  orgnr: string;
+  status: 'SUKSESS' | 'FEIL';
+  token: string;
+}
 
-export interface OpprettAvtaleResponse extends Kommune {}
+export interface OpprettAvtaleResponse {
+  orgnr: string;
+  navn: string;
+  avtaleversjon: string;
+  opprettet: string;
+}

@@ -1,7 +1,6 @@
-import amplitude from 'amplitude-js'
+import amplitude from 'amplitude-js';
 
 export enum skjemanavn {
-  SKJEMANAVN_ENDRE = 'Endre avtale',
   SKJEMANAVN_OPPRETT = 'Opprett avtale',
 }
 
@@ -22,9 +21,9 @@ export const initAmplitude = () => {
       includeUtm: true,
       includeReferrer: true,
       platform: window.location.toString(),
-    })
+    });
   }
-}
+};
 
 export function logAmplitudeEvent(eventName: string, data?: any) {
   setTimeout(() => {
@@ -32,37 +31,41 @@ export function logAmplitudeEvent(eventName: string, data?: any) {
       app: 'sosialhjelp-avtaler',
       team: 'teamdigisos',
       ...data,
-    }
+    };
     try {
       if (amplitude) {
-        amplitude.getInstance().logEvent(eventName, data)
+        amplitude.getInstance().logEvent(eventName, data);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  })
+  });
 }
 
 export function logSkjemaStartet(id: string, skjemanavn: skjemanavn) {
   logAmplitudeEvent(amplitude_taxonomy.SKJEMA_START, {
     skjemanavn: skjemanavn,
     skjemaId: id,
-  })
+  });
 }
 
 export function logSkjemaFullført(id: string, skjemanavn: skjemanavn) {
   logAmplitudeEvent(amplitude_taxonomy.SKJEMA_FULLFØRT, {
     skjemanavn: skjemanavn,
     skjemaId: id,
-  })
+  });
+}
+
+export function logSkjemaInnsendingFeilet(id: string, skjemanavn: skjemanavn) {
+  logAmplitudeEvent(amplitude_taxonomy.SKJEMAINNSENDING_FEILET, {
+    skjemanavn: skjemanavn,
+    skjemaId: id,
+  });
 }
 
 export function logNavigering(destinasjon: string, lenketekst: string) {
-  logAmplitudeEvent(amplitude_taxonomy.SKJEMAVALIDERING_FEILET, {
+  logAmplitudeEvent(amplitude_taxonomy.NAVIGERE, {
     destinasjon: destinasjon,
     lenketekst: lenketekst,
-  })
+  });
 }
-
-//Events som ikke er i NAV sin taxonomi
-export enum digihot_customevents {}
