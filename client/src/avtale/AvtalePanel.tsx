@@ -16,7 +16,7 @@ export function AvtalePanel(props: AvtalePanelProps) {
       <Heading spacing size="small" as="p">
         {kommune.navn}
       </Heading>
-      <BodyLong>
+      <BodyLong as="span">
         <Data>
           <Datum label="ledetekst.orgnr">
             <Organisasjonsnummer verdi={kommune.orgnr} />
