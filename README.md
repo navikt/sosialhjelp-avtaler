@@ -1,4 +1,5 @@
 # sosialhjelp-avtaler
+Frontend for selvbetjening av avtaler for Digisos
 
 ## Kom i gang
 
