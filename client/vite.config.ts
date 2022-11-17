@@ -30,7 +30,7 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
           {
             tag: 'script',
             children: `window.appSettings = {
-              MILJO: 'mock-gcp',
+              MILJO: 'mock',
               USE_MSW: true,
             }`,
           },
