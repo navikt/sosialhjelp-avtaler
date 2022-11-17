@@ -46,6 +46,8 @@ spec:
       value: prod-gcp:teamdigisos:sosialhjelp-avtaler-api
     - name: PORT
       value: '5000'
+    - name: MILJO
+      value: 'prod-gcp'
   accessPolicy:
     outbound:
       rules:

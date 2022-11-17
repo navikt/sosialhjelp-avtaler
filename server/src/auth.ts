@@ -18,7 +18,7 @@ export interface Auth {
 }
 
 export async function createAuth(): Promise<Auth> {
-  if (config.miljo === 'mock-gcp') {
+  if (config.miljo === 'mock') {
     logger.warn('Bruker auth-stub!');
     return createAuthStub();
   }
