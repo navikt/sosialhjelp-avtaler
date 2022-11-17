@@ -46,7 +46,7 @@ const handlers: RequestHandler[] = [
     return res(
       ctx.delay(DELAY_MS),
       ctx.status(200),
-      ctx.json('/opprett-avtale/suksess/' + requestBody.orgnr + '?status_query_token=1234')
+      ctx.json('/sosialhjelp/avtaler/opprett-avtale/suksess/' + requestBody.orgnr + '?status_query_token=1234')
     );
   }),
   rest.post<SigneringsstatusRequest, { status_query_token: '1234' }, OpprettAvtaleResponse>(
