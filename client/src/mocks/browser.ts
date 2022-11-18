@@ -12,7 +12,7 @@ import {
 const DELAY_MS = undefined;
 const kommuner: Record<string, Kommune> = {
   '123456789': {
-    orgnr: '12345678',
+    orgnr: '123456789',
     navn: 'Norges Beste Kommune',
     avtaleversjon: '1.0',
     opprettet: '2022-09-12T12:07:08.487356',

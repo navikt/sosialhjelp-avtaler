@@ -18,11 +18,10 @@ export function OpprettAvtale() {
   const { orgnr } = useParams<{ orgnr: string }>();
   const { data: kommune, error: kommuneError } = useGet<HentKommuneResponse>(`/avtale/${orgnr}`);
   const {
-    register,
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<{ kontonr: string; epost: string; lest: boolean }>({
+  } = useForm<{ lest: boolean }>({
     defaultValues: {
       lest: false,
     },
@@ -41,6 +40,13 @@ export function OpprettAvtale() {
   }
 
   if (!kommune) {
+    return null;
+  }
+
+  if (kommune.opprettet) {
+    navigate('/opprett-avtale/kvittering', {
+      state: kommune,
+    });
     return null;
   }
   return (
