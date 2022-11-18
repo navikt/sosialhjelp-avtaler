@@ -10,9 +10,10 @@ export interface KommunePanelProps {
   kommune: Kommune;
 }
 
-export function KommunePanel(props: KommunePanelProps) {
+export function OpprettAvtaleLinkPanel(props: KommunePanelProps) {
   const { kommune } = props;
   const navigate = useNavigate();
+
   return (
     <LinkPanel
       onClick={() => {

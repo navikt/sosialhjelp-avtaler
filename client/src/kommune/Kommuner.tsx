@@ -5,7 +5,7 @@ import { AvtalePanel } from '../avtale/AvtalePanel';
 import { Avstand } from '../components/Avstand';
 import { HentKommunerResponse } from '../types';
 import { useGet } from '../api/useGet';
-import { KommunePanel } from './KommunePanel';
+import { OpprettAvtaleLinkPanel } from './OpprettAvtaleLinkPanel';
 import Spinner from '../components/Spinner';
 
 export function Kommuner() {
@@ -41,7 +41,7 @@ export function Kommuner() {
           </Heading>
           <Kolonne>
             {kommunerUtenAvtale.map((kommune) => (
-              <KommunePanel key={kommune.orgnr} kommune={kommune} />
+              <OpprettAvtaleLinkPanel key={kommune.orgnr} kommune={kommune} />
             ))}
           </Kolonne>
         </>
