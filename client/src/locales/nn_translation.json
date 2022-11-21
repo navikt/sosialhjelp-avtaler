@@ -6,7 +6,7 @@
   "avtale.kvittering_for": "Kvittering for {{navn}}",
   "avtale.lenke_last_ned_avtalen": "Last ned kopi av avtalen",
   "avtale.lenke_tilbake_til_forsiden": "Tilbake til framsida",
-  "avtale.mer_informasjon": "Her kan de finne meir informasjon om innsynsflaten: <1>Innsyn i opplysninger for økonomisk sosialhjelp</1>",
+  "avtale.mer_informasjon": "Her kan de finne meir informasjon om innsynsflata: <1>Innsyn i opplysninger for økonomisk sosialhjelp</1>",
   "avtale.må_huke_av": "Du må huke av for å gå vidare",
   "avtale.opprett_avtale_for": "Opprett avtale for {{navn}}",
   "avtale.suksess": "Du har inngått avtale med NAV om bruk av innsynsflate for NKS.",
@@ -17,7 +17,7 @@
   "feilside.ikke_funnet": "Orsak, sida kan være sletta eller flytta, eller det var ein feil i lenka som førte deg hit.",
   "feilside.ikke_logget_inn": "Du må logge inn for å få tilgang til systemet.",
   "feilside.informasjon_til_utviklere": "Informasjon til utviklarar",
-  "feilside.ingen_tilgang": "Ingen tilgang. Kun kommunedirektører har tilgang til løysinga.",
+  "feilside.ingen_tilgang": "Ingen tilgang. Berre kommunedirektørar har tilgang til løysinga.",
   "feilside.overskrift_ikke_funnet": "Fann ikkje sida",
   "feilside.overskrift_ikke_logget_inn": "Ikkje logga inn",
   "feilside.teknisk_feil": "Orsak, det har skjedd ein teknisk feil.",
@@ -25,13 +25,13 @@
   "felles.lagre": "Lagre",
   "ledetekst.dato_opprettet": "Dato oppretta",
   "ledetekst.orgnr": "Organisasjonsnummer",
-  "problemer": "Har du problemer med å inngå avtale, opplever du feil i løsningen eller har du andre spørsmål? Kontakt oss på epost: <1>digisos@nav.no</1>",
-  "kommune.ingen_kommuner": "Vi fant ingen kommuner i Altinn som du er kommunedirektør for.",
-  "kommune.med_avtale": "Kommuner med avtale",
-  "kommune.uten_avtale": "Kommuner uten avtale",
+  "problemer": "Har du problemer med å inngå avtale, opplever du feil i løysinga eller har du andre spørsmål? Kontakt oss på epost: <1>digisos@nav.no</1>",
+  "kommune.ingen_kommuner": "Me fann ingen kommunar i Altinn som du er kommunedirektør for.",
+  "kommune.med_avtale": "Kommunar med avtale",
+  "kommune.uten_avtale": "Kommunar uten avtale",
   "signering.feil": "Teknisk feil",
-  "signering.detaljer": "Beklager, noe gikk galt ved signering av avtalen.",
+  "signering.detaljer": "Orsak, noe gjekk gale ved signering av avtalen.",
   "signering.prov_igjen": "Prøv igjen",
-  "signering.videresendt": "Du blir videresendt til Posten sin løsning for signering"
+  "signering.videresendt": "Du blir vidaresend til Posten sin løysing for signering"
 
 }
