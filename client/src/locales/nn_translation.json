@@ -1,7 +1,7 @@
 {
   "avtale.overskrift": "Avtale for tilgjengeleggjering av sentrale stønadsopplysningar til innsynsflate NKS",
   "avtale.bekreftelse": "Eg har sett meg inn i vilkåra i avtalen, og stadfestar at kommunen forpliktar seg til vilkåra i avtalen om tilgjengeleggjering av sentrale opplysningar til innsynsflate NKS.",
-  "avtale.ingress":"Her kan du inngå avtale om tilgjengeleggjering av sentrale opplysningar om individuelle kommunale stønadssaker (sentrale stønadsopplysningar) frå kommunen til Arbeids- og velferdsetatens kontaktsenterteneste (NKS), på vegner av kommunen din. Les grundig gjennom avtaleteksten. For å inngå avtalen må du kryssa av for at du har sett deg inn i vilkåra for avtalen og at kommunen forpliktar seg til vilkåra.",
+  "avtale.ingress":"Her kan du inngå avtale om tilgjengeleggjering av sentrale opplysningar om individuelle kommunale stønadssaker (sentrale stønadsopplysningar) frå kommunen til Arbeids- og velferdsetatens kontaktsenterteneste (NKS), på vegne av kommunen din. Les grundig gjennom avtaleteksten. For å inngå avtalen må du krysse av for at du har sett deg inn i vilkåra for avtalen og at kommunen forpliktar seg til vilkåra.",
   "avtale.inngå_avtale": "Inngå avtale",
   "avtale.kvittering_for": "Kvittering for {{navn}}",
   "avtale.lenke_last_ned_avtalen": "Last ned kopi av avtalen",
