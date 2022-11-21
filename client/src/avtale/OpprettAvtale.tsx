@@ -58,11 +58,7 @@ export function OpprettAvtale() {
       <Avstand marginTop={5} marginBottom={5}>
         <Avtale />
       </Avstand>
-      <BodyLong spacing>
-        <AppLink href="/avtale.pdf" target="_blank">
-          {t('avtale.lenke_signert_avtale')}
-        </AppLink>
-      </BodyLong>
+
       <form
         onSubmit={handleSubmit(async (data) => {
           await startSignering({

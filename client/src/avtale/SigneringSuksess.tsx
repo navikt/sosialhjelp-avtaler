@@ -16,7 +16,6 @@ const SigneringSuksess = () => {
   );
 
   useEffect(() => {
-    console.log(statusQueryToken, orgnr);
     if (statusQueryToken && orgnr) {
       const sendStatusFunction = async () => {
         await sendStatus({
