@@ -13,13 +13,13 @@ const DELAY_MS = undefined;
 const kommuner: Record<string, Kommune> = {
   '123456789': {
     orgnr: '123456789',
-    navn: 'Norges Beste Kommune',
+    navn: 'Fiktiv Kommune',
     avtaleversjon: '1.0',
     opprettet: '2022-09-12T12:07:08.487356',
   },
   '987654321': {
     orgnr: '987654321',
-    navn: 'Norges Tregeste kommune',
+    navn: 'Mock kommune',
     avtaleversjon: undefined,
     opprettet: undefined,
   },
@@ -27,8 +27,8 @@ const kommuner: Record<string, Kommune> = {
 
 const kommuneMedAvtale: Record<string, OpprettAvtaleResponse> = {
   '987654321': {
-    orgnr: '987654321',
-    navn: 'Norges Tregeste kommune',
+    orgnr: kommuner[987654321].orgnr,
+    navn: kommuner[987654321].navn,
     avtaleversjon: '1.0',
     opprettet: '4. januar',
   },

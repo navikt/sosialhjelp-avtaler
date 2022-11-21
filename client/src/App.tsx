@@ -26,7 +26,7 @@ export function App() {
       <header>
         <Banner>
           <Heading level="1" size="large">
-            {t('banner')}
+            {t('avtale.overskrift')}
           </Heading>
         </Banner>
       </header>
