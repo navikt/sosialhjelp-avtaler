@@ -60,7 +60,7 @@ export function OpprettAvtale() {
       </Avstand>
       <BodyLong spacing>
         <AppLink href="/avtale.pdf" target="_blank">
-          {t('avtale.lenke_signert_avtale')}
+          {t('avtale.lenke_last_ned_avtalen')}
         </AppLink>
       </BodyLong>
       <form
