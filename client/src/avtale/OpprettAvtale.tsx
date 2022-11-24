@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, ConfirmationPanel, Heading, TextField } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, ConfirmationPanel, Heading } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import { Avstand } from '../components/Avstand';
 import { HentKommuneResponse, StartSigneringRequest } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
-import { logSkjemaFullført, skjemanavn } from '../utils/amplitude';
+import { logSkjemaStegFullført } from '../utils/amplitude';
 import { Avtale } from './Avtale';
 import Spinner from '../components/Spinner';
 
@@ -68,7 +68,7 @@ export function OpprettAvtale() {
           await startSignering({
             orgnr: kommune.orgnr,
           });
-          logSkjemaFullført(kommune?.orgnr, skjemanavn.SKJEMANAVN_OPPRETT);
+          logSkjemaStegFullført(kommune.orgnr, 1);
         })}
       >
         <Avstand marginTop={5} marginBottom={5}>

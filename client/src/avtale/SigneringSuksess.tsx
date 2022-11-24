@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Alert } from '@navikt/ds-react';
 import Spinner from '../components/Spinner';
+import { logSkjemaFullført, skjemanavn } from '../utils/amplitude';
 
 const SigneringSuksess = () => {
   const statusQueryToken = new URLSearchParams(useLocation().search).get('status_query_token');
@@ -30,6 +31,8 @@ const SigneringSuksess = () => {
 
   useEffect(() => {
     if (avtale) {
+      logSkjemaFullført(avtale.orgnr, skjemanavn.SKJEMANAVN_OPPRETT_AVTALE);
+
       navigate('/opprett-avtale/kvittering', {
         state: avtale,
       });

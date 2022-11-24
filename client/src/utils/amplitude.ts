@@ -1,9 +1,10 @@
 import amplitude from 'amplitude-js';
 
 export enum skjemanavn {
-  SKJEMANAVN_OPPRETT = 'Opprett avtale',
+  SKJEMANAVN_OPPRETT_AVTALE = 'Opprett avtale',
 }
 
+//https://github.com/navikt/analytics-taxonomy/tree/main/events/
 export enum amplitude_taxonomy {
   SKJEMA_START = 'skjema startet',
   SKJEMA_ÅPEN = 'skjema åpnet',
@@ -12,6 +13,7 @@ export enum amplitude_taxonomy {
   SKJEMAINNSENDING_FEILET = 'skjemainnsending feilet',
   SKJEMA_FULLFØRT = 'skjema fullført',
   NAVIGERE = 'navigere',
+  LAST_NED = 'last ned',
 }
 export const initAmplitude = () => {
   if (amplitude) {
@@ -42,17 +44,24 @@ export function logAmplitudeEvent(eventName: string, data?: any) {
   });
 }
 
-export function logSkjemaStartet(id: string, skjemanavn: skjemanavn) {
+export function logSkjemaStartet(id: string) {
   logAmplitudeEvent(amplitude_taxonomy.SKJEMA_START, {
-    skjemanavn: skjemanavn,
+    skjemanavn: skjemanavn.SKJEMANAVN_OPPRETT_AVTALE,
     skjemaId: id,
   });
 }
 
-export function logSkjemaFullført(id: string, skjemanavn: skjemanavn) {
+export function logSkjemaFullført(id: string) {
   logAmplitudeEvent(amplitude_taxonomy.SKJEMA_FULLFØRT, {
-    skjemanavn: skjemanavn,
+    skjemanavn: skjemanavn.SKJEMANAVN_OPPRETT_AVTALE,
     skjemaId: id,
+  });
+}
+export function logSkjemaStegFullført(id: string, steg: number) {
+  logAmplitudeEvent(amplitude_taxonomy.SKJEMA_FULLFØRT, {
+    skjemanavn: skjemanavn.SKJEMANAVN_OPPRETT_AVTALE,
+    skjemaId: id,
+    steg: steg,
   });
 }
 
@@ -67,5 +76,13 @@ export function logNavigering(destinasjon: string, lenketekst: string) {
   logAmplitudeEvent(amplitude_taxonomy.NAVIGERE, {
     destinasjon: destinasjon,
     lenketekst: lenketekst,
+  });
+}
+
+export function logLastNed(type: string, tema: string, tittel: string) {
+  logAmplitudeEvent(amplitude_taxonomy.NAVIGERE, {
+    type: type,
+    tema: tema,
+    tittel: tittel,
   });
 }

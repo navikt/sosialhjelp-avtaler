@@ -17,7 +17,7 @@ export function OpprettAvtaleLinkPanel(props: KommunePanelProps) {
   return (
     <LinkPanel
       onClick={() => {
-        logSkjemaStartet(kommune.orgnr, skjemanavn.SKJEMANAVN_OPPRETT);
+        logSkjemaStartet(kommune.orgnr, skjemanavn.SKJEMANAVN_OPPRETT_AVTALE);
         navigate(`/opprett-avtale/${kommune.orgnr}`);
       }}
     >

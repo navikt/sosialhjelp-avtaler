@@ -11,7 +11,7 @@ const SigneringFeil = () => {
 
   useEffect(() => {
     if (orgnr) {
-      logSkjemaInnsendingFeilet(orgnr, skjemanavn.SKJEMANAVN_OPPRETT);
+      logSkjemaInnsendingFeilet(orgnr, skjemanavn.SKJEMANAVN_OPPRETT_AVTALE);
     }
   }, [orgnr]);
 

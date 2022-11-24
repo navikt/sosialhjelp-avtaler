@@ -6,6 +6,7 @@ import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
 import { Kommune } from '../types';
 import { AvtalePanel } from './AvtalePanel';
+import { logLastNed } from '../utils/amplitude';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
@@ -13,6 +14,14 @@ export function AvtaleKvittering() {
   if (!kommune) {
     return null;
   }
+
+  const onLastNedAvtale = () => {
+    logLastNed(
+      'avtaledokument',
+      'Avtale mellom kommune og Arbeids- og velferdsdirektoratet',
+      'Avtale om innsynsflate NKS'
+    );
+  };
 
   return (
     <main>
@@ -22,7 +31,7 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        <AppLink href="/avtale.pdf" target="_blank">
+        <AppLink href="/avtale.pdf" target="_blank" onClick={onLastNedAvtale}>
           {t('avtale.lenke_last_ned_avtalen')}
         </AppLink>
       </BodyLong>
@@ -33,6 +42,14 @@ export function AvtaleKvittering() {
             href="https://www.nav.no/no/nav-og-samfunn/samarbeid/for-kommunen/digisos/nyheter-fra-digisos/innsyn-i-opplysninger-om-saker-for-okonomisk-sosialhjelp-for-nav-kontaktsenter-er-i-pilot"
             target="_blank"
           >
+            <></>
+          </DsLink>
+        </Trans>
+      </BodyLong>{' '}
+      <BodyLong spacing>
+        <Trans t={t} i18nKey="avtale.lenke_til_fiks">
+          <></>
+          <DsLink href="https://forvaltning.fiks.ks.no/" target="_blank">
             <></>
           </DsLink>
         </Trans>
