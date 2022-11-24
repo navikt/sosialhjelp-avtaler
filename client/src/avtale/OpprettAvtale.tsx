@@ -9,7 +9,7 @@ import { Avstand } from '../components/Avstand';
 import { HentKommuneResponse, StartSigneringRequest } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
-import { logSkjemaStegFullført } from '../utils/amplitude';
+import { logLastNedAvtale, logSkjemaStegFullført } from '../utils/amplitude';
 import { Avtale } from './Avtale';
 import Spinner from '../components/Spinner';
 
@@ -59,7 +59,7 @@ export function OpprettAvtale() {
         <Avtale />
       </Avstand>
       <BodyLong spacing>
-        <AppLink href="/avtale.pdf" target="_blank">
+        <AppLink href="/avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
           {t('avtale.lenke_last_ned_avtalen')}
         </AppLink>
       </BodyLong>

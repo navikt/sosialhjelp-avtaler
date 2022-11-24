@@ -6,7 +6,7 @@ import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
 import { Kommune } from '../types';
 import { AvtalePanel } from './AvtalePanel';
-import { logLastNed } from '../utils/amplitude';
+import { logLastNedAvtale } from '../utils/amplitude';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
@@ -14,14 +14,6 @@ export function AvtaleKvittering() {
   if (!kommune) {
     return null;
   }
-
-  const onLastNedAvtale = () => {
-    logLastNed(
-      'avtaledokument',
-      'Avtale mellom kommune og Arbeids- og velferdsdirektoratet',
-      'Avtale om innsynsflate NKS'
-    );
-  };
 
   return (
     <main>
@@ -31,7 +23,7 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        <AppLink href="/avtale.pdf" target="_blank" onClick={onLastNedAvtale}>
+        <AppLink href="/avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
           {t('avtale.lenke_last_ned_avtalen')}
         </AppLink>
       </BodyLong>

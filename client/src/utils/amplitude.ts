@@ -79,10 +79,11 @@ export function logNavigering(destinasjon: string, lenketekst: string) {
   });
 }
 
-export function logLastNed(type: string, tema: string, tittel: string) {
-  logAmplitudeEvent(amplitude_taxonomy.NAVIGERE, {
-    type: type,
-    tema: tema,
-    tittel: tittel,
+export function logLastNedAvtale(urlLastetNedFra: string) {
+  logAmplitudeEvent(amplitude_taxonomy.LAST_NED, {
+    type: 'avtaledokument',
+    tema: 'Avtale mellom kommune og Arbeids- og velferdsdirektoratet',
+    tittel: 'Avtale om innsynsflate NKS',
+    urlLastetNedFra: urlLastetNedFra,
   });
 }
