@@ -31,7 +31,7 @@ const SigneringSuksess = () => {
 
   useEffect(() => {
     if (avtale) {
-      logSkjemaFullført(avtale.orgnr, skjemanavn.SKJEMANAVN_OPPRETT_AVTALE);
+      logSkjemaFullført(avtale.orgnr);
 
       navigate('/opprett-avtale/kvittering', {
         state: avtale,
