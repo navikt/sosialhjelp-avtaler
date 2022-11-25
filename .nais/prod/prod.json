@@ -1,0 +1,22 @@
+{
+  "applicationName": "sosialhjelp-avtaler",
+  "ingresses": ["https://www.nav.no/sosialhjelp/avtaler"],
+  "outboundExternalHosts": [
+    "oidc-ver2.difi.no"
+  ],
+  "outboundRulesApplications": ["sosialhjelp-avtaler-api"],
+  "env": {
+    "AVTALER_API_BASE_URL": "http://sosialhjelp-avtaler-api.teamdigisos.svc.cluster.local",
+    "AVTALER_API_TARGET_AUDIENCE":"prod-gcp:teamdigisos:sosialhjelp-avtaler-api",
+    "PORT": "5000",
+    "MILJO": "prod-gcp"
+  },
+  "minReplicas": "2",
+  "maxReplicas": "2",
+  "cpuLimit": "200m",
+  "memoryLimit": "256Mi",
+  "cpuRequest": "10m",
+  "memoryRequest": "61Mi",
+  "tokenXEnabled": true,
+  "idportenEnabled": true
+}
