@@ -6,6 +6,7 @@
   "avtale.kvittering_for": "Kvittering for {{navn}}",
   "avtale.lenke_last_ned_avtalen": "Last ned kopi av avtalen",
   "avtale.lenke_tilbake_til_forsiden": "Tilbake til forsiden",
+  "avtale.lenke_til_fiks": "Hvis dere ikke allerede har aktivert innsynsflate NKS, kan den som har tilgang og tidligere har håndtert påkobling til Digisos-løsningene gjøre dette via FIKS konfigurasjonen. Dette gjøres her: <1>https://forvaltning.fiks.ks.no/</1> ",
   "avtale.mer_informasjon": "Her kan dere finne mer informasjon om innsynsflaten: <1>Innsyn i opplysninger for økonomisk sosialhjelp</1>",
   "avtale.må_huke_av": "Du må huke av for å gå videre",
   "avtale.opprett_avtale_for": "Opprett avtale for {{navn}}",
