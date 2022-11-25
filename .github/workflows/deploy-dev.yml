@@ -52,8 +52,6 @@ jobs:
         with:
           node-version: '16'
           registry-url: 'https://npm.pkg.github.com'
-          cache: 'npm'
-
           scope: '@navikt'
       - name: Installer dependencies
         run: npm ci
