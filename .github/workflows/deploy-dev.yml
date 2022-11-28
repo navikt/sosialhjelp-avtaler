@@ -60,7 +60,7 @@ jobs:
       - name: Test
         run: npm run test
       - name: Build app
-        run: npm build
+        run: npm run build
       - name: Create artifact version
         id: artifact-version
         uses: navikt/sosialhjelp-ci/actions/create-artifact-version@master
