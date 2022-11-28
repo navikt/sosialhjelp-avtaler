@@ -1,31 +1,25 @@
-FROM node:16-alpine as client-builder
-WORKDIR /app
-COPY client/package.json client/package-lock.json ./
-COPY client .
-
-
-FROM node:16-alpine as server-builder
-WORKDIR /app
-COPY server/package.json server/package-lock.json ./
-COPY server .
-
-FROM node:16-alpine as server-dependencies
-WORKDIR /app
-COPY server/package.json server/package-lock.json ./
-
-
-FROM gcr.io/distroless/nodejs:16 as runtime
-
-WORKDIR /app
-
+FROM node:16-alpine
 ENV NODE_ENV=production
-EXPOSE 5000
 
-COPY --from=client-builder /app/dist ./client/dist
-COPY --from=server-builder /app/dist ./server/dist
+WORKDIR /app
+
+COPY server/dist/ ./server/dist
+COPY server/node_modules/ ./server/node_modules
+
+
+COPY client/dist/ ./client/dist
+COPY client/node_modules/ ./client/node_modules
+
+
+
+COPY node_modules/ ./node_modules
+
+
+EXPOSE 5001
+
 
 WORKDIR /app/server
 
-COPY --from=server-dependencies /app/node_modules ./node_modules
+
 
 CMD [ "-r", "source-map-support/register", "-r", "dotenv/config", "dist/server.js" ]
