@@ -3,7 +3,7 @@ import path from 'path';
 export const config = {
   base_path: '/sosialhjelp/avtaler/',
   build_path: path.join(__dirname, '../../client/dist'),
-  port: process.env.PORT || 5001,
+  port: process.env.PORT || 5000,
   node_env: process.env.NODE_ENV || 'production',
   miljo: process.env.MILJO || 'mock',
   use_msw: process.env.USE_MSW === 'true',
