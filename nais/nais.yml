@@ -39,7 +39,7 @@ spec:
       level: Level4
       locale: nb
       autoLogin: true
-      errorPath: ""'
+      errorPath: ""
 {{/if}}
   tokenx:
     enabled: {{tokenXEnabled}}
