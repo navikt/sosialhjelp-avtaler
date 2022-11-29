@@ -9,7 +9,7 @@ spec:
   image: {{image}}
   port: 5000
   ingresses:
-{{#each ingress}}
+{{#each ingresses}}
     - "{{this}}"
 {{/each}}
   liveness:
