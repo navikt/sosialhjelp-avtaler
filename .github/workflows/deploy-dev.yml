@@ -96,7 +96,7 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           VARS: nais/dev/${{github.event.inputs.config-file-name}}.json
-          RESOURCE: .nais/nais.yml
+          RESOURCE: nais/nais.yml
           REF: ${{ github.sha }}
           PRINT_PAYLOAD: true
           IMAGE: ${{ env.DOCKER_TAG }}
