@@ -33,13 +33,13 @@ spec:
     enabled: true
 {{#if idportenEnabled}}
   idporten:
-    enabled: {{idportenEnabled}}
-  sidecar:
     enabled: true
-    level: Level4
-    locale: nb
-    autoLogin: true
-    errorPath: ""
+    sidecar:
+      enabled: true
+      level: Level4
+      locale: nb
+      autoLogin: true
+      errorPath: ""'
 {{/if}}
   tokenx:
     enabled: {{tokenXEnabled}}
