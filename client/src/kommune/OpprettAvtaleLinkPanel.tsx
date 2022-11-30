@@ -13,7 +13,7 @@ export function OpprettAvtaleLinkPanel(props: KommunePanelProps) {
   const { kommune } = props;
 
   return (
-    <LinkPanel href={baseUrl(`/opprett-avtale/${kommune.orgnr})`)}>
+    <LinkPanel href={baseUrl(`/opprett-avtale/${kommune.orgnr}`)}>
       <LinkPanel.Title className="navds-heading--small navds-typo--spacing">{kommune.navn}</LinkPanel.Title>
       <LinkPanel.Description>
         <Data>
