@@ -1,10 +1,8 @@
 import { LinkPanel } from '@navikt/ds-react';
-import { useNavigate } from 'react-router-dom';
 import { Data } from '../components/Data';
 import { Datum } from '../components/Datum';
 import { Organisasjonsnummer } from '../components/Organisasjonsnummer';
 import { Kommune } from '../types';
-import { logSkjemaStartet, skjemanavn } from '../utils/amplitude';
 
 export interface KommunePanelProps {
   kommune: Kommune;
@@ -12,15 +10,9 @@ export interface KommunePanelProps {
 
 export function OpprettAvtaleLinkPanel(props: KommunePanelProps) {
   const { kommune } = props;
-  const navigate = useNavigate();
 
   return (
-    <LinkPanel
-      onClick={() => {
-        logSkjemaStartet(kommune.orgnr);
-        navigate(`/opprett-avtale/${kommune.orgnr}`);
-      }}
-    >
+    <LinkPanel href={`/opprett-avtale/${kommune.orgnr}`}>
       <LinkPanel.Title className="navds-heading--small navds-typo--spacing">{kommune.navn}</LinkPanel.Title>
       <LinkPanel.Description>
         <Data>
