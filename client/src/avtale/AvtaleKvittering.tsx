@@ -23,7 +23,7 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        <AppLink href="/Avtale.pdf" target="_blank">
+        <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
           {t('avtale.lenke_last_ned_avtalen')}
         </AppLink>
       </BodyLong>
