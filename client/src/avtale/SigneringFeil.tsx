@@ -16,7 +16,7 @@ const SigneringFeil = () => {
   }, [orgnr]);
 
   return (
-    <main>
+    <main tabIndex={-1}>
       <>
         <Heading level="2" size="large" spacing>
           {t('signering.feil')}

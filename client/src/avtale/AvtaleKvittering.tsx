@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Heading } from '@navikt/ds-react';
+import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { AppLink } from '../components/AppLink';
@@ -7,6 +7,7 @@ import { DsLink } from '../components/DsLink';
 import { Kommune } from '../types';
 import { AvtalePanel } from './AvtalePanel';
 import { logLastNedAvtale } from '../utils/amplitude';
+import styled from 'styled-components/macro';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
@@ -46,9 +47,19 @@ export function AvtaleKvittering() {
           </DsLink>
         </Trans>
       </BodyLong>
+      <StyledAlert variant="info" inline>
+        <Heading level="3" size="xsmall">
+          {t('personopplysninger.overskrift')}
+        </Heading>
+        <BodyLong>{t('personopplysninger.detaljer')}</BodyLong>
+      </StyledAlert>
       <AvtalePanel kommune={kommune} />
       <Avstand marginBottom={5} />
       <Link to="/">{t('avtale.lenke_tilbake_til_forsiden')}</Link>
     </main>
   );
 }
+
+const StyledAlert = styled(Alert)`
+  margin-bottom: var(--navds-spacing-7);
+`;
