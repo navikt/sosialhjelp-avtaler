@@ -61,5 +61,5 @@ export function AvtaleKvittering() {
 }
 
 const StyledAlert = styled(Alert)`
-  margin-bottom: var(--navds-spacing-7);
+  margin-bottom: var(--a-spacing-7);
 `;
