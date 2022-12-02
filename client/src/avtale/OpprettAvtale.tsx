@@ -54,7 +54,13 @@ export function OpprettAvtale() {
       <Heading level="2" size="medium" spacing>
         {t('avtale.opprett_avtale_for', { navn: kommune.navn })}
       </Heading>
-      <BodyLong>{t('avtale.ingress')}</BodyLong>
+      <BodyLong spacing>{t('avtale.ingress')}</BodyLong>
+      <Alert variant="info" inline>
+        <Heading spacing level="3" size="xsmall">
+          {t('personopplysninger.overskrift')}
+        </Heading>
+        <BodyLong>{t('personopplysninger.detaljer')}</BodyLong>
+      </Alert>
       <Avstand marginTop={5} marginBottom={5}>
         <Avtale />
       </Avstand>
@@ -83,15 +89,17 @@ export function OpprettAvtale() {
             render={({ field }) => (
               <ConfirmationPanel
                 error={errors.lest?.message}
-                label={t('avtale.bekreftelse')}
+                label={t('avtale.samtykke')}
                 checked={field.value}
                 {...field}
-              />
+              >
+                <BodyLong spacing>{t('avtale.bekreftelse.1')}</BodyLong>
+                <BodyLong>{t('avtale.bekreftelse.2')}</BodyLong>
+              </ConfirmationPanel>
             )}
           />
         </Avstand>
         <StyledAlert variant="info">{t('signering.videresendt')}</StyledAlert>
-
         <Knapper>
           <Button type="submit" loading={isSubmitting} disabled={isSubmitting}>
             {t('avtale.inngå_avtale')}
