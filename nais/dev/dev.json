@@ -1,9 +1,6 @@
 {
   "applicationName": "sosialhjelp-avtaler-dev",
   "ingresses": ["https://digisos.dev.nav.no/sosialhjelp/avtaler"],
-  "outboundExternalHosts": [
-    "oidc-ver2.difi.no"
-  ],
   "outboundRulesApplications": ["sosialhjelp-avtaler-api-dev"],
   "env": {
     "AVTALER_API_BASE_URL": "http://sosialhjelp-avtaler-api-dev.teamdigisos.svc.cluster.local",
