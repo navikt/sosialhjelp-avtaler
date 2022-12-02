@@ -9,7 +9,7 @@ import { Avstand } from '../components/Avstand';
 import { HentKommuneResponse, StartSigneringRequest } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
-import { logLastNedAvtale, logSkjemaStegFullført } from '../utils/amplitude';
+import { logLastNedAvtale, logSkjemaStartet, logSkjemaStegFullført } from '../utils/amplitude';
 import { Avtale } from './Avtale';
 import Spinner from '../components/Spinner';
 
@@ -27,8 +27,14 @@ export function OpprettAvtale() {
     },
   });
   const { post: startSignering, data: requestUrl } = usePost<StartSigneringRequest, string>('/avtale/signer');
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (orgnr) {
+      logSkjemaStartet(orgnr);
+    }
+  }, [orgnr]);
+
   useEffect(() => {
     if (requestUrl) {
       window.location.href = requestUrl;
@@ -60,7 +66,7 @@ export function OpprettAvtale() {
         <Avtale />
       </Avstand>
       <BodyLong spacing>
-        <AppLink href="/avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
+        <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
           {t('avtale.lenke_last_ned_avtalen')}
         </AppLink>
       </BodyLong>
