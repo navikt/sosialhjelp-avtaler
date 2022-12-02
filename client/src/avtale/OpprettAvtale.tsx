@@ -9,7 +9,7 @@ import { Avstand } from '../components/Avstand';
 import { HentKommuneResponse, StartSigneringRequest } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
-import { logLastNedAvtale, logSkjemaStegFullført } from '../utils/amplitude';
+import { logLastNedAvtale, logSkjemaStartet, logSkjemaStegFullført } from '../utils/amplitude';
 import { Avtale } from './Avtale';
 import Spinner from '../components/Spinner';
 
@@ -27,8 +27,14 @@ export function OpprettAvtale() {
     },
   });
   const { post: startSignering, data: requestUrl } = usePost<StartSigneringRequest, string>('/avtale/signer');
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (orgnr) {
+      logSkjemaStartet(orgnr);
+    }
+  }, [orgnr]);
+
   useEffect(() => {
     if (requestUrl) {
       window.location.href = requestUrl;
@@ -54,12 +60,18 @@ export function OpprettAvtale() {
       <Heading level="2" size="medium" spacing>
         {t('avtale.opprett_avtale_for', { navn: kommune.navn })}
       </Heading>
-      <BodyLong>{t('avtale.ingress')}</BodyLong>
+      <BodyLong spacing>{t('avtale.ingress')}</BodyLong>
+      <Alert variant="info" inline>
+        <Heading spacing level="3" size="xsmall">
+          {t('personopplysninger.overskrift')}
+        </Heading>
+        <BodyLong>{t('personopplysninger.detaljer')}</BodyLong>
+      </Alert>
       <Avstand marginTop={5} marginBottom={5}>
         <Avtale />
       </Avstand>
       <BodyLong spacing>
-        <AppLink href="/avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
+        <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
           {t('avtale.lenke_last_ned_avtalen')}
         </AppLink>
       </BodyLong>
@@ -83,15 +95,17 @@ export function OpprettAvtale() {
             render={({ field }) => (
               <ConfirmationPanel
                 error={errors.lest?.message}
-                label={t('avtale.bekreftelse')}
+                label={t('avtale.samtykke')}
                 checked={field.value}
                 {...field}
-              />
+              >
+                <BodyLong spacing>{t('avtale.bekreftelse.1')}</BodyLong>
+                <BodyLong>{t('avtale.bekreftelse.2')}</BodyLong>
+              </ConfirmationPanel>
             )}
           />
         </Avstand>
         <StyledAlert variant="info">{t('signering.videresendt')}</StyledAlert>
-
         <Knapper>
           <Button type="submit" loading={isSubmitting} disabled={isSubmitting}>
             {t('avtale.inngå_avtale')}
