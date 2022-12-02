@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, ConfirmationPanel, Heading } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, ConfirmationPanel, Heading, ReadMore } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -55,12 +55,7 @@ export function OpprettAvtale() {
         {t('avtale.opprett_avtale_for', { navn: kommune.navn })}
       </Heading>
       <BodyLong spacing>{t('avtale.ingress')}</BodyLong>
-      <Alert variant="info" inline>
-        <Heading spacing level="3" size="xsmall">
-          {t('personopplysninger.overskrift')}
-        </Heading>
-        <BodyLong>{t('personopplysninger.detaljer')}</BodyLong>
-      </Alert>
+      <ReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</ReadMore>
       <Avstand marginTop={5} marginBottom={5}>
         <Avtale />
       </Avstand>
