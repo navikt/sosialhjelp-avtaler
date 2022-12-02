@@ -15,7 +15,7 @@ export function Avtale() {
 
   return (
     <>
-      <Accordion>
+      <Accordion lang="nb">
         <Accordion.Item>
           <Accordion.Header> {t('avtale.overskrift')}</Accordion.Header>
           <Accordion.Content>
