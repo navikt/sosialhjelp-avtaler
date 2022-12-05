@@ -48,7 +48,7 @@ export function App() {
             <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
             <Route path="*" element={<Feilside status={404} />} />
           </Routes>
-          <Kontakt className="main">
+          <Kontakt>
             <Trans t={t} i18nKey="problemer">
               <></>
               <a href="mailto:digisos@nav.no" />
@@ -61,7 +61,5 @@ export function App() {
 }
 
 const Kontakt = styled.div`
-  max-width: 42rem;
-  margin: 0 auto;
-  padding: 0 40px 40px 40px;
+  margin-top: 40px;
 `;
