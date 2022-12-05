@@ -13,6 +13,7 @@ function useBreadcrumbs(sider?: { tittel: string; path: string }[]) {
       const sideUrl = `${forsideUrl}${side.path}`;
       breadcrumbs.push({ title: side.tittel, url: sideUrl });
     });
+    console.log(breadcrumbs);
     setBreadcrumbs(breadcrumbs);
   }, [sider]);
 }

@@ -14,12 +14,12 @@ import { usePageTitle } from '../components/hooks/usePageTitle';
 export function AvtaleKvittering() {
   const { t } = useTranslation();
   const { state: kommune } = useLocation() as { state: Kommune };
+  usePageTitle(t('brødsmuler.kvittering'));
+  useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
+
   if (!kommune) {
     return null;
   }
-
-  usePageTitle(t('brødsmuler.kvittering'));
-  useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
   return (
     <>
