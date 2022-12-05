@@ -16,7 +16,7 @@ const SigneringSuksess = () => {
   const { t } = useTranslation();
 
   usePageTitle(t('brødsmuler.signering_suksess'));
-  useBreadcrumbs([{ tittel: t('brødsmuler.signering_suksess'), path: '/' }]);
+
   const navigate = useNavigate();
   const { post: sendStatus, data: avtale } = usePost<SigneringsstatusRequest, OpprettAvtaleResponse>(
     '/avtale/signeringsstatus'

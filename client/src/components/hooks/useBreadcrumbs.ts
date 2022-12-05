@@ -10,8 +10,7 @@ function useBreadcrumbs(sider?: { tittel: string; path: string }[]) {
   useEffect(() => {
     const breadcrumbs = [{ title: t('brødsmuler.forside'), url: forsideUrl }];
     sider?.forEach((side) => {
-      const sideUrl = `${forsideUrl}${side.path}`;
-      breadcrumbs.push({ title: side.tittel, url: sideUrl });
+      breadcrumbs.push({ title: side.tittel, url: baseUrl(side.path) });
     });
     console.log(breadcrumbs);
     setBreadcrumbs(breadcrumbs);
