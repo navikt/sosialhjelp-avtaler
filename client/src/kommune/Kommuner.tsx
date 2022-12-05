@@ -24,16 +24,16 @@ export function Kommuner() {
 
   if (kommuner && !kommuner.length) {
     return (
-      <main>
+      <>
         <Alert variant="info">
           <BodyLong>{t('kommune.ingen_kommuner')}</BodyLong>
         </Alert>
-      </main>
+      </>
     );
   }
 
   return (
-    <main>
+    <>
       {kommunerUtenAvtale.length > 0 && (
         <>
           <Heading level="2" size="medium" spacing>
@@ -59,7 +59,7 @@ export function Kommuner() {
           </Kolonne>
         </>
       )}
-    </main>
+    </>
   );
 }
 

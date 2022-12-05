@@ -18,7 +18,7 @@ import SigneringSuksess from './avtale/SigneringSuksess';
 export function App() {
   const { t, i18n } = useTranslation();
   useEffect(() => {
-    setBreadcrumbs([{ url: baseUrl('/'), title: t('brødsmuler.1') }]);
+    setBreadcrumbs([{ url: baseUrl('/'), title: t('brødsmuler.forside') }]);
   }, []);
 
   return (
@@ -43,7 +43,7 @@ export function App() {
           <Routes>
             <Route path="/" element={<Kommuner />} />
             <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
-            <Route path="/opprett-avtale/feil/:orgnr'" element={<SigneringFeil />} />
+            <Route path="/opprett-avtale/feil/:orgnr" element={<SigneringFeil />} />
             <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
             <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
             <Route path="*" element={<Feilside status={404} />} />

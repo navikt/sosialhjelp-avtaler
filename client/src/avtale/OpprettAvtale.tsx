@@ -12,6 +12,8 @@ import { usePost } from '../api/usePost';
 import { logLastNedAvtale, logSkjemaStartet, logSkjemaStegFullført } from '../utils/amplitude';
 import { Avtale } from './Avtale';
 import Spinner from '../components/Spinner';
+import { usePageTitle } from '../components/hooks/usePageTitle';
+import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 
 export function OpprettAvtale() {
   const { t } = useTranslation();
@@ -28,6 +30,8 @@ export function OpprettAvtale() {
   });
   const { post: startSignering, data: requestUrl } = usePost<StartSigneringRequest, string>('/avtale/signer');
   const navigate = useNavigate();
+  usePageTitle(t('brødsmuler.opprett'));
+  useBreadcrumbs([{ tittel: t('brødsmuler.opprett'), path: '/' }]);
 
   useEffect(() => {
     if (orgnr) {
@@ -56,7 +60,7 @@ export function OpprettAvtale() {
     return null;
   }
   return (
-    <main>
+    <>
       <Heading level="2" size="medium" spacing>
         {t('avtale.opprett_avtale_for', { navn: kommune.navn })}
       </Heading>
@@ -121,7 +125,7 @@ export function OpprettAvtale() {
           </Button>
         </Knapper>
       </form>
-    </main>
+    </>
   );
 }
 

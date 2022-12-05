@@ -5,6 +5,8 @@ import { AppLink } from './components/AppLink';
 import { Avstand } from './components/Avstand';
 import { Pipe } from './components/Pipe';
 import { hentUtviklerinformasjon } from './error';
+import { usePageTitle } from './components/hooks/usePageTitle';
+import useBreadcrumbs from './components/hooks/useBreadcrumbs';
 
 export interface FeilsideProps {
   status: number;
@@ -14,9 +16,11 @@ export interface FeilsideProps {
 export function Feilside(props: FeilsideProps) {
   const { status, error } = props;
   const { t } = useTranslation();
+  usePageTitle(t('brødsmuler.feil'));
+  useBreadcrumbs([{ tittel: t('brødsmuler.feil'), path: '/' }]);
   const utviklerinformasjon = hentUtviklerinformasjon(error);
   return (
-    <main>
+    <>
       <Avstand paddingLeft={3} paddingRight={3}>
         <Heading level="2" size="large" spacing>
           {t(overskrift[status] || 'Teknisk feil')}
@@ -38,7 +42,7 @@ export function Feilside(props: FeilsideProps) {
           </Accordion.Item>
         </Accordion>
       )}
-    </main>
+    </>
   );
 }
 
