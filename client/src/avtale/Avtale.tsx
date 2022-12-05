@@ -15,10 +15,10 @@ export function Avtale() {
 
   return (
     <>
-      <Accordion lang="nb">
+      <Accordion>
         <Accordion.Item>
           <Accordion.Header> {t('avtale.overskrift')}</Accordion.Header>
-          <Accordion.Content>
+          <Accordion.Content lang="nb">
             <TopHeader>1. Formål og virkeområde</TopHeader>
             <BodyLong spacing>
               Kommunen og Arbeids- og velferdsdirektoratet inngår med dette en avtale om tilgjengeliggjøring av sentrale
