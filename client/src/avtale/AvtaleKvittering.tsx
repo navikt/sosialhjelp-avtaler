@@ -52,12 +52,7 @@ export function AvtaleKvittering() {
           </DsLink>
         </Trans>
       </BodyLong>
-      <StyledAlert variant="info" inline>
-        <Heading level="3" size="xsmall">
-          {t('personopplysninger.overskrift')}
-        </Heading>
-        <BodyLong>{t('personopplysninger.detaljer')}</BodyLong>
-      </StyledAlert>
+      <StyledReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</StyledReadMore>
       <AvtalePanel kommune={kommune} />
       <Avstand marginBottom={5} />
       <Link to="/">{t('avtale.lenke_tilbake_til_forsiden')}</Link>
@@ -65,6 +60,6 @@ export function AvtaleKvittering() {
   );
 }
 
-const StyledAlert = styled(Alert)`
-  margin-bottom: var(--navds-spacing-7);
+const StyledReadMore = styled(ReadMore)`
+  margin-bottom: var(--a-spacing-7);
 `;

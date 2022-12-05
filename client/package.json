@@ -11,10 +11,10 @@
     "prettier": "prettier -w src"
   },
   "dependencies": {
-    "@navikt/ds-css": "^1.2.0",
-    "@navikt/ds-icons": "^1.2.0",
-    "@navikt/ds-react": "^1.2.0",
-    "@navikt/nav-dekoratoren-moduler": "^1.6.9",
+    "@navikt/ds-css": "^2.0.5",
+    "@navikt/ds-icons": "^2.0.5",
+    "@navikt/ds-react": "^2.0.5",
+    "@navikt/nav-dekoratoren-moduler": "^1.8.1",
     "amplitude-js": "^8.20.0",
     "date-fns": "^2.29.2",
     "i18next": "^21.9.1",
@@ -42,7 +42,7 @@
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^2.0.1",
     "cypress": "^10.6.0",
-    "msw": "^0.45.0",
+    "msw": "^0.49.1",
     "mustache": "^4.2.0",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",

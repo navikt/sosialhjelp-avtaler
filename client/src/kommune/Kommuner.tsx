@@ -65,5 +65,5 @@ export function Kommuner() {
 
 const Kolonne = styled.div`
   display: grid;
-  gap: var(--navds-spacing-5);
+  gap: var(--a-spacing-5);
 `;

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Data = styled.dl`
   display: grid;
   grid-template-columns: 150px auto;
-  gap: var(--navds-spacing-1) var(--navds-spacing-2);
+  gap: var(--a-spacing-1) var(--a-spacing-2);
   margin: 0;
   align-items: center;
 
