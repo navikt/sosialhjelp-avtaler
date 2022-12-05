@@ -17,7 +17,6 @@ import useBreadcrumbs from './components/hooks/useBreadcrumbs';
 
 export function App() {
   const { t, i18n } = useTranslation();
-  useBreadcrumbs();
   return (
     <>
       <header>

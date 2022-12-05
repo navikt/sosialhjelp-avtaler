@@ -7,9 +7,12 @@ import { HentKommunerResponse } from '../types';
 import { useGet } from '../api/useGet';
 import { OpprettAvtaleLinkPanel } from './OpprettAvtaleLinkPanel';
 import Spinner from '../components/Spinner';
+import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 
 export function Kommuner() {
   const { t } = useTranslation();
+  useBreadcrumbs();
+
   const { data: kommuner, error } = useGet<HentKommunerResponse>('/kommuner');
 
   if (!kommuner && !error) {
