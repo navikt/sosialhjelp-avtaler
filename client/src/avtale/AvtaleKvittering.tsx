@@ -56,5 +56,5 @@ export function AvtaleKvittering() {
 }
 
 const StyledReadMore = styled(ReadMore)`
-  margin-bottom: var(--navds-spacing-7);
+  margin-bottom: var(--a-spacing-7);
 `;

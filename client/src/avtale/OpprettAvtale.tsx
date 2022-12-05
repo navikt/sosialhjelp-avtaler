@@ -123,7 +123,7 @@ export function OpprettAvtale() {
 const Knapper = styled.div`
   display: grid;
   grid-auto-flow: column;
-  gap: var(--navds-spacing-3);
+  gap: var(--a-spacing-3);
   justify-content: left;
 `;
 
