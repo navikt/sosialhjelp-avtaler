@@ -8,16 +8,21 @@ import { Kommune } from '../types';
 import { AvtalePanel } from './AvtalePanel';
 import { logLastNedAvtale } from '../utils/amplitude';
 import styled from 'styled-components/macro';
+import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
+import { usePageTitle } from '../components/hooks/usePageTitle';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
   const { state: kommune } = useLocation() as { state: Kommune };
+  usePageTitle(t('brødsmuler.kvittering'));
+  useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
+
   if (!kommune) {
     return null;
   }
 
   return (
-    <main>
+    <>
       <Heading level="2" size="medium" spacing>
         {t('avtale.kvittering_for', { navn: kommune.navn })}
       </Heading>
@@ -51,7 +56,7 @@ export function AvtaleKvittering() {
       <AvtalePanel kommune={kommune} />
       <Avstand marginBottom={5} />
       <Link to="/">{t('avtale.lenke_tilbake_til_forsiden')}</Link>
-    </main>
+    </>
   );
 }
 

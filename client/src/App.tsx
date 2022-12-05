@@ -1,5 +1,4 @@
 import { Heading } from '@navikt/ds-react';
-import { setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Trans, useTranslation } from 'react-i18next';
@@ -14,13 +13,10 @@ import { baseUrl } from './api/http';
 import { Kommuner } from './kommune/Kommuner';
 import SigneringFeil from './avtale/SigneringFeil';
 import SigneringSuksess from './avtale/SigneringSuksess';
+import useBreadcrumbs from './components/hooks/useBreadcrumbs';
 
 export function App() {
-  const { t } = useTranslation();
-  useEffect(() => {
-    setBreadcrumbs([{ url: baseUrl('/'), title: t('brødsmuler.1') }]);
-  }, []);
-
+  const { t, i18n } = useTranslation();
   return (
     <>
       <header>
@@ -30,36 +26,36 @@ export function App() {
           </Heading>
         </Banner>
       </header>
-      <ErrorBoundary
-        fallbackRender={({ error }) => {
-          if (isHttpError(error)) {
-            return <Feilside status={error.status} error={error} />;
-          } else {
-            return <Feilside status={500} error={error} />;
-          }
-        }}
-      >
-        <Routes>
-          <Route path="/" element={<Kommuner />} />
-          <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
-          <Route path="/opprett-avtale/feil/:orgnr'" element={<SigneringFeil />} />
-          <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
-          <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
-          <Route path="*" element={<Feilside status={404} />} />
-        </Routes>
-        <Kontakt className="main">
-          <Trans t={t} i18nKey="problemer">
-            <></>
-            <a href="mailto:digisos@nav.no" />
-          </Trans>
-        </Kontakt>
-      </ErrorBoundary>
+      <main tabIndex={-1} lang={i18n.language}>
+        <ErrorBoundary
+          fallbackRender={({ error }) => {
+            if (isHttpError(error)) {
+              return <Feilside status={error.status} error={error} />;
+            } else {
+              return <Feilside status={500} error={error} />;
+            }
+          }}
+        >
+          <Routes>
+            <Route path="/" element={<Kommuner />} />
+            <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
+            <Route path="/opprett-avtale/feil/:orgnr" element={<SigneringFeil />} />
+            <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
+            <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
+            <Route path="*" element={<Feilside status={404} />} />
+          </Routes>
+          <Kontakt>
+            <Trans t={t} i18nKey="problemer">
+              <></>
+              <a href="mailto:digisos@nav.no" />
+            </Trans>
+          </Kontakt>
+        </ErrorBoundary>
+      </main>
     </>
   );
 }
 
 const Kontakt = styled.div`
-  max-width: 42rem;
-  margin: 0 auto;
-  padding: 0 40px 40px 40px;
+  margin-top: 40px;
 `;
