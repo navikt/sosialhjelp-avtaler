@@ -1,5 +1,4 @@
 import { Heading } from '@navikt/ds-react';
-import { setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Trans, useTranslation } from 'react-i18next';
@@ -14,13 +13,11 @@ import { baseUrl } from './api/http';
 import { Kommuner } from './kommune/Kommuner';
 import SigneringFeil from './avtale/SigneringFeil';
 import SigneringSuksess from './avtale/SigneringSuksess';
+import useBreadcrumbs from './components/hooks/useBreadcrumbs';
 
 export function App() {
   const { t, i18n } = useTranslation();
-  useEffect(() => {
-    setBreadcrumbs([{ url: baseUrl('/'), title: t('brødsmuler.forside') }]);
-  }, []);
-
+  useBreadcrumbs();
   return (
     <>
       <header>
