@@ -1,12 +1,6 @@
 import { RequestHandler, rest, setupWorker } from 'msw';
 import { apiUrl, baseUrl } from '../api/http';
-import {
-  Kommune,
-  HentKommunerResponse,
-  OpprettAvtaleResponse,
-  StartSigneringRequest,
-  SigneringsstatusRequest,
-} from '../types';
+import { Kommune, OpprettAvtaleResponse, StartSigneringRequest, SigneringsstatusRequest } from '../types';
 
 // Delay for nettverkskall. Når undefines, bruker MSW en random realistisk delay
 const DELAY_MS = undefined;
@@ -35,13 +29,13 @@ const kommuneMedAvtale: Record<string, OpprettAvtaleResponse> = {
 };
 
 const handlers: RequestHandler[] = [
-  rest.get<{}, { orgnr: string }, Kommune>(apiUrl('/avtale/:orgnr'), (req, res, ctx) => {
+  rest.get<Record<string, unknown>, { orgnr: string }, Kommune>(apiUrl('/avtale/:orgnr'), (req, res, ctx) => {
     return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(kommuner[req.params.orgnr]));
   }),
-  rest.get<{}, {}, HentKommunerResponse>(apiUrl('/kommuner'), (req, res, ctx) => {
+  rest.get<Record<string, unknown>, Record<string, never>, Array<Kommune>>(apiUrl('/kommuner'), (req, res, ctx) => {
     return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(Object.values(kommuner)));
   }),
-  rest.post<StartSigneringRequest, {}, string>(apiUrl('/avtale/signer'), async (req, res, ctx) => {
+  rest.post<StartSigneringRequest, Record<string, never>, string>(apiUrl('/avtale/signer'), async (req, res, ctx) => {
     const requestBody: StartSigneringRequest = await req.json();
     return res(
       ctx.delay(DELAY_MS),

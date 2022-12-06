@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import { AvtalePanel } from '../avtale/AvtalePanel';
 import { Avstand } from '../components/Avstand';
-import { HentKommunerResponse } from '../types';
+import { Kommune } from '../types';
 import { useGet } from '../api/useGet';
 import { OpprettAvtaleLinkPanel } from './OpprettAvtaleLinkPanel';
 import Spinner from '../components/Spinner';
@@ -13,7 +13,7 @@ export function Kommuner() {
   const { t } = useTranslation();
   useBreadcrumbs();
 
-  const { data: kommuner, error } = useGet<HentKommunerResponse>('/kommuner');
+  const { data: kommuner, error } = useGet<Array<Kommune>>('/kommuner');
 
   if (!kommuner && !error) {
     return <Spinner />;

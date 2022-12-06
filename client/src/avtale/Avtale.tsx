@@ -1,4 +1,4 @@
-import { Accordion, BodyLong, Heading, Panel } from '@navikt/ds-react';
+import { Accordion, BodyLong, Heading } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 

@@ -16,10 +16,6 @@ export interface Kommune {
   opprettet?: string;
 }
 
-export interface HentKommunerResponse extends Array<Kommune> {}
-
-export interface HentKommuneResponse extends Kommune {}
-
 export interface StartSigneringRequest {
   orgnr: string;
 }

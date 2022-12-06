@@ -1,17 +1,18 @@
-import { Link, LinkProps } from '@navikt/ds-react'
-import { logNavigering } from '../utils/amplitude'
+import { Link, LinkProps } from '@navikt/ds-react';
+import { logNavigering } from '../utils/amplitude';
 
 export function DsLink(props: LinkProps) {
-  const { href, children, ...rest } = props
+  const { href, children, ...rest } = props;
   return (
     <Link
       onClick={() => {
-        logNavigering(href!, children!.toString())
+        //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        logNavigering(href!, children!.toString());
       }}
       href={href}
       {...rest}
     >
       {children}
     </Link>
-  )
+  );
 }

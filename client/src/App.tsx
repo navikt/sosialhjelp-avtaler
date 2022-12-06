@@ -1,5 +1,4 @@
 import { Heading } from '@navikt/ds-react';
-import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Trans, useTranslation } from 'react-i18next';
 import { Route, Routes } from 'react-router-dom';
@@ -9,11 +8,9 @@ import { OpprettAvtale } from './avtale/OpprettAvtale';
 import { Banner } from './components/Banner';
 import { isHttpError } from './error';
 import { Feilside } from './Feilside';
-import { baseUrl } from './api/http';
 import { Kommuner } from './kommune/Kommuner';
 import SigneringFeil from './avtale/SigneringFeil';
 import SigneringSuksess from './avtale/SigneringSuksess';
-import useBreadcrumbs from './components/hooks/useBreadcrumbs';
 
 export function App() {
   const { t, i18n } = useTranslation();
@@ -47,6 +44,7 @@ export function App() {
           <Kontakt>
             <Trans t={t} i18nKey="problemer">
               <></>
+              {/* eslint-disable-next-line jsx-a11y/anchor-has-content*/}
               <a href="mailto:digisos@nav.no" />
             </Trans>
           </Kontakt>

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
-import { HentKommuneResponse, StartSigneringRequest } from '../types';
+import { Kommune, StartSigneringRequest } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
 import { logLastNedAvtale, logSkjemaStartet, logSkjemaStegFullført } from '../utils/amplitude';
@@ -18,7 +18,7 @@ import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 export function OpprettAvtale() {
   const { t } = useTranslation();
   const { orgnr } = useParams<{ orgnr: string }>();
-  const { data: kommune, error: kommuneError } = useGet<HentKommuneResponse>(`/avtale/${orgnr}`);
+  const { data: kommune, error: kommuneError } = useGet<Kommune>(`/avtale/${orgnr}`);
   const {
     control,
     handleSubmit,
@@ -75,7 +75,7 @@ export function OpprettAvtale() {
         </AppLink>
       </BodyLong>
       <form
-        onSubmit={handleSubmit(async (data) => {
+        onSubmit={handleSubmit(async () => {
           await startSignering({
             orgnr: kommune.orgnr,
           });
