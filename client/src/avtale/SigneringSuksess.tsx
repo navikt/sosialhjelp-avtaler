@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Alert } from '@navikt/ds-react';
 import Spinner from '../components/Spinner';
-import { logSkjemaFullført, skjemanavn } from '../utils/amplitude';
+import { logSkjemaFullført } from '../utils/amplitude';
 import { usePageTitle } from '../components/hooks/usePageTitle';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { useTranslation } from 'react-i18next';

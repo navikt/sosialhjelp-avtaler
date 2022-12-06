@@ -1,9 +1,9 @@
 export class HttpError extends Error {
-  static kallFeilet<T>(url: string, response: Response): HttpError {
+  static kallFeilet(url: string, response: Response): HttpError {
     return new HttpError(`Kall mot url: '${url}' feilet, status: ${response.status}`, response.status);
   }
 
-  static wrap<T>(err: unknown): HttpError {
+  static wrap(err: unknown): HttpError {
     let error: HttpError;
     if (err instanceof Error) {
       error = new HttpError(err.message, 500, { cause: err });

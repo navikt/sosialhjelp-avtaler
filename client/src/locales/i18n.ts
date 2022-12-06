@@ -1,13 +1,13 @@
-import { onLanguageSelect } from '@navikt/nav-dekoratoren-moduler'
-import i18n from 'i18next'
-import Cookies from 'js-cookie'
-import { initReactI18next } from 'react-i18next'
-import nb from './nb_translation.json'
-import nn from './nn_translation.json'
+import { onLanguageSelect } from '@navikt/nav-dekoratoren-moduler';
+import i18n from 'i18next';
+import Cookies from 'js-cookie';
+import { initReactI18next } from 'react-i18next';
+import nb from './nb_translation.json';
+import nn from './nn_translation.json';
 
-let language = Cookies.get('decorator-language')
+let language = Cookies.get('decorator-language');
 if (language === undefined || !['nb', 'nn'].includes(language)) {
-  language = 'nb'
+  language = 'nb';
 }
 
 // noinspection JSIgnoredPromiseFromCall
@@ -30,15 +30,15 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
-})
+});
 
 onLanguageSelect(async (language) => {
-  const handleError = (err: any) => {
+  const handleError = (err: unknown) => {
     if (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
-  await i18n.changeLanguage(language.locale, handleError).catch(handleError)
-})
+  };
+  await i18n.changeLanguage(language.locale, handleError).catch(handleError);
+});
 
-export default i18n
+export default i18n;

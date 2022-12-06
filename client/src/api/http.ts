@@ -1,7 +1,7 @@
 import { HttpError } from '../error';
 import type { Resultat } from '../types';
 
-export function baseUrl(url: string = '') {
+export function baseUrl(url = '') {
   if (process.env.NODE_ENV === 'production') {
     return `/sosialhjelp/avtaler${url}`;
   } else {

@@ -27,7 +27,7 @@ export const initAmplitude = () => {
   }
 };
 
-export function logAmplitudeEvent(eventName: string, data?: any) {
+export function logAmplitudeEvent(eventName: string, data?: Record<string, unknown>) {
   setTimeout(() => {
     data = {
       app: 'sosialhjelp-avtaler',

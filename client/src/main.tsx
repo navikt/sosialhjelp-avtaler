@@ -1,27 +1,28 @@
-import '@navikt/ds-css'
-import { Modal } from '@navikt/ds-react'
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import { SWRConfig, SWRConfiguration } from 'swr'
-import { App } from './App'
-import { GlobalStyle } from './styles/GlobalStyle'
-import { baseUrl, http } from './api/http'
-import './locales/i18n'
-import { initMSW } from './mocks/initMSW'
-import { initAmplitude } from './utils/amplitude'
+import '@navikt/ds-css';
+import { Modal } from '@navikt/ds-react';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { SWRConfig, SWRConfiguration } from 'swr';
+import { App } from './App';
+import { GlobalStyle } from './styles/GlobalStyle';
+import { baseUrl, http } from './api/http';
+import './locales/i18n';
+import { initMSW } from './mocks/initMSW';
+import { initAmplitude } from './utils/amplitude';
 
 const swrConfig: SWRConfiguration = {
   async fetcher(url: string) {
-    return http.get(url)
+    return http.get(url);
   },
-}
+};
 
 initMSW().then(() => {
-  const container = document.getElementById('root')!
-  initAmplitude()
+  //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const container = document.getElementById('root')!;
+  initAmplitude();
   if (Modal.setAppElement) {
-    Modal.setAppElement(container)
+    Modal.setAppElement(container);
   }
   createRoot(container).render(
     <React.StrictMode>
@@ -32,5 +33,5 @@ initMSW().then(() => {
         </BrowserRouter>
       </SWRConfig>
     </React.StrictMode>
-  )
-})
+  );
+});
