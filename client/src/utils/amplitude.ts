@@ -58,7 +58,7 @@ export function logSkjemaFullført(id: string) {
   });
 }
 export function logSkjemaStegFullført(id: string, steg: number) {
-  logAmplitudeEvent(amplitude_taxonomy.SKJEMA_FULLFØRT, {
+  logAmplitudeEvent(amplitude_taxonomy.SKJEMASTEG_FULLFØRT, {
     skjemanavn: skjemanavn.SKJEMANAVN_OPPRETT_AVTALE,
     skjemaId: id,
     steg: steg,
