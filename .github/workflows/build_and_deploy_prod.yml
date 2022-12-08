@@ -1,5 +1,7 @@
 name: Build and deploy til prod-gcp
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 
