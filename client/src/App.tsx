@@ -11,6 +11,7 @@ import { Feilside } from './Feilside';
 import { Kommuner } from './kommune/Kommuner';
 import SigneringFeil from './avtale/SigneringFeil';
 import SigneringSuksess from './avtale/SigneringSuksess';
+import InternAvtaleTest from './avtale/InternAvtaleTest';
 
 export function App() {
   const { t, i18n } = useTranslation();
@@ -39,6 +40,7 @@ export function App() {
             <Route path="/opprett-avtale/feil/:orgnr" element={<SigneringFeil />} />
             <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
             <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
+            <Route path="/intern-test-signering" element={<InternAvtaleTest />} />
             <Route path="*" element={<Feilside status={404} />} />
           </Routes>
           <Kontakt>
