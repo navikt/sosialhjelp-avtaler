@@ -34,7 +34,7 @@ export function Avtale() {
             </BodyLong>
             <BodyLong spacing>
               NKS er en del av førstelinjen på telefon for henvendelser til NAV, inkludert for de kommunale tjenestene.
-              For å gi veiledning har NKS adgang til informasjon om sentrale opplysningerom individuelle kommunale
+              For å gi veiledning har NKS adgang til informasjon om sentrale opplysninger om individuelle kommunale
               stønadssaker, jf. NAV-loven § 16 andre punktum. I rundskrivet til NAV-loven (R30-00) til § 16 andre
               punktum er dette per i dag definert som opplysninger om «konto- og adresseinformasjon, samt søknads- og
               vedtaksinformasjon om økonomisk sosialhjelp, kvalifiseringsprogram med kvalifiseringsstønad og midlertidig
@@ -42,7 +42,7 @@ export function Avtale() {
               selvstendig behandlingsansvarlige for ulike behandlinger.
             </BodyLong>
             <BodyLong>
-              <u>Avrensinger</u>
+              <u>Avgrensninger</u>
             </BodyLong>
             <BodyLong spacing>
               Avtalen regulerer ikke hvorvidt kommunen velger å tilgjengeliggjøre opplysninger eller ikke, men
