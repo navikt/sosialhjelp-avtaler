@@ -23,7 +23,7 @@ export function App() {
           </Heading>
         </Banner>
       </header>
-      <main tabIndex={-1} lang={i18n.language} id="maincontent">
+      <main tabIndex={-1} lang={i18n.language} id="maincontent" role="main">
         <ErrorBoundary
           fallbackRender={({ error }) => {
             if (isHttpError(error)) {
