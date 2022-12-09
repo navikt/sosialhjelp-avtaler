@@ -1,7 +1,7 @@
 import { Alert, BodyLong, Heading } from '@navikt/ds-react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
-import { AvtalePanel } from '../avtale/AvtalePanel';
+import { AvtalePanel } from './AvtalePanel';
 import { Avstand } from '../components/Avstand';
 import { Kommune } from '../types';
 import { useGet } from '../api/useGet';

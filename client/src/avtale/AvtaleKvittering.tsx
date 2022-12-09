@@ -5,7 +5,7 @@ import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
 import { Kommune } from '../types';
-import { AvtalePanel } from './AvtalePanel';
+import { AvtalePanel } from '../kommune/AvtalePanel';
 import { logLastNedAvtale } from '../utils/amplitude';
 import styled from 'styled-components/macro';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
