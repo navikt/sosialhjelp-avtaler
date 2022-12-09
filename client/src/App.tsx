@@ -1,4 +1,4 @@
-import { Heading } from '@navikt/ds-react';
+import { Heading, Link } from '@navikt/ds-react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Trans, useTranslation } from 'react-i18next';
 import { Route, Routes } from 'react-router-dom';
@@ -45,7 +45,9 @@ export function App() {
             <Trans t={t} i18nKey="problemer">
               <></>
               {/* eslint-disable-next-line jsx-a11y/anchor-has-content*/}
-              <a href="mailto:digisos@nav.no" />
+              <Link href="mailto:digisos@nav.no">
+                <></>
+              </Link>
             </Trans>
           </Kontakt>
         </ErrorBoundary>
