@@ -25,7 +25,7 @@ export function App() {
         </Banner>
       </header>
       {/* role=main needed for skiplink to work */}
-      <main tabIndex={-1} lang={i18n.language} id="maincontent" role="main">
+      <main tabIndex={-1} lang={i18n.language} role="main">
         <StyledContent>
           <ErrorBoundary
             fallbackRender={({ error }) => {
