@@ -11,6 +11,7 @@ import { Feilside } from './Feilside';
 import { Kommuner } from './kommune/Kommuner';
 import SigneringFeil from './avtale/SigneringFeil';
 import SigneringSuksess from './avtale/SigneringSuksess';
+import { enhet } from './styles/enhet';
 
 export function App() {
   const { t, i18n } = useTranslation();
@@ -23,39 +24,52 @@ export function App() {
           </Heading>
         </Banner>
       </header>
+      {/* role=main needed for skiplink to work */}
       <main tabIndex={-1} lang={i18n.language} id="maincontent" role="main">
-        <ErrorBoundary
-          fallbackRender={({ error }) => {
-            if (isHttpError(error)) {
-              return <Feilside status={error.status} error={error} />;
-            } else {
-              return <Feilside status={500} error={error} />;
-            }
-          }}
-        >
-          <Routes>
-            <Route path="/" element={<Kommuner />} />
-            <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
-            <Route path="/opprett-avtale/feil/:orgnr" element={<SigneringFeil />} />
-            <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
-            <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
-            <Route path="*" element={<Feilside status={404} />} />
-          </Routes>
-          <Kontakt>
-            <Trans t={t} i18nKey="problemer">
-              <></>
-              {/* eslint-disable-next-line jsx-a11y/anchor-has-content*/}
-              <Link href="mailto:digisos@nav.no">
+        <StyledContent>
+          <ErrorBoundary
+            fallbackRender={({ error }) => {
+              if (isHttpError(error)) {
+                return <Feilside status={error.status} error={error} />;
+              } else {
+                return <Feilside status={500} error={error} />;
+              }
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<Kommuner />} />
+              <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
+              <Route path="/opprett-avtale/feil/:orgnr" element={<SigneringFeil />} />
+              <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
+              <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
+              <Route path="*" element={<Feilside status={404} />} />
+            </Routes>
+            <Kontakt>
+              <Trans t={t} i18nKey="problemer">
                 <></>
-              </Link>
-            </Trans>
-          </Kontakt>
-        </ErrorBoundary>
+                {/* eslint-disable-next-line jsx-a11y/anchor-has-content*/}
+                <Link href="mailto:digisos@nav.no">
+                  <></>
+                </Link>
+              </Trans>
+            </Kontakt>
+          </ErrorBoundary>
+        </StyledContent>
       </main>
     </>
   );
 }
 
+const StyledContent = styled.div`
+  max-width: 42rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+
+  @media ${enhet.mobil} {
+    padding: 18px;
+  }
+`;
 const Kontakt = styled.div`
   margin-top: 40px;
 `;
