@@ -1,18 +1,7 @@
-import { createGlobalStyle } from 'styled-components'
-import { enhet } from './enhet'
+import { createGlobalStyle } from 'styled-components';
+import { enhet } from './enhet';
 
 export const GlobalStyle = createGlobalStyle`
-  main {
-    max-width: 42rem;
-    width: 100%;
-    margin: 0 auto;
-    padding: 40px;
-
-    @media ${enhet.mobil} {
-      padding: 18px;
-    }
-  }
-  
   html,
   body {
     height: 100%;
@@ -29,5 +18,4 @@ export const GlobalStyle = createGlobalStyle`
     flex-shrink: 0;
   }
   
-   
-`
+`;
