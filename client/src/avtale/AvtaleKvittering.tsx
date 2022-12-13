@@ -55,7 +55,9 @@ export function AvtaleKvittering() {
       <StyledReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</StyledReadMore>
       <AvtalePanel kommune={kommune} />
       <Avstand marginBottom={5} />
-      <Link to="/">{t('avtale.lenke_tilbake_til_forsiden')}</Link>
+      <Link to="/" className={'navds-link'}>
+        {t('avtale.lenke_tilbake_til_forsiden')}
+      </Link>
     </>
   );
 }
