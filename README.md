@@ -12,4 +12,4 @@ NB: krever at du er logget inn på github registry, se [digisos dokumentasjonen]
 Start dev-server for frontenden:
 ```bash
 $ npm run dev
-``````
+`````
