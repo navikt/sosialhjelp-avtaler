@@ -4,12 +4,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
-import { Kommune } from '../types';
+import { GetSignertAvtaleResponse, Kommune, SigneringsstatusRequest } from '../types';
 import { AvtalePanel } from '../kommune/AvtalePanel';
 import { logLastNedAvtale } from '../utils/amplitude';
 import styled from 'styled-components/macro';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { usePageTitle } from '../components/hooks/usePageTitle';
+import { useGet } from '../api/useGet';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
@@ -17,6 +18,9 @@ export function AvtaleKvittering() {
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
+  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGet<GetSignertAvtaleResponse>(
+    kommune ? `/avtale/signert-avtale/${kommune.orgnr}` : null
+  );
   if (!kommune) {
     return null;
   }
@@ -29,9 +33,19 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
-          {t('avtale.lenke_last_ned_avtalen')}
-        </AppLink>
+        {signertAvtaleResponse ? (
+          <AppLink
+            href={signertAvtaleResponse.avtale}
+            target="_blank"
+            onClick={() => logLastNedAvtale(window.location.href)}
+          >
+            {t('avtale.lenke_last_ned_avtalen')}
+          </AppLink>
+        ) : (
+          <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
+            {t('avtale.lenke_last_ned_avtalen')}
+          </AppLink>
+        )}
       </BodyLong>
       <BodyLong spacing>
         <Trans t={t} i18nKey="avtale.mer_informasjon">

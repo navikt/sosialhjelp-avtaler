@@ -31,3 +31,7 @@ export interface OpprettAvtaleResponse {
   avtaleversjon: string;
   opprettet: string;
 }
+
+export interface GetSignertAvtaleResponse {
+  avtale: string;
+}
