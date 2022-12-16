@@ -12,7 +12,6 @@ function useBreadcrumbs(sider?: { tittel: string; path: string }[]) {
     sider?.forEach((side) => {
       breadcrumbs.push({ title: side.tittel, url: baseUrl(side.path) });
     });
-    console.log(breadcrumbs);
     setBreadcrumbs(breadcrumbs);
   }, [sider]);
 }

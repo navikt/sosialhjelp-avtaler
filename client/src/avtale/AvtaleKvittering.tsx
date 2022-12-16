@@ -11,6 +11,7 @@ import styled from 'styled-components/macro';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { usePageTitle } from '../components/hooks/usePageTitle';
 import { useGet } from '../api/useGet';
+import { useEffect } from 'react';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
@@ -21,9 +22,23 @@ export function AvtaleKvittering() {
   const { data: signertAvtaleResponse, error: signertAvtaleError } = useGet<GetSignertAvtaleResponse>(
     kommune ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
+
+  console.log(kommune, signertAvtaleResponse);
   if (!kommune) {
     return null;
   }
+
+  useEffect(() => {
+    if (signertAvtaleResponse) {
+      const file = new Blob([signertAvtaleResponse?.avtale], {
+        type: 'application/pdf',
+      });
+      console.log(file, signertAvtaleResponse);
+      const fileURL = URL.createObjectURL(file);
+
+      window.open(fileURL);
+    }
+  }, [signertAvtaleResponse]);
 
   return (
     <>
