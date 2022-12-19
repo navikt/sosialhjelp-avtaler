@@ -23,7 +23,7 @@ export function AvtaleKvittering() {
     kommune ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
-  console.log(kommune, signertAvtaleResponse);
+  console.log('avtaleresponse', signertAvtaleResponse);
   if (!kommune) {
     return null;
   }
@@ -33,8 +33,8 @@ export function AvtaleKvittering() {
       const file = new Blob([signertAvtaleResponse?.avtale], {
         type: 'application/pdf',
       });
-      console.log(file, signertAvtaleResponse);
       const fileURL = URL.createObjectURL(file);
+      console.log('createfile', file, fileURL);
 
       window.open(fileURL);
     }
