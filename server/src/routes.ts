@@ -19,7 +19,25 @@ export const routes = {
       });
   },
   api(exchangeIDPortenToken: ExchangeToken): Router {
-    return Router().use(proxyHandlers.api(exchangeIDPortenToken));
+    return Router()
+      .use(proxyHandlers.api(exchangeIDPortenToken))
+      .get('/avtale/signert-avtale/:orgnr', async (req, res) => {
+        try {
+          console.log('her');
+          const response = await fetch(`/avtale/signert-avtale/${req.params.orgnr}`, {
+            method: 'get',
+            headers: {
+              Authorization: `Bearer ${exchangeIDPortenToken}`,
+            },
+          });
+          const buffer = await response.arrayBuffer();
+          res.contentType('application/pdf');
+          res.status(response.status).send(buffer);
+        } catch (error) {
+          console.log(`Error while calling api: ${error}`);
+          res.sendStatus(500);
+        }
+      });
   },
   public(): Router {
     return Router()
