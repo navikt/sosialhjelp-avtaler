@@ -40,8 +40,6 @@ export function AvtaleKvittering() {
       });
       const fileURL = URL.createObjectURL(file);
       console.log('createfile', file, fileURL);
-
-      window.open(fileURL);
     }
   }, [signertAvtaleResponse]);
 

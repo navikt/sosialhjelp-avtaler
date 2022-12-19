@@ -43,7 +43,7 @@ export const http = {
         },
       });
       if (response.ok) {
-        return response.blob() as Promise<Blob>;
+        return (await response.blob()) as unknown as Promise<Blob>;
       }
       return Promise.reject(HttpError.kallFeilet(url, response));
     } catch (err: unknown) {
