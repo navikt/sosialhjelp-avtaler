@@ -32,7 +32,7 @@ export const http = {
       return Promise.reject(HttpError.wrap(err));
     }
   },
-  async getDocument<Blob>(path: string): Promise<Blob> {
+  async getDocument(path: string): Promise<Blob> {
     try {
       const url = apiUrl(path);
       const response = await fetch(url, {
@@ -43,7 +43,7 @@ export const http = {
         },
       });
       if (response.ok) {
-        return (await response.blob()) as unknown as Promise<Blob>;
+        return response.blob();
       }
       return Promise.reject(HttpError.kallFeilet(url, response));
     } catch (err: unknown) {

@@ -22,7 +22,7 @@ export function AvtaleKvittering() {
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
   //todo: finn type
-  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGetDocument<any>(
+  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGetDocument(
     kommune ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
@@ -34,12 +34,6 @@ export function AvtaleKvittering() {
   useEffect(() => {
     if (signertAvtaleResponse) {
       setPdfDownloaddUrl(window.URL.createObjectURL(signertAvtaleResponse));
-
-      const file = new Blob([signertAvtaleResponse], {
-        type: 'application/pdf',
-      });
-      const fileURL = URL.createObjectURL(file);
-      console.log('createfile', file, fileURL);
     }
   }, [signertAvtaleResponse]);
 
@@ -51,15 +45,6 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        {signertAvtaleResponse ? (
-          <AppLink href={pdfDownloadUrl} target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
-            {t('avtale.lenke_last_ned_avtalen')}
-          </AppLink>
-        ) : (
-          <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
-            {t('avtale.lenke_last_ned_avtalen')}
-          </AppLink>
-        )}
         <AppLink href={pdfDownloadUrl} target="_blank" download="avtale.pdf">
           {t('avtale.lenke_last_ned_avtalen')}
         </AppLink>
