@@ -11,15 +11,18 @@ import styled from 'styled-components/macro';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { usePageTitle } from '../components/hooks/usePageTitle';
 import { useGet } from '../api/useGet';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
   const { state: kommune } = useLocation() as { state: Kommune };
+  const [pdfDownloadUrl, setPdfDownloaddUrl] = useState<string | undefined>();
+
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
-  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGet<GetSignertAvtaleResponse>(
+  //todo: finn type
+  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGet<any>(
     kommune ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
@@ -27,9 +30,12 @@ export function AvtaleKvittering() {
   if (!kommune) {
     return null;
   }
-
+  console.log({ pdfDownloadUrl });
   useEffect(() => {
     if (signertAvtaleResponse) {
+      const blob = signertAvtaleResponse.blob();
+      setPdfDownloaddUrl(window.URL.createObjectURL(blob));
+
       const file = new Blob([signertAvtaleResponse?.avtale], {
         type: 'application/pdf',
       });
