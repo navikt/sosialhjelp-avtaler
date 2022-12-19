@@ -10,7 +10,7 @@ import { logLastNedAvtale } from '../utils/amplitude';
 import styled from 'styled-components/macro';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { usePageTitle } from '../components/hooks/usePageTitle';
-import { useGet } from '../api/useGet';
+import { useGetDocument } from '../api/useGet';
 import { useEffect, useState } from 'react';
 
 export function AvtaleKvittering() {
@@ -22,7 +22,7 @@ export function AvtaleKvittering() {
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
   //todo: finn type
-  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGet<any>(
+  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGetDocument<any>(
     kommune ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
@@ -33,10 +33,9 @@ export function AvtaleKvittering() {
   console.log({ pdfDownloadUrl });
   useEffect(() => {
     if (signertAvtaleResponse) {
-      const blob = signertAvtaleResponse.blob();
-      setPdfDownloaddUrl(window.URL.createObjectURL(blob));
+      setPdfDownloaddUrl(window.URL.createObjectURL(signertAvtaleResponse));
 
-      const file = new Blob([signertAvtaleResponse?.avtale], {
+      const file = new Blob([signertAvtaleResponse], {
         type: 'application/pdf',
       });
       const fileURL = URL.createObjectURL(file);
@@ -55,11 +54,7 @@ export function AvtaleKvittering() {
       <Avstand marginBottom={5} />
       <BodyLong spacing>
         {signertAvtaleResponse ? (
-          <AppLink
-            href={signertAvtaleResponse.avtale}
-            target="_blank"
-            onClick={() => logLastNedAvtale(window.location.href)}
-          >
+          <AppLink href={pdfDownloadUrl} target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
             {t('avtale.lenke_last_ned_avtalen')}
           </AppLink>
         ) : (
@@ -67,6 +62,9 @@ export function AvtaleKvittering() {
             {t('avtale.lenke_last_ned_avtalen')}
           </AppLink>
         )}
+        <AppLink href={pdfDownloadUrl} target="_blank" download="avtale.pdf">
+          {t('avtale.lenke_last_ned_avtalen')}
+        </AppLink>
       </BodyLong>
       <BodyLong spacing>
         <Trans t={t} i18nKey="avtale.mer_informasjon">

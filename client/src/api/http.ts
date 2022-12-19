@@ -32,6 +32,24 @@ export const http = {
       return Promise.reject(HttpError.wrap(err));
     }
   },
+  async getDocument<Blob>(path: string): Promise<Blob> {
+    try {
+      const url = apiUrl(path);
+      const response = await fetch(url, {
+        method: 'get',
+        cache: 'no-store',
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+      if (response.ok) {
+        return response.blob() as Promise<Blob>;
+      }
+      return Promise.reject(HttpError.kallFeilet(url, response));
+    } catch (err: unknown) {
+      return Promise.reject(HttpError.wrap(err));
+    }
+  },
   async request<B, T>(path: string, body: B, method: string): Promise<Resultat<T>> {
     try {
       const url = apiUrl(path);
