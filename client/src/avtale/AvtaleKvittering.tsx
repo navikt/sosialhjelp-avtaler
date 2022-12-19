@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
-import { GetSignertAvtaleResponse, Kommune, SigneringsstatusRequest } from '../types';
+import { Kommune } from '../types';
 import { AvtalePanel } from '../kommune/AvtalePanel';
 import { logLastNedAvtale } from '../utils/amplitude';
 import styled from 'styled-components/macro';
