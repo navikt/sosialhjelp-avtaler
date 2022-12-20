@@ -1,6 +1,6 @@
 import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
@@ -16,18 +16,19 @@ import { useEffect, useState } from 'react';
 export function AvtaleKvittering() {
   const { t } = useTranslation();
   const { state: kommune } = useLocation() as { state: Kommune };
+  const backup = useParams<{ orgnr: string }>();
+  const orgnr = kommune?.orgnr ?? backup.orgnr;
   const [pdfDownloadUrl, setPdfDownloaddUrl] = useState<string | undefined>();
 
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
-  //todo: finn type
   const { data: signertAvtaleResponse, error: signertAvtaleError } = useGetDocument(
-    kommune ? `/avtale/signert-avtale/${kommune.orgnr}` : null
+    orgnr ? `/avtale/signert-avtale/${orgnr}` : null
   );
 
   console.log('avtaleresponse', signertAvtaleResponse);
-  if (!kommune) {
+  if (!orgnr) {
     return null;
   }
   console.log({ pdfDownloadUrl });
