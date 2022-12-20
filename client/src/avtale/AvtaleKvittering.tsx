@@ -12,6 +12,7 @@ import { useGetDocument } from '../api/useGet';
 import { useEffect, useState } from 'react';
 import { useGet } from '../api/useGet';
 import { logLastNedAvtale } from '../utils/amplitude';
+import { AppLink } from '../components/AppLink';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export function AvtaleKvittering() {
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
-  const { data: signertAvtaleResponse } = useGetDocument(
+  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGetDocument(
     kommune?.orgnr ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
@@ -44,15 +45,22 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        <a
-          href={pdfDownloadUrl}
-          target="_blank"
-          download="avtale.pdf"
-          rel={'noreferrer'}
-          onClick={() => logLastNedAvtale(window.location.href)}
-        >
-          {t('avtale.lenke_last_ned_avtalen')}
-        </a>
+        {signertAvtaleResponse && (
+          <a
+            href={pdfDownloadUrl}
+            target="_blank"
+            download="avtale.pdf"
+            rel={'noreferrer'}
+            onClick={() => logLastNedAvtale(window.location.href)}
+          >
+            {t('avtale.lenke_last_ned_avtalen')}
+          </a>
+        )}
+        {!signertAvtaleResponse && signertAvtaleError && (
+          <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
+            {t('avtale.lenke_last_ned_avtalen')}
+          </AppLink>
+        )}
       </BodyLong>
       <BodyLong spacing>
         <Trans t={t} i18nKey="avtale.mer_informasjon">
