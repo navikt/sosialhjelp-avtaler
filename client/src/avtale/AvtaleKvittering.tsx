@@ -1,12 +1,10 @@
 import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
 import { Kommune } from '../types';
 import { AvtalePanel } from '../kommune/AvtalePanel';
-import { logLastNedAvtale } from '../utils/amplitude';
 import styled from 'styled-components/macro';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { usePageTitle } from '../components/hooks/usePageTitle';
@@ -25,7 +23,7 @@ export function AvtaleKvittering() {
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
   console.log(kommune);
-  const { data: signertAvtaleResponse, error: signertAvtaleError } = useGetDocument(
+  const { data: signertAvtaleResponse } = useGetDocument(
     kommune?.orgnr ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
@@ -49,9 +47,9 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        <AppLink href={pdfDownloadUrl} target="_blank" download="avtale.pdf">
+        <a href={pdfDownloadUrl} target="_blank" download="avtale.pdf" rel={'noreferrer'}>
           {t('avtale.lenke_last_ned_avtalen')}
-        </AppLink>
+        </a>
       </BodyLong>
       <BodyLong spacing>
         <Trans t={t} i18nKey="avtale.mer_informasjon">

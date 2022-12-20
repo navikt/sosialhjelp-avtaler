@@ -1,5 +1,5 @@
 import { useErrorHandler } from 'react-error-boundary';
-import useSWR, { BareFetcher, Fetcher, SWRResponse } from 'swr';
+import useSWR, { SWRResponse } from 'swr';
 import type { HttpError } from '../error';
 import { http } from './http';
 
