@@ -1,6 +1,6 @@
 import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
@@ -12,29 +12,30 @@ import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { usePageTitle } from '../components/hooks/usePageTitle';
 import { useGetDocument } from '../api/useGet';
 import { useEffect, useState } from 'react';
+import { useGet } from '../api/useGet';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
-  const { state: kommune } = useLocation() as { state: Kommune };
-  const backup = useParams<{ orgnr: string }>();
-  const orgnr = kommune?.orgnr ?? backup.orgnr;
-  const [pdfDownloadUrl, setPdfDownloaddUrl] = useState<string | undefined>();
-
+  const { state: kommuneFraState } = useLocation() as { state: Kommune };
+  const [pdfDownloadUrl, setPdfDownloadUrl] = useState<string | undefined>();
+  const [searchParams] = useSearchParams();
+  const { data: kommuneFraFetch } = useGet<Kommune>(kommuneFraState ? null : `/avtale/${searchParams.get('orgnr')}`);
+  const kommune = kommuneFraState ?? kommuneFraFetch;
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
   const { data: signertAvtaleResponse, error: signertAvtaleError } = useGetDocument(
-    orgnr ? `/avtale/signert-avtale/${orgnr}` : null
+    kommune.orgnr ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
   console.log('avtaleresponse', signertAvtaleResponse);
-  if (!orgnr) {
+  if (!kommune) {
     return null;
   }
   console.log({ pdfDownloadUrl });
   useEffect(() => {
     if (signertAvtaleResponse) {
-      setPdfDownloaddUrl(window.URL.createObjectURL(signertAvtaleResponse));
+      setPdfDownloadUrl(window.URL.createObjectURL(signertAvtaleResponse));
     }
   }, [signertAvtaleResponse]);
 
