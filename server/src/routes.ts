@@ -23,7 +23,6 @@ export const routes = {
       .use(proxyHandlers.api(exchangeIDPortenToken))
       .get('/avtale/signert-avtale/:orgnr', async (req, res) => {
         try {
-          console.log('her');
           const response = await fetch(`/avtale/signert-avtale/${req.params.orgnr}`, {
             method: 'get',
             headers: {

@@ -38,8 +38,6 @@ describe('app', () => {
   describe('/', () => {
     test('/settings.js skal svare med 200', async () => {
       const response = await testApp.get('/settings.js');
-      console.log('hadllo');
-
       expect(response.statusCode).toBe(200);
     });
   });
