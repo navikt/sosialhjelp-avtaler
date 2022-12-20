@@ -35,6 +35,7 @@ export const http = {
   async getDocument(path: string): Promise<Blob> {
     try {
       const url = apiUrl(path);
+      console.log('getDocument', url);
       const response = await fetch(url, {
         method: 'get',
         cache: 'no-store',
@@ -43,6 +44,7 @@ export const http = {
         },
       });
       if (response.ok) {
+        console.log('response ok');
         return response.blob();
       }
       return Promise.reject(HttpError.kallFeilet(url, response));
