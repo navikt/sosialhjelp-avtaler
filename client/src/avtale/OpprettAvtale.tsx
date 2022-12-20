@@ -98,8 +98,8 @@ export function OpprettAvtale() {
                 checked={field.value}
                 {...field}
               >
-                <BodyLong spacing>{t('avtale.bekreftelse.1')}</BodyLong>
-                <BodyLong>{t('avtale.bekreftelse.2')}</BodyLong>
+                <SpanWithMargin>{t('avtale.bekreftelse.1')}</SpanWithMargin>
+                <span>{t('avtale.bekreftelse.2')}</span>
               </ConfirmationPanel>
             )}
           />
@@ -133,4 +133,9 @@ const Knapper = styled.div`
 
 const StyledAlert = styled(Alert)`
   margin-bottom: 1rem;
+`;
+
+const SpanWithMargin = styled.span`
+  margin-bottom: var(--a-spacing-4);
+  display: block;
 `;
