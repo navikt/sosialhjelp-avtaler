@@ -30,9 +30,7 @@ export function AvtaleKvittering() {
   );
 
   console.log('avtaleresponse', signertAvtaleResponse);
-  if (!kommune) {
-    return null;
-  }
+
   console.log({ pdfDownloadUrl });
   useEffect(() => {
     if (signertAvtaleResponse) {
@@ -40,6 +38,9 @@ export function AvtaleKvittering() {
     }
   }, [signertAvtaleResponse]);
 
+  if (!kommune) {
+    return null;
+  }
   return (
     <>
       <Heading level="2" size="medium" spacing>
