@@ -24,8 +24,9 @@ export function AvtaleKvittering() {
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
+  console.log(kommune);
   const { data: signertAvtaleResponse, error: signertAvtaleError } = useGetDocument(
-    kommune.orgnr ? `/avtale/signert-avtale/${kommune.orgnr}` : null
+    kommune?.orgnr ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
   console.log('avtaleresponse', signertAvtaleResponse);
