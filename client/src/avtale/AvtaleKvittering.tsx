@@ -11,6 +11,7 @@ import { usePageTitle } from '../components/hooks/usePageTitle';
 import { useGetDocument } from '../api/useGet';
 import { useEffect, useState } from 'react';
 import { useGet } from '../api/useGet';
+import { logLastNedAvtale } from '../utils/amplitude';
 
 export function AvtaleKvittering() {
   const { t } = useTranslation();
@@ -22,14 +23,10 @@ export function AvtaleKvittering() {
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
 
-  console.log(kommune);
   const { data: signertAvtaleResponse } = useGetDocument(
     kommune?.orgnr ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
-  console.log('avtaleresponse', signertAvtaleResponse);
-
-  console.log({ pdfDownloadUrl });
   useEffect(() => {
     if (signertAvtaleResponse) {
       setPdfDownloadUrl(window.URL.createObjectURL(signertAvtaleResponse));
@@ -47,7 +44,13 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
-        <a href={pdfDownloadUrl} target="_blank" download="avtale.pdf" rel={'noreferrer'}>
+        <a
+          href={pdfDownloadUrl}
+          target="_blank"
+          download="avtale.pdf"
+          rel={'noreferrer'}
+          onClick={() => logLastNedAvtale(window.location.href)}
+        >
           {t('avtale.lenke_last_ned_avtalen')}
         </a>
       </BodyLong>
