@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
+import { Alert, BodyLong, Heading, Loader, ReadMore } from '@navikt/ds-react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Avstand } from '../components/Avstand';
@@ -28,6 +28,7 @@ export function AvtaleKvittering() {
     kommune?.orgnr ? `/avtale/signert-avtale/${kommune.orgnr}` : null
   );
 
+  const henterAvtale = !signertAvtaleResponse && !signertAvtaleError;
   useEffect(() => {
     if (signertAvtaleResponse) {
       setPdfDownloadUrl(window.URL.createObjectURL(signertAvtaleResponse));
@@ -45,6 +46,7 @@ export function AvtaleKvittering() {
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
       <BodyLong spacing>
+        {henterAvtale && <Loader title="Henter avtaledokument" />}
         {signertAvtaleResponse && (
           <a
             href={pdfDownloadUrl}

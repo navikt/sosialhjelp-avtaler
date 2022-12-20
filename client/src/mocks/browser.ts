@@ -53,7 +53,7 @@ const handlers: RequestHandler[] = [
   rest.get<Record<string, unknown>, { orgnr: string }, Blob>(
     apiUrl('/avtale/signert-avtale/:orgnr'),
     (req, res, ctx) => {
-      return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.body(new Blob([''], { type: 'application/pdf' })));
+      return res(ctx.delay(900), ctx.status(200), ctx.body(new Blob([''], { type: 'application/pdf' })));
     }
   ),
 ];

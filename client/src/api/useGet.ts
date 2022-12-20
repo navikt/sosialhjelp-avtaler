@@ -11,6 +11,5 @@ export function useGet<T>(url: string | null): SWRResponse<T, HttpError> {
 
 export function useGetDocument(url: string | null): SWRResponse<Blob, HttpError> {
   const result = useSWR<Blob, HttpError>(url, http.getDocument);
-  useErrorHandler(result.error);
   return result;
 }
