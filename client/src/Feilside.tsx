@@ -23,7 +23,7 @@ export function Feilside(props: FeilsideProps) {
     <>
       <Avstand paddingLeft={3} paddingRight={3}>
         <Heading level="2" size="large" spacing>
-          {t(overskrift[status] || 'Teknisk feil')}
+          {t(overskrift[status]) || 'Teknisk feil'}
           <Pipe />
           <Feilkode>{t('feilside.feilkode', { status })}</Feilkode>
         </Heading>

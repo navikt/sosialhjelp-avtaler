@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import { enhet } from './enhet';
 
 export const GlobalStyle = createGlobalStyle`
   html,
