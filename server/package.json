@@ -25,7 +25,6 @@
     "node-jose": "^2.1.1",
     "openid-client": "^5.1.9",
     "prom-client": "^14.1.0",
-    "sosialhjelp-avtaler": "file:..",
     "source-map-support": "^0.5.21",
     "ulid": "^2.3.0",
     "winston": "^3.8.1"
