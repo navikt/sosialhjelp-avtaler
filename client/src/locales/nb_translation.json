@@ -40,6 +40,5 @@
   "signering.feil": "Teknisk feil",
   "signering.detaljer": "Beklager, noe gikk galt ved signering av avtalen.",
   "signering.prov_igjen": "Prøv igjen",
-  "signering.videresendt": "Du blir videresendt til Posten sin løsning for signering",
-  "avtale.lenke_til_kvitteringsiden": "Kvitteringsiden"
+  "signering.videresendt": "Du blir videresendt til Posten sin løsning for signering"
 }

@@ -4,7 +4,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
 import { Kommune } from '../types';
-import { AvtalePanel } from '../kommune/AvtalePanel';
+import { AvtaleLinkPanel } from '../kommune/AvtaleLinkPanel';
 import styled from 'styled-components/macro';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { usePageTitle } from '../components/hooks/usePageTitle';
@@ -84,7 +84,7 @@ export function AvtaleKvittering() {
         </Trans>
       </BodyLong>
       <StyledReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</StyledReadMore>
-      <AvtalePanel kommune={kommune} />
+      <AvtaleLinkPanel kommune={kommune} />
       <Avstand marginBottom={5} />
       <Link to="/" className={'navds-link'}>
         {t('avtale.lenke_tilbake_til_forsiden')}
