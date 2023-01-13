@@ -8,6 +8,7 @@ import { useGet } from '../api/useGet';
 import { OpprettAvtaleLinkPanel } from './OpprettAvtaleLinkPanel';
 import Spinner from '../components/Spinner';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
+import { Link } from 'react-router-dom';
 
 export function Kommuner() {
   const { t } = useTranslation();
@@ -59,6 +60,9 @@ export function Kommuner() {
             {kommunerMedAvtale.map((kommune) => (
               <AvtalePanel key={kommune.orgnr} kommune={kommune} />
             ))}
+            <Link to="/opprett-avtale/kvittering" className={'navds-link'}>
+              {t('avtale.lenke_til_kvitteringsiden')}
+            </Link>
           </Kolonne>
         </>
       )}
