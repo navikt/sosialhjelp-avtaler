@@ -29,8 +29,6 @@ spec:
     requests:
       cpu: {{cpuRequest}}
       memory: {{memoryRequest}}
-  secureLogs:
-    enabled: true
 {{#if idportenEnabled}}
   idporten:
     enabled: true
