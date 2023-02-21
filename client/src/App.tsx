@@ -24,7 +24,7 @@ export function App() {
           </Heading>
         </Banner>
       </header>
-      <div lang={i18n.language} id="maincontent">
+      <div lang={i18n.language}>
         <StyledContent>
           <ErrorBoundary
             fallbackRender={({ error }) => {
