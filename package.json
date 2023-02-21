@@ -3,17 +3,17 @@
   "private": true,
   "version": "1.0.0",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.29.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-react": "^7.31.11",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.1.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.0"
+    "prettier": "^2.8.4"
   },
   "scripts": {
     "postinstall": "npm --prefix client install && npm --prefix server install",
@@ -31,8 +31,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "prepare": "husky install"
   },
-  "lint-staged":{
-    "**/*.{js,jsx,ts,tsx}":[
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "npm run lint"
     ]
