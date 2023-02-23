@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: {{applicationName}}
+  name: sosialhjelp-avtaler
   namespace: teamdigisos
   labels:
     team: teamdigisos
@@ -9,9 +9,7 @@ spec:
   image: {{image}}
   port: 5000
   ingresses:
-{{#each ingresses}}
-    - "{{this}}"
-{{/each}}
+    - "https://www.nav.no/sosialhjelp/avtaler"
   liveness:
     path: /sosialhjelp/avtaler/internal/isalive
   readiness:
@@ -20,16 +18,15 @@ spec:
     enabled: true
     path: /sosialhjelp/avtaler/internal/metrics
   replicas:
-    min: {{minReplicas}}
-    max: {{maxReplicas}}
+    min: 2
+    max: 2
   resources:
     limits:
-      cpu: {{cpuLimit}}
-      memory: {{memoryLimit}}
+      cpu: 200m
+      memory: 256Mi
     requests:
-      cpu: {{cpuRequest}}
-      memory: {{memoryRequest}}
-{{#if idportenEnabled}}
+      cpu: 10m
+      memory: 64Mi
   idporten:
     enabled: true
     sidecar:
@@ -38,17 +35,18 @@ spec:
       locale: nb
       autoLogin: true
       errorPath: ""
-{{/if}}
   tokenx:
-    enabled: {{tokenXEnabled}}
+    enabled: true
   env:
-  {{#each env}}
-      - name: {{@key}}
-        value: "{{this}}"
-  {{/each}}
+    - name: AVTALER_API_BASE_URL
+      value: "http://sosialhjelp-avtaler-api.teamdigisos.svc.cluster.local"
+    - name: AVTALER_API_TARGET_AUDIENCE
+      value: "prod-gcp:teamdigisos:sosialhjelp-avtaler-api"
+    - name: PORT
+      value: "5000"
+    - name: MILJO
+      value: "prod-gcp"
   accessPolicy:
     outbound:
       rules:
-      {{#each outboundRulesApplications}}
-          - application: "{{this}}"
-      {{/each}}
+        - application: sosialhjelp-avtaler-api

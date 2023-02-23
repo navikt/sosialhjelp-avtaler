@@ -1,0 +1,44 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: sosialhjelp-avtaler-mock
+  namespace: teamdigisos
+  labels:
+    team: teamdigisos
+spec:
+  image: {{image}}
+  port: 5000
+  ingresses:
+    - "https://digisos.ekstern.dev.nav.no/sosialhjelp/avtaler"
+  liveness:
+    path: /sosialhjelp/avtaler/internal/isalive
+  readiness:
+    path: /sosialhjelp/avtaler/internal/isready
+  prometheus:
+    enabled: true
+    path: /sosialhjelp/avtaler/internal/metrics
+  replicas:
+    min: 1
+    max: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 1m
+      memory: 32Mi
+  idporten:
+    enabled: false
+  tokenx:
+    enabled: false
+  env:
+    - name: AVTALER_API_BASE_URL
+      value: ""
+    - name: AVTALER_API_TARGET_AUDIENCE
+      value: ""
+    - name: PORT
+      value: "5000"
+    - name: MILJO
+      value: "mock"
+    - name: USE_MSW
+      value: "true"
