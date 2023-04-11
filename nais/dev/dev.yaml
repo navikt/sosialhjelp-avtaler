@@ -48,5 +48,8 @@ spec:
       value: "dev-gcp"
   accessPolicy:
     outbound:
+      external:
+        - host: dekoratoren.dev.nav.no
+        - host: digisos.dev.nav.no
       rules:
         - application: sosialhjelp-avtaler-api-dev
