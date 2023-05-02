@@ -46,5 +46,3 @@ spec:
     outbound:
       external:
         - host: dekoratoren.ekstern.dev.nav.no
-        - host: dekoratoren.dev.nav.no
-        - host: digisos.dev.nav.no
