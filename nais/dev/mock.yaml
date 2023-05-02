@@ -42,3 +42,7 @@ spec:
       value: "mock"
     - name: USE_MSW
       value: "true"
+  accessPolicy:
+    outbound:
+      external:
+        - host: dekoratoren.ekstern.dev.nav.no

@@ -48,5 +48,8 @@ spec:
       value: "prod-gcp"
   accessPolicy:
     outbound:
+      external:
+        - host: dekoratoren.nav.no
+        - host: www.nav.no
       rules:
         - application: sosialhjelp-avtaler-api
