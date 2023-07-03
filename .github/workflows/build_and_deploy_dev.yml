@@ -13,33 +13,6 @@ on:
 
 
 jobs:
-  snyk-monitor:
-    if: github.ref == 'refs/heads/main'
-    name: monitor dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: monitor
-          args: --org=teamdigisos --severity-threshold=high
-  snyk-test:
-    name: analyze dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: test
-          args: --org=teamdigisos --severity-threshold=high
   build:
     name: Build and push docker image
     runs-on: ubuntu-latest
