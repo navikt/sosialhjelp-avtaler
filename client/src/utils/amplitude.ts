@@ -1,5 +1,4 @@
 import { logAmplitudeEvent as logDekoratoren } from '@navikt/nav-dekoratoren-moduler';
-import { logger } from '../../../server/src/logger';
 
 export enum skjemanavn {
   SKJEMANAVN_OPPRETT_AVTALE = 'Opprett avtale',
@@ -25,7 +24,7 @@ export function logAmplitudeEvent(eventName: string, data?: Record<string, unkno
       eventData: { ...data, skjemaId: 'sosialhjelpAvtaler' },
     });
   } catch (error) {
-    logger.error(`Kunne ikke logge til amplitude: ${error}`);
+    console.log(`Kunne ikke logge til amplitude: ${error}`);
   }
 }
 
