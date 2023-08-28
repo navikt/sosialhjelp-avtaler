@@ -9,7 +9,6 @@ import { GlobalStyle } from './styles/GlobalStyle';
 import { baseUrl, http } from './api/http';
 import './locales/i18n';
 import { initMSW } from './mocks/initMSW';
-import { initAmplitude } from './utils/amplitude';
 
 const swrConfig: SWRConfiguration = {
   async fetcher(url: string) {
@@ -20,7 +19,6 @@ const swrConfig: SWRConfiguration = {
 initMSW().then(() => {
   //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const container = document.getElementById('maincontent')!;
-  initAmplitude();
   if (Modal.setAppElement) {
     Modal.setAppElement(container);
   }
@@ -32,6 +30,6 @@ initMSW().then(() => {
           <App />
         </BrowserRouter>
       </SWRConfig>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 });
