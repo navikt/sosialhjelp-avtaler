@@ -1,4 +1,5 @@
-import amplitude from 'amplitude-js';
+import { logAmplitudeEvent as logDekoratoren } from '@navikt/nav-dekoratoren-moduler';
+import { logger } from '../../../server/src/logger';
 
 export enum skjemanavn {
   SKJEMANAVN_OPPRETT_AVTALE = 'Opprett avtale',
@@ -15,33 +16,17 @@ export enum amplitude_taxonomy {
   NAVIGERE = 'navigere',
   LAST_NED = 'last ned',
 }
-export const initAmplitude = () => {
-  if (amplitude) {
-    amplitude.getInstance().init('default', '', {
-      apiEndpoint: 'amplitude.nav.no/collect-auto',
-      saveEvents: false,
-      includeUtm: true,
-      includeReferrer: true,
-      platform: window.location.toString(),
-    });
-  }
-};
 
 export function logAmplitudeEvent(eventName: string, data?: Record<string, unknown>) {
-  setTimeout(() => {
-    data = {
-      app: 'sosialhjelp-avtaler',
-      team: 'teamdigisos',
-      ...data,
-    };
-    try {
-      if (amplitude) {
-        amplitude.getInstance().logEvent(eventName, data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  try {
+    logDekoratoren({
+      origin: 'sosialhjelpAvtaler',
+      eventName,
+      eventData: { ...data, skjemaId: 'sosialhjelpAvtaler' },
+    });
+  } catch (error) {
+    logger.error(`Kunne ikke logge til amplitude: ${error}`);
+  }
 }
 
 export function logSkjemaStartet(id: string) {
