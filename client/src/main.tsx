@@ -30,6 +30,6 @@ initMSW().then(() => {
           <App />
         </BrowserRouter>
       </SWRConfig>
-    </React.StrictMode>,
+    </React.StrictMode>
   );
 });
