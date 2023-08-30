@@ -17,12 +17,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@navikt'
+
       - name: 'Installer dependencies'
         run: npm ci && npm --prefix client ci && npm --prefix server ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: 'Build npm project and run Tests'
-        uses: navikt/sosialhjelp-ci/actions/build-npm@v2-beta
-        with:
-          run-ci: 'false'
+      - name: 'Run Tests'
+        run: npm run test
+
+      - name: 'Build app'
+        run: npm run build
