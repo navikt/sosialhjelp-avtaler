@@ -41,7 +41,7 @@
     "@types/react-dom": "^18.0.11",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^2.2.0",
-    "cypress": "^10.11.0",
+    "cypress": "^13.0.0",
     "msw": "^0.49.3",
     "mustache": "^4.2.0",
     "prettier": "^2.8.4",
