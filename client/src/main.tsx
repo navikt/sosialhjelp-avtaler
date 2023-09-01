@@ -1,5 +1,4 @@
 import '@navikt/ds-css';
-import { Modal } from '@navikt/ds-react';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
@@ -19,9 +18,7 @@ const swrConfig: SWRConfiguration = {
 initMSW().then(() => {
   //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const container = document.getElementById('maincontent')!;
-  if (Modal.setAppElement) {
-    Modal.setAppElement(container);
-  }
+
   createRoot(container).render(
     <React.StrictMode>
       <GlobalStyle />
@@ -30,6 +27,6 @@ initMSW().then(() => {
           <App />
         </BrowserRouter>
       </SWRConfig>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 });
