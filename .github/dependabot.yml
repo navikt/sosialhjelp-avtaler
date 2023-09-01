@@ -8,6 +8,9 @@ updates:
       ds:
         patterns:
           - "@navikt/ds-*"
+      dekorator:
+        patterns:
+          - "@navikt/nav-dekoratoren-moduler"
       eslint:
         patterns:
           - "@typescript-eslint/*"

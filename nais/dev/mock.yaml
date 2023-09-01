@@ -44,5 +44,6 @@ spec:
       value: "true"
   accessPolicy:
     outbound:
-      external:
-        - host: dekoratoren.ekstern.dev.nav.no
+      rules:
+        - application: nav-dekoratoren
+          namespace: personbruker
