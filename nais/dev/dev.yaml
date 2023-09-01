@@ -48,7 +48,7 @@ spec:
       value: "dev-gcp"
   accessPolicy:
     outbound:
-      external:
-        - host: dekoratoren.intern.dev.nav.no
       rules:
         - application: sosialhjelp-avtaler-api-dev
+        - application: nav-dekoratoren
+          namespace: personbruker

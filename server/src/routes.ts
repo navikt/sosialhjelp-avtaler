@@ -1,4 +1,4 @@
-import { fetchDecoratorHtml, Locale } from '@navikt/nav-dekoratoren-moduler/ssr';
+import { fetchDecoratorHtml, DecoratorLocale } from '@navikt/nav-dekoratoren-moduler/ssr';
 import cookieParser from 'cookie-parser';
 import express, { RequestHandler, Router } from 'express';
 import type { ExchangeToken } from './auth';
@@ -56,19 +56,21 @@ const spaHandler: RequestHandler = async (req, res) => {
 
     const decorator = await fetchDecoratorHtml({
       env: config.miljo === 'prod-gcp' ? 'prod' : 'dev',
-      context: 'samarbeidspartner',
-      chatbot: false,
-      language: language as Locale,
-      availableLanguages: [
-        {
-          locale: 'nb',
-          handleInApp: true,
-        },
-        {
-          locale: 'nn',
-          handleInApp: true,
-        },
-      ],
+      params: {
+        context: 'samarbeidspartner',
+        chatbot: false,
+        language: language as DecoratorLocale,
+        availableLanguages: [
+          {
+            locale: 'nb',
+            handleInApp: true,
+          },
+          {
+            locale: 'nn',
+            handleInApp: true,
+          },
+        ],
+      },
     });
     res.render('index.html', decorator);
   } catch (err: unknown) {

@@ -49,7 +49,8 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: dekoratoren.nav.no
         - host: www.nav.no
       rules:
         - application: sosialhjelp-avtaler-api
+        - application: nav-dekoratoren
+          namespace: personbruker

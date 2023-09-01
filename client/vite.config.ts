@@ -10,19 +10,21 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
     if (development) {
       const decorator = await fetchDecoratorHtml({
         env: 'dev',
-        context: 'samarbeidspartner',
-        chatbot: false,
-        language: 'nb',
-        availableLanguages: [
-          {
-            locale: 'nb',
-            handleInApp: true,
-          },
-          {
-            locale: 'nn',
-            handleInApp: true,
-          },
-        ],
+        params: {
+          context: 'samarbeidspartner',
+          chatbot: false,
+          language: 'nb',
+          availableLanguages: [
+            {
+              locale: 'nb',
+              handleInApp: true,
+            },
+            {
+              locale: 'nn',
+              handleInApp: true,
+            },
+          ],
+        },
       });
       return {
         html: render(html, decorator),
