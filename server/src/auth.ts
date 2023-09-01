@@ -49,7 +49,7 @@ export async function createAuth(): Promise<Auth> {
           res.sendStatus(401);
           return;
         }
-        if (result.payload.acr !== 'Level4') {
+        if (result.payload.acr !== 'Level4' && result.payload.acr !== 'idporten-loa-high') {
           logger.warn(`acr er ikke riktig, payload.acr: ${result.payload.acr}`);
           res.sendStatus(403);
           return;
@@ -115,6 +115,6 @@ async function createClientAssertion(): Promise<string> {
       nbf: now,
     },
     key.toPEM(true),
-    { algorithm: 'RS256' }
+    { algorithm: 'RS256' },
   );
 }
