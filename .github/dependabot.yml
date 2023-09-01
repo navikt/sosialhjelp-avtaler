@@ -4,3 +4,29 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      ds:
+        patterns:
+          - "@navikt/ds-*"
+      eslint:
+        patterns:
+          - "@typescript-eslint/*"
+          - "eslint*"
+          - "prettier"
+      react:
+        patterns:
+          - "react*"
+          - "@types/react*"
+      test:
+        patterns:
+          - "@testing-library/*"
+      styledcomponents:
+        patterns:
+          - "styled-components"
+          - "@types/styled-components"
+      vite:
+        patterns:
+          - "vite"
+          - "vite-plugin-babel-macros"
+          - "vitest"
+          - "@vitejs/*"
