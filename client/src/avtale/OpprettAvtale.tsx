@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, ConfirmationPanel, Heading, ReadMore } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, ConfirmationPanel, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -69,11 +69,15 @@ export function OpprettAvtale() {
       <Avstand marginTop={5} marginBottom={5}>
         <Avtale />
       </Avstand>
-      <BodyLong spacing>
-        <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
-          {t('avtale.lenke_last_ned_avtalen')}
-        </AppLink>
-      </BodyLong>
+      <VStack gap="4">
+        <BodyLong>
+          <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
+            {t('avtale.lenke_last_ned_avtalemalen')}
+          </AppLink>{' '}
+          {t('avtale.usignert')}
+        </BodyLong>
+        <BodyLong>{t('avtale.arkivering')}</BodyLong>
+      </VStack>
       <form
         onSubmit={handleSubmit(async () => {
           await startSignering({
