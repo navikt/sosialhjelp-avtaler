@@ -1,4 +1,4 @@
-import { Heading, Link } from '@navikt/ds-react';
+import { Alert, Heading, Link } from '@navikt/ds-react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Trans, useTranslation } from 'react-i18next';
 import { Route, Routes } from 'react-router-dom';
@@ -26,6 +26,10 @@ export function App() {
       </header>
       <div lang={i18n.language}>
         <StyledContent>
+          <Alert variant="warning">
+            Grunnet tekniske problemer er det ikke mulig å gjennomføre signering av avtale. Vi sender ut informasjon når
+            løsningen er tilgjengelig igjen.
+          </Alert>
           <ErrorBoundary
             fallbackRender={({ error }) => {
               if (isHttpError(error)) {
