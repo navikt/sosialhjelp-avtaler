@@ -16,7 +16,7 @@
   "avtale.opprett_avtale_for": "Opprett avtale for {{navn}}",
   "avtale.suksess": "Du har inngått avtale med NAV om bruk av innsynsflate for NKS.",
   "personopplysninger.overskrift": "Hvordan behandler vi dine personopplysninger?",
-  "personopplysninger.detaljer": "Vi lagrer kun ditt fulle navn. Hvis du ønsker innsyn i, retting eller sletting av dine opplysninger kan du ta kontakt med oss.",
+  "personopplysninger.detaljer": "Når du signerer avtalen inneholder denne ditt fulle navn og personnummer. Dette lagres i vårt arkivsystem under begrenset innsyn, det vil si at få personer kan se informasjonen. Hvis du ønsker innsyn i, retting eller sletting av dine opplysninger kan du ta kontakt med oss.",
   "brødsmuler.forside": "Avtale om innsynsflate NKS",
   "brødsmuler.kvittering": "Kvittering",
   "brødsmuler.signering_feil": "Signering feilet",
