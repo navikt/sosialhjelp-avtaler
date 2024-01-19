@@ -31,10 +31,4 @@ export interface OpprettAvtaleResponse {
   navn: string;
   avtaleversjon: string;
   opprettet: string;
-  dokumentStatus: DokumentStatus | undefined;
-}
-
-enum DokumentStatus {
-  SUKSESS = 'SUKSESS',
-  ERROR = 'ERROR',
 }
