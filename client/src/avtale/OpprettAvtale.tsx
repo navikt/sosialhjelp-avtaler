@@ -110,7 +110,7 @@ export function OpprettAvtale() {
         </Avstand>
         <StyledAlert variant="info">{t('signering.videresendt')}</StyledAlert>
         <Knapper>
-          <Button type="submit" loading={isSubmitting} disabled={true}>
+          <Button type="submit" loading={isSubmitting}>
             {t('avtale.inngå_avtale')}
           </Button>
           <Button

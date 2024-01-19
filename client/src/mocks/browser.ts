@@ -24,7 +24,7 @@ const kommuneMedAvtale: Record<string, OpprettAvtaleResponse> = {
     orgnr: kommuner[987654321].orgnr,
     navn: kommuner[987654321].navn,
     avtaleversjon: '1.0',
-    opprettet: '4. januar',
+    opprettet: new Date().toISOString(),
   },
 };
 
@@ -40,7 +40,7 @@ const handlers: RequestHandler[] = [
     return res(
       ctx.delay(DELAY_MS),
       ctx.status(200),
-      ctx.json(baseUrl() + '/opprett-avtale/suksess/' + requestBody.orgnr + '?status_query_token=1234')
+      ctx.json(baseUrl() + '/opprett-avtale/suksess/' + requestBody.orgnr + '?status_query_token=1234'),
     );
   }),
   rest.post<SigneringsstatusRequest, { status_query_token: '1234' }, OpprettAvtaleResponse>(
@@ -48,13 +48,13 @@ const handlers: RequestHandler[] = [
     async (req, res, ctx) => {
       const requestBody: SigneringsstatusRequest = await req.json();
       return res(ctx.delay(DELAY_MS), ctx.status(201), ctx.json(kommuneMedAvtale[requestBody.orgnr]));
-    }
+    },
   ),
   rest.get<Record<string, unknown>, { orgnr: string }, Blob>(
     apiUrl('/avtale/signert-avtale/:orgnr'),
     (req, res, ctx) => {
       return res(ctx.delay(900), ctx.status(200), ctx.body(new Blob([''], { type: 'application/pdf' })));
-    }
+    },
   ),
 ];
 
