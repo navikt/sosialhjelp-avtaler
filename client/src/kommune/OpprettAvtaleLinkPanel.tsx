@@ -2,11 +2,11 @@ import { LinkPanel } from '@navikt/ds-react';
 import { Data } from '../components/Data';
 import { Datum } from '../components/Datum';
 import { Organisasjonsnummer } from '../components/Organisasjonsnummer';
-import { Kommune } from '../types';
+import { AvtaleResponse } from '../types';
 import { baseUrl } from '../api/http';
 
 export interface KommunePanelProps {
-  kommune: Kommune;
+  kommune: AvtaleResponse;
 }
 
 export function OpprettAvtaleLinkPanel(props: KommunePanelProps) {
@@ -14,7 +14,7 @@ export function OpprettAvtaleLinkPanel(props: KommunePanelProps) {
 
   return (
     <LinkPanel href={baseUrl(`/opprett-avtale/${kommune.orgnr}`)}>
-      <LinkPanel.Title className="navds-heading--small navds-typo--spacing">{kommune.navn}</LinkPanel.Title>
+      <LinkPanel.Title className="navds-heading--small navds-typo--spacing">{kommune.kommunenavn}</LinkPanel.Title>
       <LinkPanel.Description>
         <Data>
           <Datum label="ledetekst.orgnr">

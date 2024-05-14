@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
-import { Kommune, StartSigneringRequest } from '../types';
+import { AvtaleResponse, StartSigneringRequest } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
 import { logLastNedAvtale, logSkjemaStartet, logSkjemaStegFullført } from '../utils/amplitude';
@@ -18,7 +18,7 @@ import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 export function OpprettAvtale() {
   const { t } = useTranslation();
   const { orgnr } = useParams<{ orgnr: string }>();
-  const { data: kommune, error: kommuneError } = useGet<Kommune>(`/avtale/${orgnr}`);
+  const { data: kommune, error: kommuneError } = useGet<AvtaleResponse>(`/avtale/${orgnr}`);
   const {
     control,
     handleSubmit,

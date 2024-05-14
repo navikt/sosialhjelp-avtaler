@@ -9,8 +9,14 @@ export interface Resultat<T> {
   loading?: boolean;
 }
 
-export interface Kommune {
+export interface KommuneResponse {
   orgnr: string;
+  navn: string;
+  avtaler: AvtaleResponse[];
+}
+
+export interface AvtaleResponse {
+  uuid: string;
   navn: string;
   avtaleversjon?: string;
   opprettet?: string;

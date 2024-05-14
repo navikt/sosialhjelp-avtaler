@@ -3,18 +3,18 @@ import { Data } from '../components/Data';
 import { Dato } from '../components/Dato';
 import { Datum } from '../components/Datum';
 import { Organisasjonsnummer } from '../components/Organisasjonsnummer';
-import { Kommune } from '../types';
+import { AvtaleResponse } from '../types';
 
 export interface AvtalePanelProps {
-  kommune: Kommune;
+  kommune: AvtaleResponse;
 }
 
 export function AvtalePanel(props: AvtalePanelProps) {
   const { kommune } = props;
   return (
-    <Panel border={true}>
+    <Panel border>
       <Heading spacing size="small" as="p">
-        {kommune.navn}
+        {kommune.kommunenavn}
       </Heading>
       <BodyLong as="span">
         <Data>
