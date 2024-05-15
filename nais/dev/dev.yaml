@@ -9,7 +9,7 @@ spec:
   image: {{image}}
   port: 5000
   ingresses:
-    - "https://digisos.intern.dev.nav.no/sosialhjelp/avtaler"
+    - "https://digisos.ansatt.dev.nav.no/sosialhjelp/avtaler"
   liveness:
     path: /sosialhjelp/avtaler/internal/isalive
   readiness:
