@@ -23,11 +23,11 @@ export interface AvtaleResponse {
 }
 
 export interface StartSigneringRequest {
-  orgnr: string;
+  uuid: string;
 }
 
 export interface SigneringsstatusRequest {
-  orgnr: string;
+  uuid: string;
   status: 'SUKSESS' | 'FEIL';
   token: string;
 }

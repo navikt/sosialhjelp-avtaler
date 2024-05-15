@@ -17,8 +17,8 @@ import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 
 export function OpprettAvtale() {
   const { t } = useTranslation();
-  const { orgnr } = useParams<{ orgnr: string }>();
-  const { data: kommune, error: kommuneError } = useGet<AvtaleResponse>(`/avtale/${orgnr}`);
+  const { uuid } = useParams<{ uuid: string }>();
+  const { data: avtale, error: avtaleError } = useGet<AvtaleResponse>(`/avtale/${uuid}`);
   const {
     control,
     handleSubmit,
@@ -34,10 +34,10 @@ export function OpprettAvtale() {
   useBreadcrumbs([{ tittel: t('brødsmuler.opprett'), path: '/' }]);
 
   useEffect(() => {
-    if (orgnr) {
-      logSkjemaStartet(orgnr);
+    if (uuid) {
+      logSkjemaStartet(uuid);
     }
-  }, [orgnr]);
+  }, [uuid]);
 
   useEffect(() => {
     if (requestUrl) {
@@ -45,24 +45,24 @@ export function OpprettAvtale() {
     }
   }, [requestUrl]);
 
-  if (!kommune && !kommuneError) {
+  if (!avtale && !avtaleError) {
     return <Spinner />;
   }
 
-  if (!kommune) {
+  if (!avtale) {
     return null;
   }
 
-  if (kommune.opprettet) {
+  if (avtale.opprettet) {
     navigate('/opprett-avtale/kvittering', {
-      state: kommune,
+      state: avtale,
     });
     return null;
   }
   return (
     <>
       <Heading level="2" size="medium" spacing>
-        {t('avtale.opprett_avtale_for', { navn: kommune.navn })}
+        {t('avtale.opprett_avtale_for', { navn: avtale.navn })}
       </Heading>
       <BodyLong spacing>{t('avtale.ingress')}</BodyLong>
       <ReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</ReadMore>
@@ -81,9 +81,9 @@ export function OpprettAvtale() {
       <form
         onSubmit={handleSubmit(async () => {
           await startSignering({
-            orgnr: kommune.orgnr,
+            uuid: avtale.uuid,
           });
-          logSkjemaStegFullført(kommune.orgnr, 1);
+          logSkjemaStegFullført(avtale.uuid, 1);
         })}
       >
         <Avstand marginTop={5} marginBottom={5}>

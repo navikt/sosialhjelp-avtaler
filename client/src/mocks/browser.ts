@@ -1,10 +1,6 @@
 import { RequestHandler, rest, setupWorker } from 'msw';
 import { apiUrl, baseUrl } from '../api/http';
-import {
-  AvtaleResponse,
-  StartSigneringRequest,
-  KommuneResponse,
-} from '../types';
+import { AvtaleResponse, StartSigneringRequest, KommuneResponse } from '../types';
 
 // Delay for nettverkskall. Når undefines, bruker MSW en random realistisk delay
 const DELAY_MS = undefined;
@@ -21,7 +17,7 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       uuid: '3d4e3d11-0365-4f8d-91b6-a281ccdb314d',
       navn: 'Ny databehandleravtale',
       avtaleversjon: '1.0',
-      opprettet: undefined,
+      opprettet: new Date().toISOString(),
     },
   ],
   '987654321': [
@@ -54,21 +50,27 @@ const kommuner: Record<string, KommuneResponse> = {
 };
 
 const handlers: RequestHandler[] = [
-  rest.get<Record<string, unknown>, { orgnr: string }, AvtaleResponse[]>(apiUrl('/avtale/:orgnr'), (req, res, ctx) => {
-    return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(kommuner[req.params.orgnr].avtaler));
+  rest.get<Record<string, unknown>, { uuid: string }, AvtaleResponse>(apiUrl('/avtale/:uuid'), (req, res, ctx) => {
+    const etterspurtAvtale = Object.values(avtaler)
+      .flat()
+      .find((avtale) => avtale.uuid === req.params.uuid);
+    if (!etterspurtAvtale) {
+      return res(ctx.delay(DELAY_MS), ctx.status(404));
+    }
+    return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(etterspurtAvtale));
   }),
   rest.get<Record<string, unknown>, Record<string, never>, Array<KommuneResponse>>(
     apiUrl('/kommuner'),
     (req, res, ctx) => {
       return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(Object.values(kommuner)));
-    }
+    },
   ),
   rest.post<StartSigneringRequest, Record<string, never>, string>(apiUrl('/avtale/signer'), async (req, res, ctx) => {
     const requestBody: StartSigneringRequest = await req.json();
     return res(
       ctx.delay(DELAY_MS),
       ctx.status(200),
-      ctx.json(baseUrl() + '/opprett-avtale/suksess/' + requestBody.orgnr + '?status_query_token=1234')
+      ctx.json(baseUrl() + '/opprett-avtale/suksess/' + requestBody.uuid + '?status_query_token=1234'),
     );
   }),
   // rest.post<SigneringsstatusRequest, { status_query_token: '1234' }, OpprettAvtaleResponse>(
@@ -82,7 +84,7 @@ const handlers: RequestHandler[] = [
     apiUrl('/avtale/signert-avtale/:orgnr'),
     (req, res, ctx) => {
       return res(ctx.delay(900), ctx.status(200), ctx.body(new Blob([''], { type: 'application/pdf' })));
-    }
+    },
   ),
 ];
 

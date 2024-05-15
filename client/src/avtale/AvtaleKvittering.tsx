@@ -14,7 +14,9 @@ export function AvtaleKvittering() {
   const { t } = useTranslation();
   const { state: kommuneFraState } = useLocation() as { state: OpprettAvtaleResponse };
   const [searchParams] = useSearchParams();
-  const { data: kommuneFraFetch } = useGet<AvtaleResponse>(kommuneFraState ? null : `/avtale/${searchParams.get('orgnr')}`);
+  const { data: kommuneFraFetch } = useGet<AvtaleResponse>(
+    kommuneFraState ? null : `/avtale/${searchParams.get('orgnr')}`,
+  );
   const kommune = kommuneFraState ?? kommuneFraFetch;
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
@@ -50,7 +52,7 @@ export function AvtaleKvittering() {
         </Trans>
       </BodyLong>
       <StyledReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</StyledReadMore>
-      <AvtalePanel kommune={kommune} />
+      <AvtalePanel avtale={kommune} />
       <Avstand marginBottom={5} />
       <Link to="/" className={'navds-link'}>
         {t('avtale.lenke_tilbake_til_forsiden')}

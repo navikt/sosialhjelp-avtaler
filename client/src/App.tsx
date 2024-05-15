@@ -40,7 +40,7 @@ export function App() {
               <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
               <Route path="/opprett-avtale/feil/:orgnr" element={<SigneringFeil />} />
               <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
-              <Route path="/opprett-avtale/:orgnr" element={<OpprettAvtale />} />
+              <Route path="/opprett-avtale/:uuid" element={<OpprettAvtale />} />
               <Route path="*" element={<Feilside status={404} />} />
             </Routes>
             <Kontakt>
