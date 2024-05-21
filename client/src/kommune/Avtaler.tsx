@@ -8,7 +8,6 @@ import { OpprettAvtaleLinkPanel } from './OpprettAvtaleLinkPanel';
 import Spinner from '../components/Spinner';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import React, { Fragment } from 'react';
-import Header from '@navikt/ds-react/esm/table/Header';
 import { Organisasjonsnummer } from '../components/Organisasjonsnummer';
 
 export function Avtaler() {
@@ -23,14 +22,12 @@ export function Avtaler() {
   if (!kommuner) {
     return null;
   }
-  /*
-    [kommune1, kommune2] -> [kommune1: [{usignert, usignert}], kommune2: [{usignert, usignert}] ], [kommune1: [{signert}], kommune2: [{signert}]
-   */
-  const kommunerMedUsignerteAvtaler: KommuneResponse[] = kommuner
-    .map((kommune) => ({ ...kommune, avtaler: kommune.avtaler.filter((avtale) => !avtale.opprettet) }))
+
+  const kommunerMedUsignerteAvtaler = kommuner
+    .map((kommune) => ({ ...kommune, avtaler: kommune.avtaler.filter((avtale) => !avtale.erSignert) }))
     .filter((kommune) => kommune.avtaler.length > 0);
   const kommunerMedSignerteAvtaler = kommuner
-    .map((kommune) => ({ ...kommune, avtaler: kommune.avtaler.filter((avtale) => avtale.opprettet) }))
+    .map((kommune) => ({ ...kommune, avtaler: kommune.avtaler.filter((avtale) => avtale.erSignert) }))
     .filter((kommune) => kommune.avtaler.length > 0);
 
   if (kommuner && !kommuner.length) {
@@ -74,11 +71,11 @@ const AvtaleAccordion = ({ heading, kommuner, readonly }: Props) => {
       </Heading>
       {kommuneCount === 1 && (
         <Kolonne>
+          <Heading level="3" size="medium">
+            {kommuner[0].navn} - <Organisasjonsnummer verdi={kommuner[0].orgnr} />
+          </Heading>
           {kommuner[0].avtaler.map((avtale) => (
             <Fragment key={avtale.uuid}>
-              <Header>
-                {kommuner[0].navn} - <Organisasjonsnummer verdi={kommuner[0].orgnr} />
-              </Header>
               {readonly ? <AvtalePanel avtale={avtale} /> : <OpprettAvtaleLinkPanel avtale={avtale} />}
             </Fragment>
           ))}

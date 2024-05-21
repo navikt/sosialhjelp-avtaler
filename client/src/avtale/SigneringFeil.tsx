@@ -9,16 +9,16 @@ import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 
 const SigneringFeil = () => {
   const { t } = useTranslation();
-  const { orgnr } = useParams<{ orgnr: string }>();
+  const { uuid } = useParams<{ uuid: string }>();
 
   usePageTitle(t('brødsmuler.signering_feil'));
   useBreadcrumbs([{ tittel: t('brødsmuler.signering_feil'), path: '/' }]);
 
   useEffect(() => {
-    if (orgnr) {
-      logSkjemaInnsendingFeilet(orgnr, skjemanavn.SKJEMANAVN_OPPRETT_AVTALE);
+    if (uuid) {
+      logSkjemaInnsendingFeilet(uuid, skjemanavn.SKJEMANAVN_OPPRETT_AVTALE);
     }
-  }, [orgnr]);
+  }, [uuid]);
 
   return (
     <>
