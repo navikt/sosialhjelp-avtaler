@@ -28,12 +28,11 @@ export interface StartSigneringRequest {
 
 export interface SigneringsstatusRequest {
   uuid: string;
-  status: 'SUKSESS' | 'FEIL';
   token: string;
 }
 
 export interface OpprettAvtaleResponse {
-  orgnr: string;
+  uuid: string;
   navn: string;
   avtaleversjon: string;
   opprettet: string;
