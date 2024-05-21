@@ -86,6 +86,9 @@ const handlers: RequestHandler[] = [
       return res(ctx.delay(900), ctx.status(200), ctx.body(new Blob([''], { type: 'application/pdf' })));
     },
   ),
+  rest.post<string, never, string>(apiUrl('/masse-signer'), async (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.status(201));
+  }),
 ];
 
 export const worker = setupWorker(...handlers);

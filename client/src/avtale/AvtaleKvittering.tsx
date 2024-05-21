@@ -15,7 +15,7 @@ export function AvtaleKvittering() {
   const { state: kommuneFraState } = useLocation() as { state: OpprettAvtaleResponse };
   const [searchParams] = useSearchParams();
   const { data: kommuneFraFetch } = useGet<AvtaleResponse>(
-    kommuneFraState ? null : `/avtale/${searchParams.get('orgnr')}`,
+    kommuneFraState ? null : `/avtale/${searchParams.get('uuid')}`,
   );
   const kommune = kommuneFraState ?? kommuneFraFetch;
   usePageTitle(t('brødsmuler.kvittering'));
