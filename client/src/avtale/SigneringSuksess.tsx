@@ -12,32 +12,31 @@ import { useTranslation } from 'react-i18next';
 const SigneringSuksess = () => {
   const statusQueryToken = new URLSearchParams(useLocation().search).get('status_query_token');
   const [isError, setIsError] = useState(false);
-  const { orgnr } = useParams<{ orgnr: string }>();
+  const { uuid } = useParams<{ uuid: string }>();
   const { t } = useTranslation();
 
   usePageTitle(t('brødsmuler.signering_suksess'));
   useBreadcrumbs([{ tittel: t('brødsmuler.signering_suksess'), path: '/' }]);
   const navigate = useNavigate();
   const { post: sendStatus, data: avtale } = usePost<SigneringsstatusRequest, OpprettAvtaleResponse>(
-    '/avtale/signeringsstatus'
+    '/avtale/signeringsstatus',
   );
 
   useEffect(() => {
-    if (statusQueryToken && orgnr) {
+    if (statusQueryToken && uuid) {
       const sendStatusFunction = async () => {
         await sendStatus({
-          orgnr: orgnr,
-          status: 'SUKSESS',
+          uuid: uuid,
           token: statusQueryToken,
         });
       };
       sendStatusFunction().catch(() => setIsError(true));
     }
-  }, [statusQueryToken, orgnr]);
+  }, [statusQueryToken, uuid]);
 
   useEffect(() => {
     if (avtale) {
-      logSkjemaFullført(avtale.orgnr);
+      logSkjemaFullført(avtale.uuid);
 
       navigate('/opprett-avtale/kvittering', {
         state: avtale,

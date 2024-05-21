@@ -12,6 +12,7 @@ import { Avtaler } from './kommune/Avtaler';
 import SigneringFeil from './avtale/SigneringFeil';
 import SigneringSuksess from './avtale/SigneringSuksess';
 import { enhet } from './styles/enhet';
+import TestSignerFlere from './test/TestSignerFlere';
 
 export function App() {
   const { t, i18n } = useTranslation();
@@ -38,9 +39,10 @@ export function App() {
             <Routes>
               <Route path="/" element={<Avtaler />} />
               <Route path="/opprett-avtale/kvittering" element={<AvtaleKvittering />} />
-              <Route path="/opprett-avtale/feil/:orgnr" element={<SigneringFeil />} />
-              <Route path="/opprett-avtale/suksess/:orgnr" element={<SigneringSuksess />} />
+              <Route path="/opprett-avtale/feil/:uuid" element={<SigneringFeil />} />
+              <Route path="/opprett-avtale/suksess/:uuid" element={<SigneringSuksess />} />
               <Route path="/opprett-avtale/:uuid" element={<OpprettAvtale />} />
+              <Route path="/test-signer-flere" element={<TestSignerFlere />} />
               <Route path="*" element={<Feilside status={404} />} />
             </Routes>
             <Kontakt>
