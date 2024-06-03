@@ -1,7 +1,6 @@
 import type { HttpError } from './error';
 
 export type Nullable<T> = T | null;
-export type Maybe<T> = T | undefined;
 
 export interface Resultat<T> {
   data?: T;
@@ -9,26 +8,35 @@ export interface Resultat<T> {
   loading?: boolean;
 }
 
-export interface Kommune {
+export interface KommuneResponse {
   orgnr: string;
   navn: string;
+  avtaler: AvtaleResponse[];
+}
+
+export interface AvtaleResponse {
+  uuid: string;
+  navn: string;
+  navnInnsender: string;
   avtaleversjon?: string;
-  opprettet?: string;
+  erSignert: boolean;
+  opprettet: string;
 }
 
 export interface StartSigneringRequest {
-  orgnr: string;
+  uuid: string;
 }
 
 export interface SigneringsstatusRequest {
-  orgnr: string;
-  status: 'SUKSESS' | 'FEIL';
+  uuid: string;
   token: string;
 }
 
 export interface OpprettAvtaleResponse {
-  orgnr: string;
+  uuid: string;
   navn: string;
+  navnInnsender: string;
   avtaleversjon: string;
   opprettet: string;
+  erSignert: boolean;
 }

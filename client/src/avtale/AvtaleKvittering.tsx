@@ -3,7 +3,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
-import { Kommune, OpprettAvtaleResponse } from '../types';
+import { AvtaleResponse, OpprettAvtaleResponse } from '../types';
 import { AvtalePanel } from '../kommune/AvtalePanel';
 import styled from 'styled-components/macro';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
@@ -14,7 +14,9 @@ export function AvtaleKvittering() {
   const { t } = useTranslation();
   const { state: kommuneFraState } = useLocation() as { state: OpprettAvtaleResponse };
   const [searchParams] = useSearchParams();
-  const { data: kommuneFraFetch } = useGet<Kommune>(kommuneFraState ? null : `/avtale/${searchParams.get('orgnr')}`);
+  const { data: kommuneFraFetch } = useGet<AvtaleResponse>(
+    kommuneFraState ? null : `/avtale/${searchParams.get('uuid')}`,
+  );
   const kommune = kommuneFraState ?? kommuneFraFetch;
   usePageTitle(t('brødsmuler.kvittering'));
   useBreadcrumbs([{ tittel: t('brødsmuler.kvittering'), path: '/' }]);
@@ -50,7 +52,7 @@ export function AvtaleKvittering() {
         </Trans>
       </BodyLong>
       <StyledReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</StyledReadMore>
-      <AvtalePanel kommune={kommune} />
+      <AvtalePanel avtale={kommune} />
       <Avstand marginBottom={5} />
       <Link to="/" className={'navds-link'}>
         {t('avtale.lenke_tilbake_til_forsiden')}

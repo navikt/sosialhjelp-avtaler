@@ -1,30 +1,28 @@
-import { Heading, BodyLong, Panel } from '@navikt/ds-react';
-import { Data } from '../components/Data';
+import { Heading, BodyLong, Panel, Label, HStack } from '@navikt/ds-react';
 import { Dato } from '../components/Dato';
-import { Datum } from '../components/Datum';
-import { Organisasjonsnummer } from '../components/Organisasjonsnummer';
-import { Kommune } from '../types';
+import { AvtaleResponse } from '../types';
+import { useTranslation } from 'react-i18next';
 
 export interface AvtalePanelProps {
-  kommune: Kommune;
+  avtale: AvtaleResponse;
 }
 
 export function AvtalePanel(props: AvtalePanelProps) {
-  const { kommune } = props;
+  const { avtale } = props;
+
+  const { t } = useTranslation();
   return (
-    <Panel border={true}>
+    <Panel border>
       <Heading spacing size="small" as="p">
-        {kommune.navn}
+        {avtale.navn}
       </Heading>
       <BodyLong as="span">
-        <Data>
-          <Datum label="ledetekst.orgnr">
-            <Organisasjonsnummer verdi={kommune.orgnr} />
-          </Datum>
-          <Datum label="ledetekst.dato_opprettet">
-            <Dato verdi={kommune.opprettet} />
-          </Datum>
-        </Data>
+        <HStack gap={'2'} align={'center'}>
+          <Label as="span" htmlFor={'opprettet_dato'}>
+            {t('ledetekst.dato_opprettet')}
+          </Label>
+          <Dato verdi={avtale.opprettet} />
+        </HStack>
       </BodyLong>
     </Panel>
   );
