@@ -68,7 +68,7 @@ const handlers: RequestHandler[] = [
     return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(etterspurtAvtale));
   }),
   rest.get<Record<string, unknown>, Record<string, never>, Array<KommuneResponse>>(
-    apiUrl('/kommuner'),
+    apiUrl('/avtale'),
     (req, res, ctx) => {
       return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(Object.values(kommuner)));
     },

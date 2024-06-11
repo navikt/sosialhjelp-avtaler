@@ -14,7 +14,7 @@ export function Avtaler() {
   const { t } = useTranslation();
   useBreadcrumbs();
 
-  const { data: kommuner, error } = useGet<Array<KommuneResponse>>('/kommuner');
+  const { data: kommuner, error } = useGet<Array<KommuneResponse>>('/avtale');
 
   if (!kommuner && !error) {
     return <Spinner />;
