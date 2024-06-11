@@ -53,7 +53,7 @@ export function OpprettAvtale() {
     return null;
   }
 
-  if (avtale.opprettet) {
+  if (avtale.erSignert) {
     navigate('/opprett-avtale/kvittering', {
       state: avtale,
     });
