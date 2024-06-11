@@ -21,10 +21,7 @@ export interface AvtaleResponse {
   avtaleversjon?: string;
   erSignert: boolean;
   opprettet: string;
-}
-
-export interface StartSigneringRequest {
-  uuid: string;
+  avtaleUrl: string;
 }
 
 export interface SigneringsstatusRequest {
@@ -39,4 +36,5 @@ export interface OpprettAvtaleResponse {
   avtaleversjon: string;
   opprettet: string;
   erSignert: boolean;
+  avtaleUrl: string;
 }

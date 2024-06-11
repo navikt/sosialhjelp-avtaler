@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppLink } from '../components/AppLink';
 import { Avstand } from '../components/Avstand';
-import { AvtaleResponse, StartSigneringRequest } from '../types';
+import { AvtaleResponse } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
 import { logLastNedAvtale, logSkjemaStartet, logSkjemaStegFullført } from '../utils/amplitude';
@@ -28,7 +28,7 @@ export function OpprettAvtale() {
       lest: false,
     },
   });
-  const { post: startSignering, data: requestUrl } = usePost<StartSigneringRequest, string>('/avtale/signer');
+  const { post: startSignering, data: requestUrl } = usePost<never, string>(`/avtale/${uuid}/signer`);
   const navigate = useNavigate();
   usePageTitle(t('brødsmuler.opprett'));
   useBreadcrumbs([{ tittel: t('brødsmuler.opprett'), path: '/' }]);
@@ -71,18 +71,15 @@ export function OpprettAvtale() {
       </Avstand>
       <VStack gap="4">
         <BodyLong>
-          <AppLink href="/Avtale.pdf" target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
+          <AppLink href={avtale.avtaleUrl} target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
             {t('avtale.lenke_last_ned_avtalemalen')}
-          </AppLink>{' '}
-          {t('avtale.usignert')}
+          </AppLink>
         </BodyLong>
         <BodyLong>{t('avtale.arkivering')}</BodyLong>
       </VStack>
       <form
         onSubmit={handleSubmit(async () => {
-          await startSignering({
-            uuid: avtale.uuid,
-          });
+          await startSignering();
           logSkjemaStegFullført(avtale.uuid, 1);
         })}
       >
