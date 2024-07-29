@@ -15,6 +15,7 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       opprettet: new Date().toISOString(),
       erSignert: true,
       avtaleUrl: '',
+      orgnr: '123456789',
     },
     {
       uuid: '3d4e3d11-0365-4f8d-91b6-a281ccdb314d',
@@ -24,6 +25,7 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       opprettet: new Date().toISOString(),
       erSignert: true,
       avtaleUrl: '',
+      orgnr: '123456789',
     },
   ],
   '987654321': [
@@ -35,6 +37,7 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       opprettet: new Date().toISOString(),
       erSignert: true,
       avtaleUrl: '',
+      orgnr: '987654321',
     },
     {
       uuid: '8638709e-18f3-4dbc-95f7-4fe219560942',
@@ -44,6 +47,7 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       opprettet: new Date().toISOString(),
       erSignert: false,
       avtaleUrl: '',
+      orgnr: '987654321',
     },
   ],
 };
@@ -98,8 +102,9 @@ const handlers: RequestHandler[] = [
       return res(ctx.delay(900), ctx.status(200), ctx.body(new Blob([''], { type: 'application/pdf' })));
     },
   ),
-  rest.post<string, never, string>(apiUrl('/masse-signer'), async (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.status(201));
+  rest.get<string, { orgnr: string }>(apiUrl('/kommuner/:orgnr'), (req, res, ctx) => {
+    const kommune = kommuner[req.params.orgnr];
+    return res(ctx.delay(900), ctx.status(200), ctx.json({ kommunenavn: kommune.navn }));
   }),
 ];
 

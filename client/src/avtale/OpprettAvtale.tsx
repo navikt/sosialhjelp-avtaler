@@ -10,7 +10,6 @@ import { AvtaleResponse } from '../types';
 import { useGet } from '../api/useGet';
 import { usePost } from '../api/usePost';
 import { logLastNedAvtale, logSkjemaStartet, logSkjemaStegFullført } from '../utils/amplitude';
-import { Avtale } from './Avtale';
 import Spinner from '../components/Spinner';
 import { usePageTitle } from '../components/hooks/usePageTitle';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
@@ -19,6 +18,10 @@ export function OpprettAvtale() {
   const { t } = useTranslation();
   const { uuid } = useParams<{ uuid: string }>();
   const { data: avtale, error: avtaleError } = useGet<AvtaleResponse>(`/avtale/${uuid}`);
+  const { data: kommunenavn, error: kommunenavnError } = useGet<{ kommunenavn: string }>(
+    avtale ? `/kommuner/${avtale.orgnr}` : null,
+  );
+  console.log(kommunenavn);
   const {
     control,
     handleSubmit,
@@ -45,11 +48,11 @@ export function OpprettAvtale() {
     }
   }, [requestUrl]);
 
-  if (!avtale && !avtaleError) {
+  if (!avtale && !avtaleError && !kommunenavn && !kommunenavnError) {
     return <Spinner />;
   }
 
-  if (!avtale) {
+  if (!avtale || !kommunenavn) {
     return null;
   }
 
@@ -62,13 +65,9 @@ export function OpprettAvtale() {
   return (
     <>
       <Heading level="2" size="medium" spacing>
-        {t('avtale.opprett_avtale_for', { navn: avtale.navn })}
+        {t('avtale.opprett_avtale_for', { kommune: kommunenavn.kommunenavn })}
       </Heading>
       <BodyLong spacing>{t('avtale.ingress')}</BodyLong>
-      <ReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</ReadMore>
-      <Avstand marginTop={5} marginBottom={5}>
-        <Avtale />
-      </Avstand>
       <VStack gap="4">
         <BodyLong>
           <AppLink href={avtale.avtaleUrl} target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
@@ -77,6 +76,9 @@ export function OpprettAvtale() {
         </BodyLong>
         <BodyLong>{t('avtale.arkivering')}</BodyLong>
       </VStack>
+      <Avstand marginTop={5} marginBottom={5}>
+        <ReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</ReadMore>
+      </Avstand>
       <form
         onSubmit={handleSubmit(async () => {
           await startSignering();
@@ -98,10 +100,7 @@ export function OpprettAvtale() {
                 label={t('avtale.samtykke')}
                 checked={field.value}
                 {...field}
-              >
-                <SpanWithMargin>{t('avtale.bekreftelse.1')}</SpanWithMargin>
-                <span>{t('avtale.bekreftelse.2')}</span>
-              </ConfirmationPanel>
+              />
             )}
           />
         </Avstand>
@@ -134,9 +133,4 @@ const Knapper = styled.div`
 
 const StyledAlert = styled(Alert)`
   margin-bottom: 1rem;
-`;
-
-const SpanWithMargin = styled.span`
-  margin-bottom: var(--a-spacing-4);
-  display: block;
 `;

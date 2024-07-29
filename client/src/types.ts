@@ -16,6 +16,7 @@ export interface KommuneResponse {
 
 export interface AvtaleResponse {
   uuid: string;
+  orgnr: string;
   navn: string;
   navnInnsender: string;
   avtaleversjon?: string;
@@ -31,6 +32,7 @@ export interface SigneringsstatusRequest {
 
 export interface OpprettAvtaleResponse {
   uuid: string;
+  orgnr: string;
   navn: string;
   navnInnsender: string;
   avtaleversjon: string;
