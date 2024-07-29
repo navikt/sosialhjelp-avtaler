@@ -1,6 +1,6 @@
 import { RequestHandler, rest, setupWorker } from 'msw';
 import { apiUrl, baseUrl } from '../api/http';
-import { AvtaleResponse, StartSigneringRequest, KommuneResponse } from '../types';
+import { AvtaleResponse, KommuneResponse } from '../types';
 
 // Delay for nettverkskall. Når undefines, bruker MSW en random realistisk delay
 const DELAY_MS = undefined;
@@ -14,6 +14,8 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       avtaleversjon: '1.0',
       opprettet: new Date().toISOString(),
       erSignert: true,
+      avtaleUrl: '',
+      orgnr: '123456789',
     },
     {
       uuid: '3d4e3d11-0365-4f8d-91b6-a281ccdb314d',
@@ -22,6 +24,8 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       avtaleversjon: '1.0',
       opprettet: new Date().toISOString(),
       erSignert: true,
+      avtaleUrl: '',
+      orgnr: '123456789',
     },
   ],
   '987654321': [
@@ -32,6 +36,8 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       avtaleversjon: '1.0',
       opprettet: new Date().toISOString(),
       erSignert: true,
+      avtaleUrl: '',
+      orgnr: '987654321',
     },
     {
       uuid: '8638709e-18f3-4dbc-95f7-4fe219560942',
@@ -40,6 +46,8 @@ const avtaler: Record<string, AvtaleResponse[]> = {
       avtaleversjon: '1.0',
       opprettet: new Date().toISOString(),
       erSignert: false,
+      avtaleUrl: '',
+      orgnr: '987654321',
     },
   ],
 };
@@ -68,17 +76,17 @@ const handlers: RequestHandler[] = [
     return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(etterspurtAvtale));
   }),
   rest.get<Record<string, unknown>, Record<string, never>, Array<KommuneResponse>>(
-    apiUrl('/kommuner'),
+    apiUrl('/avtale'),
     (req, res, ctx) => {
       return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(Object.values(kommuner)));
     },
   ),
-  rest.post<StartSigneringRequest, Record<string, never>, string>(apiUrl('/avtale/signer'), async (req, res, ctx) => {
-    const requestBody: StartSigneringRequest = await req.json();
+  rest.post<never, { uuid: string }, string>(apiUrl('/avtale/:uuid/signer'), async (req, res, ctx) => {
+    const uuid = req.params.uuid;
     return res(
       ctx.delay(DELAY_MS),
       ctx.status(200),
-      ctx.json(baseUrl() + '/opprett-avtale/suksess/' + requestBody.uuid + '?status_query_token=1234'),
+      ctx.json(baseUrl() + '/opprett-avtale/suksess/' + uuid + '?status_query_token=1234'),
     );
   }),
   // rest.post<SigneringsstatusRequest, { status_query_token: '1234' }, OpprettAvtaleResponse>(
@@ -94,8 +102,9 @@ const handlers: RequestHandler[] = [
       return res(ctx.delay(900), ctx.status(200), ctx.body(new Blob([''], { type: 'application/pdf' })));
     },
   ),
-  rest.post<string, never, string>(apiUrl('/masse-signer'), async (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.status(201));
+  rest.get<string, { orgnr: string }>(apiUrl('/kommuner/:orgnr'), (req, res, ctx) => {
+    const kommune = kommuner[req.params.orgnr];
+    return res(ctx.delay(900), ctx.status(200), ctx.json({ kommunenavn: kommune.navn }));
   }),
 ];
 

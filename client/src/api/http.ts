@@ -50,7 +50,7 @@ export const http = {
       return Promise.reject(HttpError.wrap(err));
     }
   },
-  async request<B, T>(path: string, body: B, method: string): Promise<Resultat<T>> {
+  async request<B, T>(path: string, method: string, body?: B): Promise<Resultat<T>> {
     try {
       const url = apiUrl(path);
       const response = await fetch(url, {
