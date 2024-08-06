@@ -42,6 +42,7 @@ export function Avtaler() {
 
   return (
     <VStack gap={'12'}>
+      <BodyLong>{t('avtale.forside.ingress')}</BodyLong>
       <AvtaleAccordion heading={t('kommune.uten_avtale')} kommuner={kommunerMedUsignerteAvtaler} />
       <AvtaleAccordion heading={t('kommune.med_avtale')} kommuner={kommunerMedSignerteAvtaler} readonly />
     </VStack>
