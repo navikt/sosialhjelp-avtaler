@@ -6,7 +6,7 @@ function createProxy(
   host: string,
   targetAudience: string,
   exchangeIDPortenToken: ExchangeToken,
-  options: ProxyOptions
+  options: ProxyOptions,
 ) {
   return proxy(host, {
     parseReqBody: false,
