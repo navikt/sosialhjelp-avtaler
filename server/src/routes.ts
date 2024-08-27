@@ -21,9 +21,25 @@ export const routes = {
   api(exchangeIDPortenToken: ExchangeToken): Router {
     return Router()
       .use(proxyHandlers.api(exchangeIDPortenToken))
-      .get('/avtale/signert-avtale/:orgnr', async (req, res) => {
+      .get('/avtale/signert-avtale/:uuid', async (req, res) => {
         try {
-          const response = await fetch(`/avtale/signert-avtale/${req.params.orgnr}`, {
+          const response = await fetch(`/avtale/${req.params.uuid}/signert-avtale`, {
+            method: 'get',
+            headers: {
+              Authorization: `Bearer ${exchangeIDPortenToken}`,
+            },
+          });
+          const buffer = await response.arrayBuffer();
+          res.contentType('application/pdf');
+          res.status(response.status).send(buffer);
+        } catch (error) {
+          console.log(`Error while calling api: ${error}`);
+          res.sendStatus(500);
+        }
+      })
+      .get('/avtale/:uuid/avtale', async (req, res) => {
+        try {
+          const response = await fetch(`/avtale/${req.params.uuid}/avtale`, {
             method: 'get',
             headers: {
               Authorization: `Bearer ${exchangeIDPortenToken}`,

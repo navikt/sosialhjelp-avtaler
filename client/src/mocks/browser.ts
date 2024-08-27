@@ -1,6 +1,6 @@
 import { RequestHandler, rest, setupWorker } from 'msw';
 import { apiUrl, baseUrl } from '../api/http';
-import { AvtaleResponse, KommuneResponse } from '../types';
+import { AvtaleResponse, KommuneResponse, OpprettAvtaleResponse, SigneringsstatusRequest } from '../types';
 
 // Delay for nettverkskall. Når undefines, bruker MSW en random realistisk delay
 const DELAY_MS = undefined;
@@ -89,13 +89,12 @@ const handlers: RequestHandler[] = [
       ctx.json(baseUrl() + '/opprett-avtale/suksess/' + uuid + '?status_query_token=1234'),
     );
   }),
-  // rest.post<SigneringsstatusRequest, { status_query_token: '1234' }, OpprettAvtaleResponse>(
-  //   apiUrl('/avtale/signeringsstatus'),
-  //   async (req, res, ctx) => {
-  //     const requestBody: SigneringsstatusRequest = await req.json();
-  //     return res(ctx.delay(DELAY_MS), ctx.status(201), ctx.json(kommuneMedAvtale[requestBody.orgnr]));
-  //   }
-  // ),
+  rest.post<SigneringsstatusRequest, { status_query_token: '1234' }, OpprettAvtaleResponse>(
+    apiUrl('/avtale/signeringsstatus'),
+    async (req, res, ctx) => {
+      return res(ctx.delay(DELAY_MS), ctx.status(201), ctx.json(avtaler['123456789'][0]));
+    },
+  ),
   rest.get<Record<string, unknown>, { orgnr: string }, Blob>(
     apiUrl('/avtale/signert-avtale/:orgnr'),
     (req, res, ctx) => {
