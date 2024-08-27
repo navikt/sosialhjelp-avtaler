@@ -21,7 +21,6 @@ export function OpprettAvtale() {
   const { data: kommunenavn, error: kommunenavnError } = useGet<{ kommunenavn: string }>(
     avtale ? `/kommuner/${avtale.orgnr}` : null,
   );
-  console.log(kommunenavn);
   const {
     control,
     handleSubmit,
@@ -67,10 +66,16 @@ export function OpprettAvtale() {
       <Heading level="2" size="medium" spacing>
         {t('avtale.opprett_avtale_for', { kommune: kommunenavn.kommunenavn })}
       </Heading>
-      <BodyLong spacing>{t('avtale.ingress')}</BodyLong>
+      <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+        {avtale.ingress}
+      </BodyLong>
       <VStack gap="4">
         <BodyLong>
-          <AppLink href={avtale.avtaleUrl} target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
+          <AppLink
+            href={`/api/avtale/${avtale.uuid}/avtale`}
+            target="_blank"
+            onClick={() => logLastNedAvtale(window.location.href)}
+          >
             {t('avtale.lenke_last_ned_avtalemalen')}
           </AppLink>
         </BodyLong>
