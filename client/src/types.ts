@@ -23,6 +23,8 @@ export interface AvtaleResponse {
   erSignert: boolean;
   opprettet: string;
   avtaleUrl: string;
+  ingress?: string;
+  kvitteringstekst?: string;
 }
 
 export interface SigneringsstatusRequest {
@@ -35,8 +37,10 @@ export interface OpprettAvtaleResponse {
   orgnr: string;
   navn: string;
   navnInnsender: string;
-  avtaleversjon: string;
+  avtaleversjon?: string;
   opprettet: string;
   erSignert: boolean;
   avtaleUrl: string;
+  ingress?: string;
+  kvitteringstekst?: string;
 }

@@ -67,7 +67,9 @@ export function OpprettAvtale() {
       <Heading level="2" size="medium" spacing>
         {t('avtale.opprett_avtale_for', { kommune: kommunenavn.kommunenavn })}
       </Heading>
-      <BodyLong spacing>{t('avtale.ingress')}</BodyLong>
+      <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+        {avtale.ingress}
+      </BodyLong>
       <VStack gap="4">
         <BodyLong>
           <AppLink href={avtale.avtaleUrl} target="_blank" onClick={() => logLastNedAvtale(window.location.href)}>
