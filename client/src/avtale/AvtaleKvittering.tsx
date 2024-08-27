@@ -1,5 +1,5 @@
 import { Alert, BodyLong, Heading, ReadMore } from '@navikt/ds-react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Avstand } from '../components/Avstand';
 import { DsLink } from '../components/DsLink';
@@ -31,26 +31,17 @@ export function AvtaleKvittering() {
       </Heading>
       <Alert variant="success">{t('avtale.suksess')}</Alert>
       <Avstand marginBottom={5} />
-      <BodyLong spacing>{t('avtale.arkivering')}</BodyLong>
-      <BodyLong spacing>
-        <Trans t={t} i18nKey="avtale.mer_informasjon">
-          <></>
-          <DsLink
-            href="https://www.nav.no/no/nav-og-samfunn/samarbeid/for-kommunen/digisos/nyheter-fra-digisos/innsyn-i-opplysninger-om-saker-for-okonomisk-sosialhjelp-for-nav-kontaktsenter-er-i-pilot"
-            target="_blank"
-          >
-            <></>
-          </DsLink>
-        </Trans>
-      </BodyLong>{' '}
-      <BodyLong spacing>
-        <Trans t={t} i18nKey="avtale.lenke_til_fiks">
-          <></>
-          <DsLink href="https://forvaltning.fiks.ks.no/" target="_blank">
-            <></>
-          </DsLink>
-        </Trans>
-      </BodyLong>
+      {kommune.erSignert && (
+        <BodyLong spacing>
+          Last ned avtalen{' '}
+          {
+            <DsLink target="_blank" href={`/avtale/signert-avtale/${kommune.uuid}`}>
+              her
+            </DsLink>
+          }
+        </BodyLong>
+      )}
+      {kommune.kvitteringstekst && <BodyLong spacing>{kommune.kvitteringstekst}</BodyLong>}
       <StyledReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</StyledReadMore>
       <AvtalePanel avtale={kommune} />
       <Avstand marginBottom={5} />

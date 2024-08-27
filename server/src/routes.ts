@@ -36,6 +36,22 @@ export const routes = {
           console.log(`Error while calling api: ${error}`);
           res.sendStatus(500);
         }
+      })
+      .get('/avtale/:uuid/avtale', async (req, res) => {
+        try {
+          const response = await fetch(`/avtale/${req.params.uuid}/avtale`, {
+            method: 'get',
+            headers: {
+              Authorization: `Bearer ${exchangeIDPortenToken}`,
+            },
+          });
+          const buffer = await response.arrayBuffer();
+          res.contentType('application/pdf');
+          res.status(response.status).send(buffer);
+        } catch (error) {
+          console.log(`Error while calling api: ${error}`);
+          res.sendStatus(500);
+        }
       });
   },
   public(): Router {
