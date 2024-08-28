@@ -35,5 +35,8 @@
       "prettier --write",
       "npm run lint"
     ]
+  },
+  "dependencies": {
+    "@navikt/aksel-icons": "^6.16.2"
   }
 }
