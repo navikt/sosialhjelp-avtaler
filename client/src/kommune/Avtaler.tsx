@@ -90,11 +90,13 @@ const AvtaleAccordion = ({ heading, kommuner, readonly }: Props) => {
                 {kommune.navn} - <Organisasjonsnummer verdi={kommune.orgnr} />
               </Accordion.Header>
               <Accordion.Content>
-                {kommune.avtaler.map((avtale) => (
-                  <Fragment key={avtale.uuid}>
-                    {readonly ? <AvtalePanel avtale={avtale} /> : <OpprettAvtaleLinkPanel avtale={avtale} />}
-                  </Fragment>
-                ))}
+                <VStack gap="4">
+                  {kommune.avtaler.map((avtale) => (
+                    <Fragment key={avtale.uuid}>
+                      {readonly ? <AvtalePanel avtale={avtale} /> : <OpprettAvtaleLinkPanel avtale={avtale} />}
+                    </Fragment>
+                  ))}
+                </VStack>
               </Accordion.Content>
             </Accordion.Item>
           ))}

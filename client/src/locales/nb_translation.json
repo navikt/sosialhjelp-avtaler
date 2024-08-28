@@ -6,6 +6,7 @@
   "avtale.inngå_avtale": "Inngå avtale",
   "avtale.kvittering_for": "Kvittering for {{navn}}",
   "avtale.lenke_last_ned_avtalemalen": "Last ned kopi av avtale for gjennomlesing",
+  "avtale.last_ned": "Last ned signert avtale",
   "avtale.arkivering": "Signataren vil få den signerte avtalen tilsendt i sin Digipost og kan laste den ned derfra for arkivering. Den signerte avtalen må arkiveres i kommunens arkivsystemet manuelt.",
   "avtale.lenke_tilbake_til_forsiden": "Tilbake til forsiden",
   "avtale.lenke_til_fiks": "Hvis dere ikke allerede har aktivert innsynsflate NKS, kan den som har tilgang og tidligere har håndtert påkobling til Digisos-løsningene gjøre dette via FIKS konfigurasjonen. Dette gjøres her: <1>https://forvaltning.fiks.ks.no/</1> ",

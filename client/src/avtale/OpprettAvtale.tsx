@@ -15,7 +15,10 @@ import { usePageTitle } from '../components/hooks/usePageTitle';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 
 export function OpprettAvtale() {
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const { uuid } = useParams<{ uuid: string }>();
   const { data: avtale, error: avtaleError } = useGet<AvtaleResponse>(`/avtale/${uuid}`);
   const { data: kommunenavn, error: kommunenavnError } = useGet<{ kommunenavn: string }>(
@@ -66,9 +69,16 @@ export function OpprettAvtale() {
       <Heading level="2" size="medium" spacing>
         {t('avtale.opprett_avtale_for', { kommune: kommunenavn.kommunenavn })}
       </Heading>
-      <BodyLong spacing style={{ whiteSpace: 'pre' }}>
-        {avtale.ingress}
-      </BodyLong>
+      {avtale.ingress && language === 'nb' && (
+        <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+          {avtale.ingress}
+        </BodyLong>
+      )}
+      {avtale.ingressNynorsk && language === 'nn' && (
+        <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+          {avtale.ingressNynorsk}
+        </BodyLong>
+      )}
       <VStack gap="4">
         <BodyLong>
           <AppLink

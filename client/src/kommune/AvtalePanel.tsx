@@ -1,4 +1,4 @@
-import { Heading, BodyLong, Panel, Label, HStack, VStack, Button } from '@navikt/ds-react';
+import { Heading, Label, HStack, VStack, Button, Box } from '@navikt/ds-react';
 import { Dato } from '../components/Dato';
 import { AvtaleResponse } from '../types';
 import { useTranslation } from 'react-i18next';
@@ -14,26 +14,29 @@ export function AvtalePanel(props: AvtalePanelProps) {
 
   const { t } = useTranslation();
   return (
-    <Panel border>
-      <Heading spacing size="small" as="p">
-        {avtale.navn}
-      </Heading>
-      <BodyLong as="span">
-        <VStack justify="space-between">
-          <HStack gap={'2'} align={'center'}>
+    <Box borderWidth="1" padding="2">
+      <HStack justify="space-between" align="center">
+        <VStack gap="4">
+          <Heading spacing size="small" as="p">
+            {avtale.navn}
+          </Heading>
+          <HStack gap={'1'} align={'center'}>
             <Label as="span" htmlFor={'opprettet_dato'}>
               {t('ledetekst.dato_opprettet')}
             </Label>
             <Dato verdi={avtale.opprettet} />
           </HStack>
-          <Button
-            icon={<DownloadIcon />}
-            as={AppLink}
-            target="_blank"
-            href={`/api/avtale/${avtale.uuid}/signert-avtale`}
-          />
         </VStack>
-      </BodyLong>
-    </Panel>
+        <Button
+          icon={<DownloadIcon />}
+          as={AppLink}
+          variant="tertiary"
+          target="_blank"
+          href={`/api/avtale/${avtale.uuid}/signert-avtale`}
+        >
+          {t('avtale.last_ned')}
+        </Button>
+      </HStack>
+    </Box>
   );
 }
