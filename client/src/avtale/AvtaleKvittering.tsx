@@ -11,7 +11,10 @@ import { useGet } from '../api/useGet';
 import { AppLink } from '../components/AppLink';
 
 export function AvtaleKvittering() {
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const { state: kommuneFraState } = useLocation() as { state: OpprettAvtaleResponse };
   const [searchParams] = useSearchParams();
   const { data: kommuneFraFetch } = useGet<AvtaleResponse>(
@@ -33,15 +36,23 @@ export function AvtaleKvittering() {
       <Avstand marginBottom={5} />
       {kommune.erSignert && (
         <BodyLong spacing>
-          Last ned avtalen{' '}
           {
             <AppLink target="_blank" href={`/api/avtale/${kommune.uuid}/signert-avtale`}>
-              her
+              {t('avtale.last_ned')}
             </AppLink>
           }
         </BodyLong>
       )}
-      {kommune.kvitteringstekst && <BodyLong spacing>{kommune.kvitteringstekst}</BodyLong>}
+      {kommune.kvitteringstekst && language === 'nb' && (
+        <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+          {kommune.kvitteringstekst}
+        </BodyLong>
+      )}
+      {kommune.kvitteringstekstNynorsk && language === 'nn' && (
+        <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+          {kommune.kvitteringstekstNynorsk}
+        </BodyLong>
+      )}
       <StyledReadMore header={t('personopplysninger.overskrift')}>{t('personopplysninger.detaljer')}</StyledReadMore>
       <AvtalePanel avtale={kommune} />
       <Avstand marginBottom={5} />

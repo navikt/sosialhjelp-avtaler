@@ -24,7 +24,9 @@ export interface AvtaleResponse {
   opprettet: string;
   avtaleUrl: string;
   ingress?: string;
+  ingressNynorsk?: string;
   kvitteringstekst?: string;
+  kvitteringstekstNynorsk?: string;
 }
 
 export interface SigneringsstatusRequest {
@@ -42,5 +44,7 @@ export interface OpprettAvtaleResponse {
   erSignert: boolean;
   avtaleUrl: string;
   ingress?: string;
+  ingressNynorsk?: string;
   kvitteringstekst?: string;
+  kvitteringstekstNynorsk?: string;
 }

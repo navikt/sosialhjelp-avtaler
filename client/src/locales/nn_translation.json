@@ -1,11 +1,12 @@
 {
   "avtale.overskrift": "Avtaler",
   "avtale.forside.ingress": "Her finn du ei oversikt over avtalar du har til signering eller som er signert med Arbeids- og velferdsdirektoratet på vegner av kommunen din . Trykk inn på den aktuelle avtalen for å lese meir om, og signere avtalen.",
-  "avtale.samtykke": "Eg har lese avtalen, og stadfestar at kommunen ønskjer å inngå avtale om behandling av personopplysningar i dei digitale tenestene med NAV.",
+  "avtale.samtykke": "Eg stadfestar å ha lese avtalen, og at kommunen ønskjer å inngå avtalen ovanfor.",
   "avtale.ingress":"Her kan du inngå avtale om behandling av personopplysningar i dei digitale tenestene for dei kommunale sosiale tenestene (databehandlaravtale) med NAV på vegner av kommunen din. Les grundig gjennom avtaleteksten. For å inngå avtalen må du kryssa av for at du har sett deg inn i vilkåra for avtalen, og at kommunen forpliktar seg til vilkåra.",
   "avtale.inngå_avtale": "Inngå avtale",
   "avtale.kvittering_for": "Kvittering for {{navn}}",
   "avtale.lenke_last_ned_avtalemalen": "Last ned kopi av avtale for gjennomlesing",
+  "avtale.last_ned": "Last ned signert avtale",
   "avtale.arkivering": "Signataren vil få den signerte avtalen tilsendt i sin Digipost og kan lasta han ned derfrå for arkivering. Den signerte avtalen må arkiverast i kommunens arkivsystemet manuelt.",
   "avtale.lenke_tilbake_til_forsiden": "Tilbake til framsida",
   "avtale.lenke_til_fiks": "Viss de ikkje allereie har aktivert innsynsflate NKS, kan den som har tilgang og tidlegare har handtert påkopling til Digisos-løysingane gjera dette via FIKS konfigurasjonen. Dette kan gjerast her: https://forvaltning.fiks.ks.no/",
