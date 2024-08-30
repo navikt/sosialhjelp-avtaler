@@ -11,8 +11,8 @@
     "prettier": "prettier -w src"
   },
   "dependencies": {
+    "@navikt/aksel-icons": "^6.16.2",
     "@navikt/ds-css": "^6.8.0",
-    "@navikt/aksel-icons": "^6.1.2",
     "@navikt/ds-react": "^6.8.0",
     "@navikt/nav-dekoratoren-moduler": "^2.1.3",
     "i18next": "^21.10.0",
