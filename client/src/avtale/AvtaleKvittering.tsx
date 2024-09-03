@@ -32,6 +32,7 @@ export function AvtaleKvittering() {
         {t('avtale.kvittering_for', { navn: kommune.navn })}
       </Heading>
       <Alert variant="success">{t('avtale.suksess')}</Alert>
+      <Avstand marginBottom={5} />
       <AvtalePanel avtale={kommune} />
       <Avstand marginBottom={5} />
       {kommune.kvitteringstekst && language === 'nb' && (
