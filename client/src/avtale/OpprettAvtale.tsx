@@ -70,12 +70,12 @@ export function OpprettAvtale() {
         {t('avtale.opprett_avtale_for', { kommune: kommunenavn.kommunenavn })}
       </Heading>
       {avtale.ingress && language === 'nb' && (
-        <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+        <BodyLong spacing style={{ whiteSpace: 'pre-wrap' }}>
           {avtale.ingress}
         </BodyLong>
       )}
       {avtale.ingressNynorsk && language === 'nn' && (
-        <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+        <BodyLong spacing style={{ whiteSpace: 'pre-wrap' }}>
           {avtale.ingressNynorsk}
         </BodyLong>
       )}

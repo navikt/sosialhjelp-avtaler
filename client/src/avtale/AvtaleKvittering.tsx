@@ -35,12 +35,12 @@ export function AvtaleKvittering() {
       <AvtalePanel avtale={kommune} />
       <Avstand marginBottom={5} />
       {kommune.kvitteringstekst && language === 'nb' && (
-        <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+        <BodyLong spacing style={{ whiteSpace: 'pre-wrap' }}>
           {kommune.kvitteringstekst}
         </BodyLong>
       )}
       {kommune.kvitteringstekstNynorsk && language === 'nn' && (
-        <BodyLong spacing style={{ whiteSpace: 'pre' }}>
+        <BodyLong spacing style={{ whiteSpace: 'pre-wrap' }}>
           {kommune.kvitteringstekstNynorsk}
         </BodyLong>
       )}
