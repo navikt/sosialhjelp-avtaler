@@ -82,7 +82,7 @@ export function OpprettAvtale() {
       <VStack gap="4">
         <BodyLong>
           <AppLink
-            href={`/api/avtale/${avtale.uuid}/avtale`}
+            href={`/api/avtale/${avtale.uuid}/eksempel`}
             target="_blank"
             onClick={() => logLastNedAvtale(window.location.href)}
           >

@@ -5,7 +5,7 @@
   "avtale.ingress":"Her kan du inngå avtale om behandling av personopplysninger i de digitale tjenestene for de kommunale sosiale tjenestene (databehandleravtale) med NAV på vegne av kommunen din. Les grundig gjennom avtaleteksten. For å inngå avtalen må du krysse av for at du har satt deg inn i vilkårene for avtalen, og at kommunen forplikter seg til vilkårene.",
   "avtale.inngå_avtale": "Inngå avtale",
   "avtale.kvittering_for": "Kvittering for {{navn}}",
-  "avtale.lenke_last_ned_avtalemalen": "Last ned kopi av avtale for gjennomlesing",
+  "avtale.lenke_last_ned_avtalemalen": "Her kan du laste ned et eksempel på avtalen",
   "avtale.last_ned": "Last ned signert avtale",
   "avtale.arkivering": "Signataren vil få den signerte avtalen tilsendt i sin Digipost og kan laste den ned derfra for arkivering. Den signerte avtalen må arkiveres i kommunens arkivsystemet manuelt.",
   "avtale.lenke_tilbake_til_forsiden": "Tilbake til forsiden",
