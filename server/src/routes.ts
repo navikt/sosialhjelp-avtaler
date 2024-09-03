@@ -37,9 +37,9 @@ export const routes = {
           res.sendStatus(500);
         }
       })
-      .get('/avtale/:uuid/avtale', async (req, res) => {
+      .get('/avtale/:uuid/eksempel', async (req, res) => {
         try {
-          const response = await fetch(`/avtale/${req.params.uuid}/avtale`, {
+          const response = await fetch(`/avtale/${req.params.uuid}/eksempel`, {
             method: 'get',
             headers: {
               Authorization: `Bearer ${exchangeIDPortenToken}`,
