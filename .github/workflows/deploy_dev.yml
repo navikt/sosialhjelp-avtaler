@@ -13,18 +13,15 @@ on:
           - 'dev'
           - 'mock'
 
-env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}
-
 jobs:
   build-image:
     name: 'Build Image for Deploy'
     runs-on: ubuntu-latest
     outputs:
-      complete-tag: ${{ steps.complete-tag.outputs.tag }}
+      image: ${{ steps.docker-build-push.outputs.image }}
     permissions:
-      packages: write
-      contents: write
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v3
 
@@ -47,31 +44,12 @@ jobs:
         with:
           run-test: 'false'
 
-      - name: 'Create artifact version'
-        id: artifact-version
-        uses: navikt/sosialhjelp-ci/actions/create-artifact-version@v2
-
-      - name: 'Tag with prefix'
-        id: complete-tag
-        run: |
-          echo "tag=${{ inputs.config-file-name }}-${{ steps.artifact-version.outputs.version }}" >> $GITHUB_OUTPUT
-        shell: bash
-
-      - name: 'Release Tag'
-        uses: ncipollo/release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+      - uses: nais/docker-build-push@v0
+        id: docker-build-push
         with:
-          tag: ${{ steps.complete-tag.outputs.tag }}
-          commit: ${{ github.sha }}
-          allowUpdates: true
-
-      - name: 'Build and Push Docker Image'
-        uses: navikt/sosialhjelp-ci/actions/build-and-push-docker-image@v2-beta
-        with:
-          artifact-version: ${{ steps.complete-tag.outputs.tag }}
-          image-name: ${{ env.DOCKER_IMAGE }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          team: teamdigisos
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
 
   deploy-app:
     name: 'Deploy Application'
@@ -90,4 +68,4 @@ jobs:
           CLUSTER: dev-gcp
           REF: ${{ github.sha }}
           PRINT_PAYLOAD: true
-          IMAGE: ${{ env.DOCKER_IMAGE }}:${{ needs.build-image.outputs.complete-tag }}
+          VAR: image=${{ needs.build-image.outputs.image }}
