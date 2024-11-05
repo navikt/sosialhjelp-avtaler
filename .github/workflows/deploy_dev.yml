@@ -1,93 +1,71 @@
-name: 'Build and Deploy to Development'
+name: "Build and Deploy to Development"
 run-name: Deploy '${{ github.ref_name }}' to '${{ github.event.inputs.config-file-name }}'
 
 on:
   workflow_dispatch:
     inputs:
       config-file-name:
-        description: 'Config-fil som skal deployes'
+        description: "Config-fil som skal deployes"
         required: true
-        default: 'dev'
+        default: "dev"
         type: choice
         options:
-          - 'dev'
-          - 'mock'
-
-env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}
+          - "dev"
+          - "mock"
 
 jobs:
   build-image:
-    name: 'Build Image for Deploy'
+    name: "Build Image for Deploy"
     runs-on: ubuntu-latest
     outputs:
-      complete-tag: ${{ steps.complete-tag.outputs.tag }}
+      image: ${{ steps.docker-push.outputs.image }}
     permissions:
-      packages: write
-      contents: write
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@navikt'
+          node-version: "18"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@navikt"
 
-      - name: 'Installer dependencies'
+      - name: "Installer dependencies"
         run: npm ci && npm --prefix client ci && npm --prefix server ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: 'Build app'
+      - name: "Build app"
         run: npm run build
 
-      - name: 'Build npm artifact'
+      - name: "Build npm artifact"
         uses: navikt/sosialhjelp-ci/actions/build-npm@v2-beta
         with:
-          run-test: 'false'
+          run-test: "false"
 
-      - name: 'Create artifact version'
-        id: artifact-version
-        uses: navikt/sosialhjelp-ci/actions/create-artifact-version@v2
-
-      - name: 'Tag with prefix'
-        id: complete-tag
-        run: |
-          echo "tag=${{ inputs.config-file-name }}-${{ steps.artifact-version.outputs.version }}" >> $GITHUB_OUTPUT
-        shell: bash
-
-      - name: 'Release Tag'
-        uses: ncipollo/release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+      - uses: nais/docker-build-push@v0
+        id: docker-push
         with:
-          tag: ${{ steps.complete-tag.outputs.tag }}
-          commit: ${{ github.sha }}
-          allowUpdates: true
-
-      - name: 'Build and Push Docker Image'
-        uses: navikt/sosialhjelp-ci/actions/build-and-push-docker-image@v2-beta
-        with:
-          artifact-version: ${{ steps.complete-tag.outputs.tag }}
-          image-name: ${{ env.DOCKER_IMAGE }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          team: teamdigisos
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
 
   deploy-app:
-    name: 'Deploy Application'
+    name: "Deploy Application"
     runs-on: ubuntu-latest
     needs: build-image
     permissions:
+      id-token: write
       contents: read
     steps:
       - uses: actions/checkout@v3
 
-      - name: 'Deploy to Development'
-        uses: nais/deploy/actions/deploy@v1
+      - name: "Deploy to dev"
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: nais/dev/${{ inputs.config-file-name }}.yaml
           CLUSTER: dev-gcp
           REF: ${{ github.sha }}
           PRINT_PAYLOAD: true
-          IMAGE: ${{ env.DOCKER_IMAGE }}:${{ needs.build-image.outputs.complete-tag }}
+          VAR: image=${{ needs.build-image.outputs.image }}
