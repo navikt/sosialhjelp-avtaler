@@ -30,12 +30,15 @@ jobs:
           scope: '@navikt'
 
       - name: 'Installer dependencies'
-        run: npm ci --omit dev && npm --prefix client ci --omit dev && npm --prefix server ci --omit dev
+        run: npm ci && npm --prefix client ci && npm --prefix server ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: 'Build app'
         run: npm run build
+
+      - name: "Prune dependencies"
+        run: npm prune --production && npm --prefix client prune --production && npm --prefix server prune --production
 
       - uses: nais/docker-build-push@v0
         id: docker-push
