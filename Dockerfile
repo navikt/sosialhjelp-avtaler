@@ -1,4 +1,5 @@
-FROM node:18-alpine
+FROM gcr.io/distroless/nodejs22-debian12
+
 ENV NODE_ENV=production
 
 WORKDIR /app
