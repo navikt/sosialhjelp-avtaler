@@ -32,7 +32,7 @@ jobs:
           scope: "@navikt"
 
       - name: "Installer dependencies"
-        run: npm ci && npm --prefix client ci && npm --prefix server ci
+        run: npm ci && npm --prefix client ci && npm --prefix server ci && npm --prefix client --prune production && npm --prefix server --prune production
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
