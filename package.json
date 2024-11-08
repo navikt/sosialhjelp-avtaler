@@ -28,7 +28,7 @@
     "clean:server": "npm run --prefix server clean",
     "clean": "run-p clean:*",
     "lint": "eslint . --ext .ts,.tsx",
-    "prepare": "husky install"
+    "prepare": "node .husky/install.mjs"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
