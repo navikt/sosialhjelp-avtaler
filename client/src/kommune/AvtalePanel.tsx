@@ -28,7 +28,7 @@ export function AvtalePanel(props: AvtalePanelProps) {
           </HStack>
         </VStack>
         <Button
-          icon={<DownloadIcon />}
+          icon={<DownloadIcon aria-hidden={true} />}
           as={AppLink}
           variant="tertiary"
           target="_blank"
