@@ -17,13 +17,11 @@ export function App() {
   const { t, i18n } = useTranslation();
   return (
     <>
-      <header>
-        <Banner>
-          <Heading level="1" size="large">
-            {t('avtale.overskrift')}
-          </Heading>
-        </Banner>
-      </header>
+      <Banner>
+        <Heading level="1" size="large">
+          {t('avtale.overskrift')}
+        </Heading>
+      </Banner>
       <div lang={i18n.language}>
         <StyledContent>
           <ErrorBoundary

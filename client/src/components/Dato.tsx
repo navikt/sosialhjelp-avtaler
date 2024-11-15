@@ -7,7 +7,8 @@ export function Dato(props: DatoProps) {
   if (!verdi) {
     return null;
   }
-  return <span id={'opprettet_dato'}>{formatter.format(new Date(verdi))}</span>;
+  const randomId = `opprettet_dato_${Math.random().toString(36).substr(2, 9)}`;
+  return <span id={randomId}>{formatter.format(new Date(verdi))}</span>;
 }
 
 const formatter = new Intl.DateTimeFormat('nb', {
