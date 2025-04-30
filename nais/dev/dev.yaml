@@ -36,18 +36,18 @@ spec:
       autoLogin: true
   tokenx:
     enabled: true
-  env:
-    - name: AVTALER_API_BASE_URL
-      value: "http://sosialhjelp-avtaler-api-dev.teamdigisos.svc.cluster.local"
-    - name: AVTALER_API_TARGET_AUDIENCE
-      value: "dev-gcp:teamdigisos:sosialhjelp-avtaler-api-dev"
-    - name: PORT
-      value: "5000"
-    - name: MILJO
-      value: "dev-gcp"
   accessPolicy:
     outbound:
       rules:
         - application: sosialhjelp-avtaler-api-dev
         - application: nav-dekoratoren
           namespace: personbruker
+  env:
+    - name: AVTALER_API_BASE_URL
+      value: "http://sosialhjelp-avtaler-api-dev"
+    - name: AVTALER_API_TARGET_AUDIENCE
+      value: "dev-gcp:teamdigisos:sosialhjelp-avtaler-api-dev"
+    - name: PORT
+      value: "5000"
+    - name: MILJO
+      value: "dev-gcp"
