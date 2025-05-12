@@ -11,8 +11,12 @@ export const routes = {
   internal(): Router {
     const metrics = createMetrics();
     return Router()
-      .get('/isalive', (_, res) => res.send('alive'))
-      .get('/isready', (_, res) => res.send('ready'))
+      .get('/isalive', (req, res) => {
+        res.send('{alive: true}');
+      })
+      .get('/isready', (req, res) => {
+        res.send('{ready: true}');
+      })
       .get('/metrics', async (req, res) => {
         res.set('Content-Type', metrics.contentType);
         res.end(await metrics.metrics());
@@ -58,8 +62,8 @@ export const routes = {
     return Router()
       .use(cookieParser())
       .get('/settings.js', settingsHandler)
-      .get('*', express.static(config.build_path, { index: false }))
-      .get('*', spaHandler);
+      .get('*staticPath', express.static(config.build_path, { index: false }))
+      .get('*path', spaHandler);
   },
 };
 

@@ -9,15 +9,16 @@
     "build": "tsc -p .",
     "start": "cross-env MILJO=mock USE_MSW=true node -r source-map-support/register -r dotenv/config dist/server.js",
     "clean": "rimraf dist",
-    "prettier": "prettier -w src"
+    "prettier": "prettier -w src",
+    "tsc": "tsc"
   },
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.5.3",
     "@navikt/nav-dekoratoren-moduler": "^2.1.3",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.5.0",
-    "express": "^4.19.2",
-    "express-http-proxy": "^1.6.3",
+    "express": "^5.1.0",
+    "express-http-proxy": "^2.1.1",
     "jose": "^4.15.5",
     "jsonwebtoken": "^9.0.0",
     "mustache-express": "^1.3.2",
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.8",
-    "@types/express": "^4.17.17",
+    "@types/express": "^5.0.1",
     "@types/express-http-proxy": "^1.6.6",
     "@types/jest": "^28.1.8",
     "@types/jsonwebtoken": "^9.0.9",
