@@ -1,15 +1,10 @@
 import type { Request, RequestHandler } from 'express';
-import { createRemoteJWKSet, jwtVerify } from 'jose';
-import jwt from 'jsonwebtoken';
-import { JWK } from 'node-jose';
-import { Issuer, TokenSet } from 'openid-client';
-import { ulid } from 'ulid';
-import { URL } from 'url';
 import { config } from './config';
 import { logger } from './logger';
+import { getToken, requestTokenxOboToken, validateToken } from '@navikt/oasis';
 
 export interface ExchangeToken {
-  (req: Request, targetAudience: string): Promise<TokenSet>;
+  (req: Request, targetAudience: string): Promise<string>;
 }
 
 export interface Auth {
@@ -22,12 +17,6 @@ export async function createAuth(): Promise<Auth> {
     logger.warn('Bruker auth-stub!');
     return createAuthStub();
   }
-  const idPortenJWKSet = createRemoteJWKSet(new URL(config.auth.idporten_jwks_uri));
-  const tokenXIssuer = await Issuer.discover(config.auth.tokenx_well_known_url);
-  const tokenXClient = new tokenXIssuer.Client({
-    client_id: config.auth.tokenx_client_id,
-    token_endpoint_auth_method: 'none',
-  });
   return {
     async verifyIDPortenToken(req, res, next) {
       if (req.path.startsWith('/internal/')) {
@@ -35,23 +24,17 @@ export async function createAuth(): Promise<Auth> {
         return;
       }
       try {
-        const idPortenToken = getBearerToken(req);
+        const idPortenToken = getToken(req);
+
         if (!idPortenToken) {
           logger.warn('Bearer token mangler');
           res.sendStatus(401);
           return;
         }
-        const result = await jwtVerify(idPortenToken, idPortenJWKSet, {
-          algorithms: ['RS256'],
-        });
-        if (result.payload.client_id !== config.auth.idporten_client_id) {
-          logger.warn(`client_id er ikke riktig, payload.client_id: ${result.payload.client_id}`);
+        const validation = await validateToken(idPortenToken);
+        if (!validation.ok) {
+          logger.warn('Token validering feilet');
           res.sendStatus(401);
-          return;
-        }
-        if (result.payload.acr !== 'Level4' && result.payload.acr !== 'idporten-loa-high') {
-          logger.warn(`acr er ikke riktig, payload.acr: ${result.payload.acr}`);
-          res.sendStatus(403);
           return;
         }
 
@@ -62,22 +45,19 @@ export async function createAuth(): Promise<Auth> {
       }
     },
     async exchangeIDPortenToken(req, targetAudience) {
-      const idPortenToken = getBearerToken(req);
-      const clientAssertion = await createClientAssertion();
-      try {
-        return tokenXClient.grant({
-          grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
-          audience: targetAudience,
-          client_assertion: clientAssertion,
-          client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-          subject_token: idPortenToken,
-          subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-          token_endpoint_auth_method: 'private_key_jwt',
-        });
-      } catch (err: unknown) {
-        logger.error(`Feil under token exchange: ${err}`);
-        return Promise.reject(err);
+      const idPortenToken = getToken(req);
+      if (!idPortenToken) {
+        throw new Error('Bearer token mangler');
       }
+      const validation = await validateToken(idPortenToken);
+      if (!validation.ok) {
+        throw new Error('Token-validering feilet');
+      }
+      const obo = await requestTokenxOboToken(idPortenToken, targetAudience);
+      if (!obo.ok) {
+        throw new Error('Token exchange feilet');
+      }
+      return obo.token;
     },
   };
 }
@@ -85,36 +65,14 @@ export async function createAuth(): Promise<Auth> {
 export function createAuthStub(expectedToken?: string): Auth {
   return {
     verifyIDPortenToken(req, res, next) {
-      if (expectedToken == null || expectedToken === getBearerToken(req)) {
+      if (expectedToken == null || expectedToken === getToken(req)) {
         next();
       } else {
         res.sendStatus(401);
       }
     },
     exchangeIDPortenToken(req) {
-      return Promise.resolve(new TokenSet({ access_token: getBearerToken(req) }));
+      return Promise.resolve(getToken(req)!);
     },
   };
-}
-
-function getBearerToken(req: Request): string | undefined {
-  return req.headers['authorization']?.split(' ')[1];
-}
-
-async function createClientAssertion(): Promise<string> {
-  const now = Math.floor(Date.now() / 1000);
-  const key = await JWK.asKey(config.auth.tokenx_private_jwk);
-  return jwt.sign(
-    {
-      sub: config.auth.tokenx_client_id,
-      aud: config.auth.tokenx_token_endpoint,
-      iss: config.auth.tokenx_client_id,
-      exp: now + 60, // max 120
-      iat: now,
-      jti: ulid(),
-      nbf: now,
-    },
-    key.toPEM(true),
-    { algorithm: 'RS256' },
-  );
 }

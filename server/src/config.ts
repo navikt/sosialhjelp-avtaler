@@ -11,12 +11,4 @@ export const config = {
     avtaler_api_base_url: process.env.AVTALER_API_BASE_URL || 'http://localhost:8080/sosialhjelp/avtaler-api',
     avtaler_api_target_audience: process.env.AVTALER_API_TARGET_AUDIENCE || 'local:sosialhjelp-avtaler-api',
   },
-  auth: {
-    idporten_jwks_uri: process.env.IDPORTEN_JWKS_URI || 'http://localhost:8080/default/jwks',
-    idporten_client_id: process.env.IDPORTEN_CLIENT_ID || 'default',
-    tokenx_well_known_url: process.env.TOKEN_X_WELL_KNOWN_URL || 'http://localhost:8080/default',
-    tokenx_token_endpoint: process.env.TOKEN_X_TOKEN_ENDPOINT || 'http://localhost:8080/default/token',
-    tokenx_client_id: process.env.TOKEN_X_CLIENT_ID || 'default',
-    tokenx_private_jwk: process.env.TOKEN_X_PRIVATE_JWK || '',
-  },
 };
