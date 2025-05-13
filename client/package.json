@@ -12,9 +12,9 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^6.16.2",
-    "@navikt/ds-css": "^6.8.0",
-    "@navikt/ds-react": "^6.8.0",
+    "@navikt/aksel-icons": "^7.21.1",
+    "@navikt/ds-css": "^7.21.1",
+    "@navikt/ds-react": "^7.21.1",
     "@navikt/nav-dekoratoren-moduler": "^3.2.3",
     "i18next": "^21.10.0",
     "js-cookie": "^3.0.1",
