@@ -24,7 +24,7 @@
     "react-hook-form": "^7.56.3",
     "react-i18next": "^15.5.1",
     "react-router-dom": "^6.8.1",
-    "remeda": "^1.61.0",
+    "remeda": "^2.21.5",
     "styled-components": "^5.3.6",
     "swr": "^2.3.3",
     "vite-plugin-babel-macros": "^1.0.6"
