@@ -1,6 +1,7 @@
-import { RequestHandler, rest, setupWorker } from 'msw';
+import { http, HttpResponse, delay, RequestHandler } from 'msw';
+import { setupWorker } from 'msw/browser';
 import { apiUrl, baseUrl } from '../api/http';
-import { AvtaleResponse, KommuneResponse, OpprettAvtaleResponse, SigneringsstatusRequest } from '../types';
+import { AvtaleResponse, KommuneResponse } from '../types';
 
 // Delay for nettverkskall. Når undefines, bruker MSW en random realistisk delay
 const DELAY_MS = undefined;
@@ -66,45 +67,39 @@ const kommuner: Record<string, KommuneResponse> = {
 };
 
 const handlers: RequestHandler[] = [
-  rest.get<Record<string, unknown>, { uuid: string }, AvtaleResponse>(apiUrl('/avtale/:uuid'), (req, res, ctx) => {
+  http.get<{ uuid: string }>(apiUrl('/avtale/:uuid'), async (req) => {
     const etterspurtAvtale = Object.values(avtaler)
       .flat()
       .find((avtale) => avtale.uuid === req.params.uuid);
+    await delay(DELAY_MS);
     if (!etterspurtAvtale) {
-      return res(ctx.delay(DELAY_MS), ctx.status(404));
+      return new HttpResponse(null, { status: 404 });
     }
-    return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(etterspurtAvtale));
+    return HttpResponse.json(etterspurtAvtale);
   }),
-  rest.get<Record<string, unknown>, Record<string, never>, Array<KommuneResponse>>(
-    apiUrl('/avtale'),
-    (req, res, ctx) => {
-      return res(ctx.delay(DELAY_MS), ctx.status(200), ctx.json(Object.values(kommuner)));
-    },
-  ),
-  rest.post<never, { uuid: string }, string>(apiUrl('/avtale/:uuid/signer'), async (req, res, ctx) => {
+  http.get(apiUrl('/avtale'), async () => {
+    await delay(DELAY_MS);
+    return HttpResponse.json(Object.values(kommuner));
+  }),
+  http.post(apiUrl('/avtale/:uuid/signer'), async (req) => {
     const uuid = req.params.uuid;
-    return res(
-      ctx.delay(DELAY_MS),
-      ctx.status(200),
-      ctx.json(baseUrl() + '/opprett-avtale/suksess/' + uuid + '?status_query_token=1234'),
-    );
+    await delay(DELAY_MS);
+    return HttpResponse.json(baseUrl() + '/opprett-avtale/suksess/' + uuid + '?status_query_token=1234');
   }),
-  rest.post<SigneringsstatusRequest, { status_query_token: '1234' }, OpprettAvtaleResponse>(
-    apiUrl('/avtale/signeringsstatus'),
-    async (req, res, ctx) => {
-      return res(ctx.delay(DELAY_MS), ctx.status(201), ctx.json(avtaler['123456789'][0]));
-    },
-  ),
-  rest.get<Record<string, unknown>, { orgnr: string }, Blob>(
-    apiUrl('/avtale/signert-avtale/:orgnr'),
-    (req, res, ctx) => {
-      return res(ctx.delay(900), ctx.status(200), ctx.body(new Blob([''], { type: 'application/pdf' })));
-    },
-  ),
-  rest.get<string, { orgnr: string }>(apiUrl('/kommuner/:orgnr'), (req, res, ctx) => {
+  http.post(apiUrl('/avtale/signeringsstatus'), async () => {
+    await delay(DELAY_MS);
+    return HttpResponse.json(avtaler['123456789'][0], { status: 201 });
+  }),
+  http.get(apiUrl('/avtale/signert-avtale/:orgnr'), async () => {
+    await delay(900);
+    return new HttpResponse(new Blob([''], { type: 'application/pdf' }));
+  }),
+  http.get<{ orgnr: string }>(apiUrl('/kommuner/:orgnr'), async (req) => {
     const kommune = kommuner[req.params.orgnr];
-    return res(ctx.delay(900), ctx.status(200), ctx.json({ kommunenavn: kommune.navn }));
+    await delay(900);
+    return HttpResponse.json({ kommunenavn: kommune.navn });
   }),
 ];
 
+// @ts-expect-error Noe rart med typene her, men det funker.
 export const worker = setupWorker(...handlers);
