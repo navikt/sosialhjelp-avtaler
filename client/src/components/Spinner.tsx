@@ -1,5 +1,5 @@
 import { Loader } from '@navikt/ds-react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 const Spinner = () => {
   return (

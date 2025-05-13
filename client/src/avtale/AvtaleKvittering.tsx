@@ -4,7 +4,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Avstand } from '../components/Avstand';
 import { AvtaleResponse, OpprettAvtaleResponse } from '../types';
 import { AvtalePanel } from '../kommune/AvtalePanel';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import useBreadcrumbs from '../components/hooks/useBreadcrumbs';
 import { usePageTitle } from '../components/hooks/usePageTitle';
 import { useGet } from '../api/useGet';
