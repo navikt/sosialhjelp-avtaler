@@ -9,7 +9,7 @@ describe('App', () => {
     render(
       <BrowserRouter>
         <App />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
   });
 });

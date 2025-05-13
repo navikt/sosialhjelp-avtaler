@@ -2,7 +2,7 @@
   "avtale.overskrift": "Avtaler",
   "avtale.forside.ingress": "Her finn du ei oversikt over avtalar du har til signering eller som er signert med Arbeids- og velferdsdirektoratet på vegner av kommunen din . Trykk inn på den aktuelle avtalen for å lese meir om, og signere avtalen.",
   "avtale.samtykke": "Eg stadfestar å ha lese avtalen, og at kommunen ønskjer å inngå avtalen ovanfor.",
-  "avtale.ingress":"Her kan du inngå avtale om behandling av personopplysningar i dei digitale tenestene for dei kommunale sosiale tenestene (databehandlaravtale) med Nav på vegner av kommunen din. Les grundig gjennom avtaleteksten. For å inngå avtalen må du kryssa av for at du har sett deg inn i vilkåra for avtalen, og at kommunen forpliktar seg til vilkåra.",
+  "avtale.ingress": "Her kan du inngå avtale om behandling av personopplysningar i dei digitale tenestene for dei kommunale sosiale tenestene (databehandlaravtale) med Nav på vegner av kommunen din. Les grundig gjennom avtaleteksten. For å inngå avtalen må du kryssa av for at du har sett deg inn i vilkåra for avtalen, og at kommunen forpliktar seg til vilkåra.",
   "avtale.inngå_avtale": "Inngå avtale",
   "avtale.kvittering_for": "Kvittering for {{navn}}",
   "avtale.lenke_last_ned_avtalemalen": "Her kan du lasta ned eit eksempel på avtalen",

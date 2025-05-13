@@ -1,14 +1,14 @@
-import { baseUrl } from '../api/http'
+import { baseUrl } from '../api/http';
 
 export async function initMSW(): Promise<ServiceWorkerRegistration | void> {
   if (!window.appSettings.USE_MSW) {
-    return
+    return;
   }
-  const { worker } = await import('../mocks/browser')
+  const { worker } = await import('../mocks/browser');
   return worker.start({
     onUnhandledRequest: 'bypass',
     serviceWorker: {
       url: baseUrl('/mockServiceWorker.js'),
     },
-  })
+  });
 }
