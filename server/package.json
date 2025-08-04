@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.5.3",
-    "@navikt/nav-dekoratoren-moduler": "^3.2.3",
+    "@navikt/nav-dekoratoren-moduler": "^3.4.0",
     "@navikt/oasis": "^3.8.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.5.0",
