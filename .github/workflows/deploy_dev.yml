@@ -47,7 +47,7 @@ jobs:
         run: npm prune --production && npm --prefix client prune --production && npm --prefix server prune --production
 
       - name: "Build npm artifact"
-        uses: navikt/sosialhjelp-ci/actions/build-npm@v2-beta
+        uses: navikt/sosialhjelp-ci/actions/build-npm@main
         with:
           run-test: "false"
 
