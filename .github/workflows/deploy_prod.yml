@@ -1,9 +1,9 @@
-name: 'Deploy to Production (prod-gcp)'
+name: "Deploy to Production (prod-gcp)"
 
 on:
   workflow_run:
-    workflows: [ 'Build code and run tests' ]
-    branches: [ main ]
+    workflows: ["Build code and run tests"]
+    branches: [main]
     types:
       - completed
   workflow_dispatch:
@@ -13,7 +13,7 @@ env:
 
 jobs:
   build-image:
-    name: 'Build Image for Deploy'
+    name: "Build Image for Deploy"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -25,16 +25,20 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '22'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@navikt'
+          node-version: "22"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@navikt"
 
-      - name: 'Installer dependencies'
-        run: npm ci && npm --prefix client ci && npm --prefix server ci
+      - name: "Installer dependencies"
+        run: |
+          # Workaround for Rollup native binary issue on Linux CI  
+          npm ci --prefer-offline --no-audit
+          # If still failing, try installing the specific binary
+          npm list @rollup/rollup-linux-x64-gnu || npm install @rollup/rollup-linux-x64-gnu --no-save
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: 'Build app'
+      - name: "Build app"
         run: npm run build
 
       - name: "Prune dependencies"
@@ -48,7 +52,7 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
 
   deploy-app:
-    name: 'Deploy Application'
+    name: "Deploy Application"
     runs-on: ubuntu-latest
     needs: build-image
     permissions:
@@ -57,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: 'Deploy to production'
+      - name: "Deploy to production"
         uses: nais/deploy/actions/deploy@v2
         env:
           RESOURCE: nais/prod/prod.yaml

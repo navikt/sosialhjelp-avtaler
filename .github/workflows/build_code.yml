@@ -1,15 +1,15 @@
-name: 'Build code and run tests'
+name: "Build code and run tests"
 on:
   push:
     branches:
-      - '**'      # Build all branches
+      - "**" # Build all branches
     tags-ignore:
-      - '**' # Don't build any tags
+      - "**" # Don't build any tags
   workflow_dispatch:
 
 jobs:
   build_code:
-    name: 'Build Code and run Tests'
+    name: "Build Code and run Tests"
     runs-on: ubuntu-latest
     permissions:
       packages: read
@@ -19,21 +19,21 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '22'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@navikt'
+          node-version: "22"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@navikt"
 
-      - name: 'Installer dependencies'
+      - name: "Installer dependencies"
         run: |
-        # Workaround for Rollup native binary issue on Linux CI  
-        npm ci --prefer-offline --no-audit
-        # If still failing, try installing the specific binary
-        npm list @rollup/rollup-linux-x64-gnu || npm install @rollup/rollup-linux-x64-gnu --no-save
+          # Workaround for Rollup native binary issue on Linux CI  
+          npm ci --prefer-offline --no-audit
+          # If still failing, try installing the specific binary
+          npm list @rollup/rollup-linux-x64-gnu || npm install @rollup/rollup-linux-x64-gnu --no-save
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: 'Run Tests'
+      - name: "Run Tests"
         run: npm run test
 
-      - name: 'Build app'
+      - name: "Build app"
         run: npm run build
