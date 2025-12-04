@@ -33,7 +33,7 @@
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
       "prettier --write",
-      "npm run lint"
+      "pnpm run lint"
     ]
   }
 }
