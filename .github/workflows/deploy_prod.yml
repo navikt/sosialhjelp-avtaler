@@ -23,16 +23,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - uses: actions/setup-node@v3
         with:
           node-version: "22"
           registry-url: "https://npm.pkg.github.com"
           scope: "@navikt"
+          cache: "pnpm"
 
       - name: "Installer dependencies"
         run: |
           # Workaround for Rollup native binary issue on Linux CI  
-          pnpm ci --prefer-offline --no-audit
+          pnpm install --frozen-lockfile --prefer-offline --no-audit
           # If still failing, try installing the specific binary
           pnpm list @rollup/rollup-linux-x64-gnu || pnpm install @rollup/rollup-linux-x64-gnu --no-save
         env:
@@ -42,7 +47,12 @@ jobs:
         run: pnpm run build
 
       - name: "Prune dependencies"
-        run: pnpm prune --production && pnpm --prefix client prune --production && pnpm --prefix server prune --production
+        run: pnpm prune --production && pnpm --filter sosialhjelp-avtaler-client prune --production && pnpm --filter sosialhjelp-avtaler-server prune --production
+
+      - name: "Build pnpm"
+        uses: navikt/sosialhjelp-ci/actions/build-node@v12
+        with:
+          run-test: "false"
 
       - uses: nais/docker-build-push@v0
         id: docker-push

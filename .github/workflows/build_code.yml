@@ -17,16 +17,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - uses: actions/setup-node@v3
         with:
           node-version: "22"
           registry-url: "https://npm.pkg.github.com"
           scope: "@navikt"
+          cache: "pnpm"
 
       - name: "Installer dependencies"
         run: |
           # Workaround for Rollup native binary issue on Linux CI  
-          pnpm ci --prefer-offline --no-audit
+          pnpm install --frozen-lockfile --prefer-offline --no-audit
           # If still failing, try installing the specific binary
           pnpm list @rollup/rollup-linux-x64-gnu || pnpm install @rollup/rollup-linux-x64-gnu --no-save
         env:
