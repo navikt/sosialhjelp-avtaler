@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
+    "preinstall": "npx -y only-allow pnpm",
     "dev": "vite --host",
     "test": "vitest run --dir src",
     "build": "tsc && vite build",
@@ -18,8 +19,8 @@
     "@navikt/nav-dekoratoren-moduler": "^3.2.3",
     "i18next": "^25.1.2",
     "js-cookie": "^3.0.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.2",
+    "react-dom": "^19.1.2",
     "react-error-boundary": "^6.0.0",
     "react-hook-form": "^7.56.3",
     "react-i18next": "^15.5.1",
