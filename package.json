@@ -15,25 +15,27 @@
     "prettier": "^3.6.2"
   },
   "scripts": {
-    "postinstall": "npm --prefix client install && npm --prefix server install",
-    "dev": "npm run --prefix client dev",
-    "start": "npm run --prefix server start",
-    "test:client": "npm run --prefix client test",
-    "test:server": "npm run --prefix server test",
+    "preinstall": "npx -y only-allow pnpm",
+    "dev": "pnpm --filter sosialhjelp-avtaler-client dev",
+    "start": "pnpm --filter sosialhjelp-avtaler-server start",
+    "test:client": "pnpm --filter sosialhjelp-avtaler-client test",
+    "test:server": "pnpm --filter sosialhjelp-avtaler-server test",
     "test": "run-p test:*",
-    "build:client": "npm run --prefix client build",
-    "build:server": "npm run --prefix server build",
+    "build:client": "pnpm --filter sosialhjelp-avtaler-client build",
+    "build:server": "pnpm --filter sosialhjelp-avtaler-server build",
     "build": "run-p build:*",
-    "clean:client": "npm run --prefix client clean",
-    "clean:server": "npm run --prefix server clean",
+    "clean:client": "pnpm --filter sosialhjelp-avtaler-client clean",
+    "clean:server": "pnpm --filter sosialhjelp-avtaler-server clean",
     "clean": "run-p clean:*",
     "lint": "eslint . --ext .ts,.tsx",
     "prepare": "node .husky/install.mjs"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "npm run lint"
+      "prettier --write"
+    ],
+    "**/*.{ts,tsx}": [
+      "pnpm run lint"
     ]
   }
 }

@@ -101,5 +101,4 @@ const handlers: RequestHandler[] = [
   }),
 ];
 
-// @ts-expect-error Noe rart med typene her, men det funker.
 export const worker = setupWorker(...handlers);
