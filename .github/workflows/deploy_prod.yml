@@ -47,7 +47,7 @@ jobs:
         run: pnpm run build
 
       - name: "Prune dependencies"
-        run: pnpm prune --production && pnpm --filter sosialhjelp-avtaler-client prune --production && pnpm --filter sosialhjelp-avtaler-server prune --production
+        run: pnpm prune --production
 
       - name: "Build pnpm"
         uses: navikt/sosialhjelp-ci/actions/build-node@v12
