@@ -51,10 +51,6 @@ jobs:
       - name: "Prune dependencies"
         run: pnpm prune --production
 
-      - name: "Build pnpm"
-        uses: navikt/sosialhjelp-ci/actions/build-node@v12
-        with:
-          run-test: "false"
 
       - uses: nais/docker-build-push@v0
         id: docker-push
