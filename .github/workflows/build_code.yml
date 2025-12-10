@@ -31,7 +31,7 @@ jobs:
       - name: "Installer dependencies"
         run: |
           # Workaround for Rollup native binary issue on Linux CI  
-          pnpm install --frozen-lockfile --prefer-offline
+          pnpm install --frozen-lockfile --prefer-offline --ignore-scripts
           # If still failing, try installing the specific binary
           pnpm list @rollup/rollup-linux-x64-gnu || pnpm install @rollup/rollup-linux-x64-gnu --no-save
         env:
