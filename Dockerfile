@@ -9,7 +9,7 @@ RUN corepack enable
 WORKDIR /app
 
 # Copy workspace configuration and package files
-COPY pnpm-workspace.yaml pnpm-lock.yaml package.json .npmrc ./
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
 COPY server/package.json ./server/
 COPY client/package.json ./client/
 
@@ -17,7 +17,10 @@ COPY client/package.json ./client/
 # Use secret mount for GitHub token authentication
 RUN --mount=type=secret,id=github_token \
     GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
-    echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc && \
+    { \
+        echo "@navikt:registry=https://npm.pkg.github.com"; \
+        echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}"; \
+    } > .npmrc && \
     pnpm install --prod --frozen-lockfile --ignore-scripts
 
 # Copy source code
