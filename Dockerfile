@@ -14,7 +14,11 @@ COPY server/package.json ./server/
 COPY client/package.json ./client/
 
 # Install production dependencies for entire workspace
-RUN pnpm install --prod --frozen-lockfile --ignore-scripts
+# Use secret mount for GitHub token authentication
+RUN --mount=type=secret,id=github_token \
+    GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
+    echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc && \
+    pnpm install --prod --frozen-lockfile --ignore-scripts
 
 # Copy source code
 COPY server/dist ./server/dist
