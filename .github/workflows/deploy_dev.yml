@@ -30,6 +30,7 @@ jobs:
         with:
           reader-token: ${{ secrets.READER_TOKEN }}
           run-test: "false"
+          node-version: "22"
 
       - uses: nais/docker-build-push@v0
         id: docker-push
