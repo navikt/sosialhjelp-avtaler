@@ -1,18 +1,27 @@
-# Production dependencies stage
-FROM node:22-alpine AS deps
+FROM node:22-alpine AS build
+
+ENV NODE_ENV=production
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN corepack enable
 
 WORKDIR /app
 
-# Copy dependency manifests
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+# Copy workspace configuration and package files
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json .npmrc ./
 COPY server/package.json ./server/
 COPY client/package.json ./client/
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Install production dependencies for entire workspace
+RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 
-# Install only production dependencies
-RUN pnpm install --frozen-lockfile --prod --ignore-scripts
+# Copy source code
+COPY server/dist ./server/dist
+COPY client/dist ./client/dist
+
+# Deploy only server dependencies to /deploy directory
+RUN pnpm deploy --filter=sosialhjelp-avtaler-server --prod /deploy
 
 # Runtime stage
 FROM gcr.io/distroless/nodejs22-debian12 AS runtime
@@ -21,13 +30,10 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-# Copy built application (built in GH Actions)
-COPY server/dist/ ./server/dist/
-COPY client/dist/ ./client/dist/
-
-# Copy production dependencies from deps stage
-COPY --from=deps /app/node_modules/ ./node_modules/
-COPY --from=deps /app/server/node_modules/ ./server/node_modules/
+# Copy built application and dependencies
+COPY --from=build /app/client/dist /app/dist
+COPY --from=build /deploy/node_modules /app/node_modules
+COPY --from=build /app/server/dist /app/server/dist
 
 EXPOSE 5000
 
