@@ -46,10 +46,6 @@ jobs:
       - name: "Build app"
         run: pnpm run build
 
-      - name: "Prune dependencies"
-        run: pnpm prune --production
-
-
       - uses: nais/docker-build-push@v0
         id: docker-push
         with:
