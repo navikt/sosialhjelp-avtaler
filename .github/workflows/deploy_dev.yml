@@ -50,7 +50,8 @@ jobs:
         run: |
           # Use pnpm deploy to create clean server deployment with only production dependencies
           # Deploy to a separate directory to avoid conflict
-          pnpm deploy --filter=sosialhjelp-avtaler-server --prod deploy
+          # Use --legacy flag for pnpm v10 compatibility
+          pnpm deploy --filter=sosialhjelp-avtaler-server --prod --legacy deploy
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
