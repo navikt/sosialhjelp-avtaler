@@ -29,38 +29,27 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: "22"
+          node-version: 22
           registry-url: "https://npm.pkg.github.com"
           scope: "@navikt"
           cache: "pnpm"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: "Installer dependencies"
+      - name: Install dependencies
         run: |
-          # Workaround for Rollup native binary issue on Linux CI
           # Use --ignore-scripts to avoid only-allow preinstall race conditions in CI
           pnpm install --frozen-lockfile --prefer-offline --ignore-scripts
-          # If still failing, try installing the specific binary
-          pnpm list @rollup/rollup-linux-x64-gnu || pnpm install @rollup/rollup-linux-x64-gnu --no-save
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: "Build app"
+      - name: Build application
         run: pnpm run build
 
-      - name: "Install production dependencies only"
+      - name: Deploy server production dependencies
         run: |
-          # Remove node_modules to ensure clean production install
-          rm -rf node_modules client/node_modules server/node_modules
-          # Install only production dependencies
-          # Use --ignore-scripts to avoid only-allow preinstall race conditions
-          pnpm install --prod --frozen-lockfile --prefer-offline --ignore-scripts
+          # Use pnpm deploy to create clean server deployment with only production dependencies
+          pnpm deploy --filter=sosialhjelp-avtaler-server --prod server/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
-      - name: "Build pnpm"
-        uses: navikt/sosialhjelp-ci/actions/build-node@v12
-        with:
-          run-test: "false"
 
       - uses: nais/docker-build-push@v0
         id: docker-push
