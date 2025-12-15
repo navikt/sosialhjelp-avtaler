@@ -1,5 +1,6 @@
 .idea
 dist
+deploy
 node_modules
 *.iml
 

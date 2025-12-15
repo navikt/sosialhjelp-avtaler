@@ -49,7 +49,8 @@ jobs:
       - name: Deploy server production dependencies
         run: |
           # Use pnpm deploy to create clean server deployment with only production dependencies
-          pnpm deploy --filter=sosialhjelp-avtaler-server --prod server/
+          # Deploy to a separate directory to avoid conflict
+          pnpm deploy --filter=sosialhjelp-avtaler-server --prod deploy
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
