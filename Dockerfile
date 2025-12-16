@@ -4,10 +4,8 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-# Copy pre-built client assets
 COPY client/dist/ ./client/dist
 
-# Copy server files from deploy directory (created by pnpm deploy)
 COPY deploy/ ./server/
 
 EXPOSE 5000
