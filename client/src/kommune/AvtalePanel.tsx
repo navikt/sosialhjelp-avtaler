@@ -14,13 +14,13 @@ export function AvtalePanel(props: AvtalePanelProps) {
 
   const { t } = useTranslation();
   return (
-    <Box borderWidth="1" padding="2">
+    <Box borderWidth="1" padding="space-8">
       <HStack justify="space-between" align="center">
-        <VStack gap="4">
+        <VStack gap="space-16">
           <Heading spacing size="small" as="p">
             {avtale.navn}
           </Heading>
-          <HStack gap={'1'} align={'center'}>
+          <HStack gap="space-4" align={'center'}>
             <Label as="span" htmlFor={'opprettet_dato'}>
               {t('ledetekst.dato_opprettet')}
             </Label>

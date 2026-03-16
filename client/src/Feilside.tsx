@@ -10,7 +10,7 @@ import useBreadcrumbs from './components/hooks/useBreadcrumbs';
 
 export interface FeilsideProps {
   status: number;
-  error?: Error;
+  error?: unknown;
 }
 
 export function Feilside(props: FeilsideProps) {

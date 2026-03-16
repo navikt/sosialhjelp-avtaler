@@ -44,7 +44,6 @@ export function App() {
             <Kontakt>
               <Trans t={t} i18nKey="problemer">
                 <></>
-                {/* eslint-disable-next-line jsx-a11y/anchor-has-content*/}
                 <Link href="mailto:digisos@nav.no">
                   <></>
                 </Link>
