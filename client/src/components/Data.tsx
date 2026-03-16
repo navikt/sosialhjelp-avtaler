@@ -4,7 +4,7 @@ import { enhet } from '../styles/enhet';
 export const Data = styled.dl`
   display: grid;
   grid-template-columns: min-content auto;
-  gap: var(--a-spacing-1) var(--a-spacing-2);
+  gap: var(--ax-space-4) var(--ax-space-8);
   margin: 0;
   align-items: center;
   dd {

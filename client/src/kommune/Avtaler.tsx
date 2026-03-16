@@ -51,7 +51,7 @@ export function Avtaler() {
 
 const Kolonne = styled.div`
   display: grid;
-  gap: var(--a-spacing-5);
+  gap: var(--ax-space-20);
 `;
 
 interface Props {
