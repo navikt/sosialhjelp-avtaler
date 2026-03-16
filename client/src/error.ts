@@ -32,7 +32,7 @@ export function isHttpError(value: unknown): value is HttpError {
   return value instanceof HttpError;
 }
 
-export function hentUtviklerinformasjon(error?: Error): string {
+export function hentUtviklerinformasjon(error?: unknown): string {
   if (!isError(error)) {
     return '';
   }

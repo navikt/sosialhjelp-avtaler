@@ -41,7 +41,7 @@ export function Avtaler() {
   }
 
   return (
-    <VStack gap={'12'}>
+    <VStack gap="space-48">
       <BodyLong>{t('avtale.forside.ingress')}</BodyLong>
       <AvtaleAccordion heading={t('kommune.uten_avtale')} kommuner={kommunerMedUsignerteAvtaler} />
       <AvtaleAccordion heading={t('kommune.med_avtale')} kommuner={kommunerMedSignerteAvtaler} readonly />
@@ -90,7 +90,7 @@ const AvtaleAccordion = ({ heading, kommuner, readonly }: Props) => {
                 {kommune.navn} - <Organisasjonsnummer verdi={kommune.orgnr} />
               </Accordion.Header>
               <Accordion.Content>
-                <VStack gap="4">
+                <VStack gap="space-16">
                   {kommune.avtaler.map((avtale) => (
                     <Fragment key={avtale.uuid}>
                       {readonly ? <AvtalePanel avtale={avtale} /> : <OpprettAvtaleLinkPanel avtale={avtale} />}

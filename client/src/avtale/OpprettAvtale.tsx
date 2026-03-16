@@ -79,7 +79,7 @@ export function OpprettAvtale() {
           {avtale.ingressNynorsk}
         </BodyLong>
       )}
-      <VStack gap="4">
+      <VStack gap="space-16">
         <BodyLong>
           <AppLink
             href={`/api/avtale/${avtale.uuid}/eksempel`}
