@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import nock from 'nock';
 import { config } from '../src/config';
 import { testApp } from './test-app';
