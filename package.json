@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^9.39.4",
@@ -27,7 +28,7 @@
     "clean:client": "pnpm --filter sosialhjelp-avtaler-client clean",
     "clean:server": "pnpm --filter sosialhjelp-avtaler-server clean",
     "clean": "run-p clean:*",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint .",
     "prepare": "node .husky/install.mjs"
   },
   "lint-staged": {

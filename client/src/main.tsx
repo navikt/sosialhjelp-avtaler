@@ -16,9 +16,7 @@ const swrConfig: SWRConfiguration = {
 };
 
 initMSW().then(() => {
-  //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const container = document.getElementById('maincontent')!;
-
   createRoot(container).render(
     <React.StrictMode>
       <GlobalStyle />
