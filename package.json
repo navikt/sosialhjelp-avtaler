@@ -4,19 +4,19 @@
   "version": "1.0.0",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.56.1",
-    "@typescript-eslint/parser": "^8.56.1",
-    "eslint": "^10.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
+    "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "husky": "^9.1.7",
     "lint-staged": "^16.3.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.3"
   },
   "scripts": {
-    "preinstall": "npx -y only-allow pnpm",
+    "preinstall": "pnpm dlx only-allow pnpm",
     "dev": "pnpm --filter sosialhjelp-avtaler-client dev",
     "start": "pnpm --filter sosialhjelp-avtaler-server start",
     "test:client": "pnpm --filter sosialhjelp-avtaler-client test",
