@@ -10,7 +10,8 @@
       "dom"
     ],
     "module": "CommonJS",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
+    "rootDir": "./src",
     "outDir": "dist",
     "sourceMap": true,
     "skipLibCheck": true,
