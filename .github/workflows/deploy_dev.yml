@@ -12,6 +12,16 @@ on:
         options:
           - "dev"
           - "mock"
+  workflow_call:
+    inputs:
+      config-file-name:
+        description: "Config-fil som skal deployes"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - "dev"
+          - "mock"
 
 jobs:
   build-image:
