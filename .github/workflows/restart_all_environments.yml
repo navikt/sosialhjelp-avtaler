@@ -1,0 +1,20 @@
+name: "Restart all environments"
+on:
+  schedule:
+    - cron: "0 2 * * *" # 02:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  packages: write
+
+jobs:
+  deploy_dev:
+    uses: ./.github/workflows/deploy_dev.yml
+    secrets: inherit
+
+  deploy_prod:
+    needs: deploy_dev
+    uses: ./.github/workflows/deploy_prod.yml
+    secrets: inherit
