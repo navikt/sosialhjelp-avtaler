@@ -18,10 +18,7 @@ on:
         description: "Config-fil som skal deployes"
         required: true
         default: "dev"
-        type: choice
-        options:
-          - "dev"
-          - "mock"
+        type: string
 
 jobs:
   build-image:
