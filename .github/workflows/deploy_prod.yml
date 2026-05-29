@@ -7,71 +7,22 @@ on:
     types:
       - completed
   workflow_dispatch:
-  workflow_call:
 
-env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   build-image:
-    name: "Build Image for Deploy"
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    outputs:
-      image: ${{ steps.docker-push.outputs.image }}
-    steps:
-      - uses: actions/checkout@v3
+    name: "Build Image"
+    uses: ./.github/workflows/build_image.yml
+    secrets: inherit
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 24
-          registry-url: "https://npm.pkg.github.com"
-          scope: "@navikt"
-          cache: "pnpm"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
-      - name: Install dependencies
-        run: |
-          pnpm install --frozen-lockfile --prefer-offline --ignore-scripts
-
-      - name: Build application
-        run: pnpm run build
-
-      - name: Deploy server production dependencies
-        run: |
-          pnpm deploy --filter=sosialhjelp-avtaler-server --prod --legacy deploy
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
-      - uses: nais/docker-build-push@v0
-        id: docker-push
-        with:
-          team: teamdigisos
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-
-  deploy-app:
-    name: "Deploy Application"
-    runs-on: ubuntu-latest
+  deploy-image:
+    name: "Deploy image to prod"
     needs: build-image
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: "Deploy to production"
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          RESOURCE: nais/prod/prod.yaml
-          CLUSTER: prod-gcp
-          REF: ${{ github.sha }}
-          PRINT_PAYLOAD: true
-          VAR: image=${{ needs.build-image.outputs.image }}
+    uses: ./.github/workflows/deploy_image.yml
+    secrets: inherit
+    with:
+      environment: "prod"
+      image: ${{ needs.build-image.outputs.image }}
