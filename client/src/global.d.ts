@@ -1,3 +1,5 @@
+declare module '@navikt/ds-css';
+
 interface Window {
   appSettings: {
     MILJO?: 'mock' | 'dev-gcp' | 'prod-gcp';

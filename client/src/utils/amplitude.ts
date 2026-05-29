@@ -1,4 +1,5 @@
-import { logAmplitudeEvent as logDekoratoren } from '@navikt/nav-dekoratoren-moduler';
+import { logAnalyticsEvent as logDekoratoren } from '@navikt/nav-dekoratoren-moduler';
+import type { EventName } from '@navikt/nav-dekoratoren-moduler';
 
 export enum skjemanavn {
   SKJEMANAVN_OPPRETT_AVTALE = 'Opprett avtale',
@@ -8,20 +9,22 @@ export enum skjemanavn {
 export enum amplitude_taxonomy {
   SKJEMA_START = 'skjema startet',
   SKJEMA_ÅPEN = 'skjema åpnet',
-  SKJEMASTEG_FULLFØRT = 'skjemasteg fullført',
-  SKJEMAVALIDERING_FEILET = 'skjemavalidering feilet',
-  SKJEMAINNSENDING_FEILET = 'skjemainnsending feilet',
+  SKJEMASTEG_FULLFØRT = 'skjema steg fullført',
+  SKJEMAVALIDERING_FEILET = 'skjema validering feilet',
+  SKJEMAINNSENDING_FEILET = 'skjema innsending feilet',
   SKJEMA_FULLFØRT = 'skjema fullført',
   NAVIGERE = 'navigere',
   LAST_NED = 'last ned',
 }
 
-export function logAmplitudeEvent(eventName: string, data?: Record<string, unknown>) {
+export function logAmplitudeEvent(eventName: EventName, data?: Record<string, unknown>) {
   try {
     logDekoratoren({
       origin: 'sosialhjelpAvtaler',
       eventName,
-      eventData: { ...data, skjemaId: 'sosialhjelpAvtaler' },
+      // eventData merges caller data with skjemaId; cast needed as PropertiesFor<TName> is per-event strict
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      eventData: { ...data, skjemaId: 'sosialhjelpAvtaler' } as any,
     });
   } catch (error) {
     console.log(`Kunne ikke logge til amplitude: ${error}`);

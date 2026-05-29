@@ -2,7 +2,6 @@ import { fetchDecoratorHtml } from '@navikt/nav-dekoratoren-moduler/ssr';
 import react from '@vitejs/plugin-react';
 import Mustache from 'mustache';
 import { defineConfig, Plugin } from 'vite';
-import macrosPlugin from 'vite-plugin-babel-macros';
 
 const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
   name: 'html-transform',
@@ -61,7 +60,7 @@ const htmlPlugin = ({ development }: { development?: boolean }): Plugin => ({
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
   base: env.mode === 'development' ? '/' : '/sosialhjelp/avtaler/',
-  plugins: [htmlPlugin({ development: env.mode === 'development' }), react(), macrosPlugin()],
+  plugins: [htmlPlugin({ development: env.mode === 'development' }), react()],
   build: {
     sourcemap: true,
   },
