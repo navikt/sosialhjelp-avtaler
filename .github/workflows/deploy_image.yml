@@ -1,0 +1,38 @@
+name: "Deploy Image"
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment (dev | mock | prod)"
+        required: true
+        default: "dev"
+        type: string
+      image:
+        description: "Docker image reference"
+        required: true
+        type: string
+
+jobs:
+  deploy-image:
+    name: "Deploy Image"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Deploy to ${{ inputs.environment }}"
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          RESOURCE: >-
+            ${{ case(
+              inputs.environment == 'prod', 'nais/prod/prod.yaml',
+              inputs.environment == 'mock', 'nais/dev/mock.yaml',
+              'nais/dev/dev.yaml'
+            ) }}
+          CLUSTER: ${{ case(inputs.environment == 'prod', 'prod-gcp', 'dev-gcp') }}
+          REF: ${{ github.sha }}
+          PRINT_PAYLOAD: true
+          VAR: image=${{ inputs.image }}

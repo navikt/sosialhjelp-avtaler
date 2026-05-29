@@ -1,0 +1,42 @@
+name: "Deploy to all environments"
+on:
+  schedule:
+    - cron: "0 2 * * *" # 02:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build-image:
+    name: "Build Image"
+    uses: ./.github/workflows/build_image.yml
+    secrets: inherit
+
+  deploy-dev:
+    name: "Deploy image to dev"
+    needs: build-image
+    uses: ./.github/workflows/deploy_image.yml
+    secrets: inherit
+    with:
+      environment: "dev"
+      image: ${{ needs.build-image.outputs.image }}
+
+  deploy-mock:
+    name: "Deploy image to mock"
+    needs: [build-image, deploy-dev]
+    uses: ./.github/workflows/deploy_image.yml
+    secrets: inherit
+    with:
+      environment: "mock"
+      image: ${{ needs.build-image.outputs.image }}
+
+  deploy-prod:
+    name: "Deploy image to prod"
+    needs: [build-image, deploy-mock]
+    uses: ./.github/workflows/deploy_image.yml
+    secrets: inherit
+    with:
+      environment: "prod"
+      image: ${{ needs.build-image.outputs.image }}
