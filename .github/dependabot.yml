@@ -2,36 +2,32 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
-    cooldown:
-      default-days: 7
     schedule:
-      interval: "daily"
+      interval: daily
     groups:
-      ds:
+      patch-dependencies:
         patterns:
-          - "@navikt/ds-*"
-      dekorator:
+          - "*"
+        update-types:
+          - "patch"
+      minor-dependencies:
         patterns:
-          - "@navikt/nav-dekoratoren-moduler"
-      eslint:
-        patterns:
-          - "@typescript-eslint/*"
-          - "eslint*"
-          - "prettier"
-      react:
-        patterns:
-          - "react*"
-          - "@types/react*"
-      test:
-        patterns:
-          - "@testing-library/*"
-      styledcomponents:
-        patterns:
-          - "styled-components"
-          - "@types/styled-components"
-      vite:
-        patterns:
-          - "vite"
-          - "vite-plugin-babel-macros"
-          - "vitest"
-          - "@vitejs/*"
+          - "*"
+        update-types:
+          - "minor"
+    commit-message:
+      prefix: "[npm]"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: "[gha]"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: "[docker]"
