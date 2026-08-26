@@ -21,7 +21,7 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: "Deploy to ${{ inputs.environment }}"
         uses: nais/deploy/actions/deploy@v2
