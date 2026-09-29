@@ -7,6 +7,10 @@ import { logger } from './logger';
 import { createMetrics } from './metrics';
 import { proxyHandlers } from './proxy';
 
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+const getValidatedUuid = (uuid: string): string | undefined => (uuidPattern.test(uuid) ? uuid : undefined);
+
 export const routes = {
   internal(): Router {
     const metrics = createMetrics();
@@ -26,8 +30,14 @@ export const routes = {
     return Router()
       .use(proxyHandlers.api(exchangeIDPortenToken))
       .get('/avtale/signert-avtale/:uuid', async (req, res) => {
+        const uuid = getValidatedUuid(req.params.uuid);
+        if (!uuid) {
+          res.sendStatus(400);
+          return;
+        }
+
         try {
-          const response = await fetch(`/avtale/${req.params.uuid}/signert-avtale`, {
+          const response = await fetch(`/avtale/${uuid}/signert-avtale`, {
             method: 'get',
             headers: {
               Authorization: `Bearer ${exchangeIDPortenToken}`,
@@ -42,8 +52,14 @@ export const routes = {
         }
       })
       .get('/avtale/:uuid/eksempel', async (req, res) => {
+        const uuid = getValidatedUuid(req.params.uuid);
+        if (!uuid) {
+          res.sendStatus(400);
+          return;
+        }
+
         try {
-          const response = await fetch(`/avtale/${req.params.uuid}/eksempel`, {
+          const response = await fetch(`/avtale/${uuid}/eksempel`, {
             method: 'get',
             headers: {
               Authorization: `Bearer ${exchangeIDPortenToken}`,
