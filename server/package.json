@@ -18,7 +18,7 @@
     "@navikt/nav-dekoratoren-moduler": "^4.5.0",
     "@navikt/oasis": "^4.2.2",
     "cookie-parser": "^1.4.7",
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.4",
     "express": "^5.2.1",
     "express-http-proxy": "^2.1.2",
     "jsonwebtoken": "^9.0.3",
